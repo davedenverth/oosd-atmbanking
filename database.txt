@@ -1,0 +1,14 @@
+database manager uri
+https://cs14sitkmutt.me/phpmyadmin/
+
+database host ip
+cs14sitkmutt.me
+
+database name(test)
+csc105_test
+
+database user
+CSC105_G3
+
+database password
+cstermproj
