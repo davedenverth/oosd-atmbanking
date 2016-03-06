@@ -15,6 +15,8 @@ import javax.swing.JOptionPane;
  */
 public class ChangePassword extends javax.swing.JFrame {
 
+    int testCommit = 0;
+    int abc = 0;
     /**
      * Creates new form ChangePassword
      */
