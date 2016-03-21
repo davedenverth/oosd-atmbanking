@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    public static CSDbDelegate in = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G3", "CSC105_G3", "cstermproj");
+    public static CSDbDelegate in = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
     public static int pass;
     /**
      * Creates new form Receipt

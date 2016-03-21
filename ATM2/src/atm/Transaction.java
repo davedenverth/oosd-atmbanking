@@ -29,7 +29,7 @@ public class Transaction extends javax.swing.JFrame {
      */
     public Transaction() {
         initComponents();
-        CSDbDelegate db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G3", "CSC105_G3", "cstermproj");
+        CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
 
     }
 
