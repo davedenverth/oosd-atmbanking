@@ -12,8 +12,8 @@ import java.text.SimpleDateFormat;
  * @author Game
  */
 public class DateTime {
-    private final String formatDate = "dd.MM.yyyy";
-    private final String formatTime = "hh:mm:ss";
+    protected final String formatDate = "dd.MM.yyyy";
+    protected final String formatTime = "hh:mm:ss";
     String realFormat;
     
     public DateTime(String format){
