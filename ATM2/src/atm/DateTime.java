@@ -21,4 +21,8 @@ public class DateTime {
         SimpleDateFormat ft = new SimpleDateFormat(format);
         realFormat = String.valueOf(ft.format(dateTime));
     }
+    
+    public String getFormat(){
+        return realFormat;
+    }
 }
