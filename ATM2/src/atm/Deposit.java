@@ -86,23 +86,26 @@ public class Deposit extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
        
-        CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
-        db.connect();
+        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
+        ConnectDB db = new ConnectDB();
+        CSDbDelegate get = db.getConnect();
+        
+        get.connect();
         no = Login.getPass();
 
         String balance1 = "SELECT Balance FROM ATMuser WHERE Password=  "+no ;
         
-        HashMap b = db.queryRow(balance1);
+        HashMap b = get.queryRow(balance1);
 
         double balance = Double.parseDouble(b.get("Balance")+"");
         double amount = Double.parseDouble(deposit.getText());
-        System.out.println(balance);
+        System.out.println("Balance = "+balance);
         balance = balance + amount;
         
-        System.out.println(balance);
+        System.out.println("Balance after deposit = "+balance);
         
         String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Password ="+no; 
-        db.executeQuery(sql_update);
+        get.executeQuery(sql_update);
        
         
         Deposit d = new Deposit();
@@ -112,25 +115,25 @@ public class Deposit extends javax.swing.JFrame {
         this.time = time;
         
          String ac1 = "SELECT ACno FROM ATMuser WHERE Password=  "+no ;
-         HashMap a = db.queryRow(ac1);
-         int  ac = Integer.parseInt(a.get("ACno")+"");
-         System.out.print(ac);
+         HashMap a = get.queryRow(ac1);
+         int  account = Integer.parseInt(a.get("ACno")+"");
+         System.out.println("Account no = "+account);
          
         
         
         
         String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
-        String value = "VALUES ('"+date+"','"+time+"','"+ac+"','"+"Deposit"+"','"+amount+"'"
+        String value = "VALUES ('"+date+"','"+time+"','"+account+"','"+"Deposit"+"','"+amount+"'"
                 + ",'"+balance+"')";
         String sql_add = insert + value;
-        boolean insertComplete = db.executeQuery(sql_add);
+        boolean insertComplete = get.executeQuery(sql_add);
         if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
         else
             JOptionPane.showMessageDialog(this, "Error!" , "Execute Problem", JOptionPane.ERROR_MESSAGE);
         setVisible(false);
         
         
-        JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+ac+"\n"
+        JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+account+"\n"
                                             +"TRANSACTION: "+"Doposit"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
         
         
@@ -150,7 +153,7 @@ public class Deposit extends javax.swing.JFrame {
        
         
        // db.executeQuery(sql_create);
-        db.disconnect();
+       get.disconnect();
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
@@ -186,7 +189,9 @@ public class Deposit extends javax.swing.JFrame {
                 new Deposit().setVisible(true);
             }
         });
-        CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
+        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
+        //ConnectDB db = new ConnectDB();
+        //CSDbDelegate get = db.getConnect();
     }
      public String getDate(){
       Date date = new Date( );

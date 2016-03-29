@@ -19,8 +19,11 @@ import javax.swing.JOptionPane;
  */
 public class Login extends javax.swing.JFrame {
 
-    public static CSDbDelegate in = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
+    //public static CSDbDelegate in = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
     public static int pass;
+    
+    static ConnectDB db = new ConnectDB();
+    static CSDbDelegate get = db.getConnect();
     /**
      * Creates new form Receipt
      */
@@ -115,7 +118,7 @@ public class Login extends javax.swing.JFrame {
 
      private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Exit_buttomActionPerformed
          // TODO add your handling code here:
-         System.out.println(in.disconnect()); //when push exit buttom
+         System.out.println(get.disconnect()); //when push exit buttom
          System.exit(0); //close java frame loei
     }//GEN-LAST:event_Exit_buttomActionPerformed
 
@@ -191,7 +194,7 @@ public class Login extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                System.out.println(in.connect());
+                System.out.println(get.connect());
                 new Login().setVisible(true);
             }
         });
@@ -202,8 +205,8 @@ public class Login extends javax.swing.JFrame {
     public void checkPassword(String user, int pass) {
         String output = "";
         String sql = "SELECT * FROM ATMuser ";
-        ArrayList<HashMap> list = in.queryRows(sql);
-        boolean checkSuccess = in.executeQuery(sql);
+        ArrayList<HashMap> list = get.queryRows(sql);
+        boolean checkSuccess = get.executeQuery(sql);
         System.out.println(checkSuccess);
 
         for (HashMap a : list) { // create a for รองรับ hashmap list

@@ -84,21 +84,25 @@ public class Withdraw extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
-        CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
-        db.connect();
+        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
+        
+        ConnectDB db = new ConnectDB();
+        CSDbDelegate get = db.getConnect();
+        
+        get.connect();
         no = Login.getPass();
 
         String balance1 = "SELECT Balance FROM ATMuser WHERE Password=  "+no ;
         
-        HashMap b = db.queryRow(balance1);
+        HashMap b = get.queryRow(balance1);
 
         double balance = Double.parseDouble(b.get("Balance")+"");
         double amount = Double.parseDouble(withdraw.getText());
-        System.out.println(balance);
+        System.out.println("Balance = "+balance);
         balance = balance - amount;
-        System.out.println(balance);
+        System.out.println("Balance after withdraw = "+balance);
         String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Password ="+no; 
-        db.executeQuery(sql_update);
+        db.getConnect().executeQuery(sql_update);
        
         
         Withdraw w = new Withdraw();
@@ -108,7 +112,7 @@ public class Withdraw extends javax.swing.JFrame {
       
         
          String ac1 = "SELECT ACno FROM ATMuser WHERE Password=  "+no ;
-         HashMap a = db.queryRow(ac1);
+         HashMap a = get.queryRow(ac1);
          int  ac = Integer.parseInt(a.get("ACno")+"");
         
         
@@ -117,7 +121,7 @@ public class Withdraw extends javax.swing.JFrame {
         String value = "VALUES ('"+date+"','"+time+"','"+ac+"','"+"Withdraw"+"','"+amount+"'"
                 + ",'"+balance+"')";
         String sql_add = insert + value;
-        boolean insertComplete = db.executeQuery(sql_add);
+        boolean insertComplete = get.executeQuery(sql_add);
         if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
         else
             JOptionPane.showMessageDialog(this, "Error!" , "Execute Problem", JOptionPane.ERROR_MESSAGE);
@@ -125,7 +129,7 @@ public class Withdraw extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+ac+"\n"
                                             +"TRANSACTION: "+"Withdraw"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
         setVisible(false);
-        db.disconnect();
+        get.disconnect();
        
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -162,7 +166,7 @@ public class Withdraw extends javax.swing.JFrame {
                 new Withdraw().setVisible(true);
             }
         });
-        CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
+        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
       
     }
  public String getDate(){

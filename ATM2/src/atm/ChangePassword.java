@@ -84,21 +84,24 @@ public class ChangePassword extends javax.swing.JFrame {
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         // TODO add your handling code here:
         //CSDbDelegate(host, port ,database_name, username, password)
-        CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");    
-        db.connect();
+        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");    
+        ConnectDB db = new ConnectDB();
+        CSDbDelegate get = db.getConnect();
+        
+        get.connect();
         no = Login.getPass();
-        System.out.println(no);
+        System.out.println("Password = "+no);
         
         double newNo = Double.parseDouble(renewPassword.getText());
-        System.out.println(newNo);
+        System.out.println("New password = "+newNo);
         
         String sql_update = "UPDATE `ATMuser` SET `Password`="+"'"+newNo+"'" +"WHERE Password ="+no; 
-        db.executeQuery(sql_update);
+        get.executeQuery(sql_update);
         
         
            JOptionPane.showMessageDialog(null , "Update password Successfully!");
            setVisible(false);
-      db.disconnect();
+        get.disconnect();
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
@@ -134,7 +137,7 @@ public class ChangePassword extends javax.swing.JFrame {
                 new ChangePassword().setVisible(true);
             }
         });
-         CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
+         //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
     }
     
 
