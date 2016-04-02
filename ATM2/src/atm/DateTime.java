@@ -12,9 +12,10 @@ import java.text.SimpleDateFormat;
  * @author Game
  */
 public class DateTime {
+    
     protected final String formatDate = "dd.MM.yyyy";
     protected final String formatTime = "hh:mm:ss";
-    String realFormat;
+    public String realFormat;
     
     public DateTime(String format){
         Date dateTime = new Date();

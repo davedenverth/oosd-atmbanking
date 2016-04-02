@@ -5,7 +5,6 @@
  */
 package atm;
 
-import static atm.Withdraw.no;
 import edu.sit.cs.db.CSDbDelegate;
 import javax.swing.JOptionPane;
 
@@ -21,6 +20,9 @@ public class ChangePassword extends PopUp {
     public ChangePassword() {
         initComponents();
     }
+    
+    public static int no; 
+    public static String user; // fix db
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -85,19 +87,20 @@ public class ChangePassword extends PopUp {
         //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");    
         ConnectDB db = new ConnectDB();
         CSDbDelegate get = db.getConnect();
-        
         get.connect();
-        no = Login.getPass();
-        System.out.println("Password = "+ String.valueOf(no));
         
-        double newNo = Double.parseDouble(renewPassword.getText());
+        no = Login.getPass();
+        user = Login.getUser();
+        int newNo = Integer.parseInt(renewPassword.getText());
+        
+        System.out.println("Username = "+ String.valueOf(user));
+        System.out.println("Password = "+ String.valueOf(no));
         System.out.println("New password = "+ String.valueOf(newNo));
         
-        String sql_update = "UPDATE `ATMuser` SET `Password`="+"'"+newNo+"'" +"WHERE Password ="+no; 
+        String sql_update = "UPDATE `ATMuser` SET `Password` = "+"'"+newNo+"' "+"WHERE Username = '"+user+"'"; //fix db 
         get.executeQuery(sql_update);
         
-        
-        JOptionPane.showMessageDialog(null , "Update password Successfully!");
+        JOptionPane.showMessageDialog(null , "Update Password Successfully!");
         setVisible(false);
         get.disconnect();
     }//GEN-LAST:event_jButton1MouseClicked
@@ -138,8 +141,6 @@ public class ChangePassword extends PopUp {
          //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
     }
     
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

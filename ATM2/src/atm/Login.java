@@ -6,7 +6,6 @@
 package atm;
 
 import edu.sit.cs.db.CSDbDelegate;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -17,11 +16,14 @@ import javax.swing.JOptionPane;
  */
 public class Login extends PopUp {
 
-    //public static CSDbDelegate in = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
-    public static int pass;
+    //public static CSDbDelegate in = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", 
+        //"csc105_2014", "csc105");
     
-    static ConnectDB db = new ConnectDB();
-    static CSDbDelegate get = db.getConnect();
+    public static int pass;
+    public static String user; 
+    public static ConnectDB db = new ConnectDB();
+    public static CSDbDelegate get = db.getConnect();
+    
     /**
      * Creates new form Receipt
      */
@@ -115,15 +117,16 @@ public class Login extends PopUp {
     }// </editor-fold>//GEN-END:initComponents
 
      private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Exit_buttomActionPerformed
-         // TODO add your handling code here:
-         System.out.println(get.disconnect()); //when push exit buttom
-         System.exit(0); //close java frame loei
+        // TODO add your handling code here:
+        System.out.println(get.disconnect()); //when push exit buttom
+        System.exit(0); //close java frame loei
     }//GEN-LAST:event_Exit_buttomActionPerformed
 
     private void Login_buttomActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
 
     }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,9 +153,6 @@ public class Login extends PopUp {
         String user = jTextField2.getText();
         int pass = Integer.parseInt(jPasswordField1.getText());
         checkPassword(user + "", pass);
-        
-
-
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
@@ -198,8 +198,6 @@ public class Login extends PopUp {
         });
     }
     
-    
-
     public void checkPassword(String user, int pass) {
         String output = "";
         String sql = "SELECT * FROM ATMuser ";
@@ -208,8 +206,8 @@ public class Login extends PopUp {
         System.out.println(checkSuccess);
 
         for (HashMap a : list) { // create a for รองรับ hashmap list
-
             if (a.get("Username").equals(user)) { //login
+                this.user = user;
                 if (a.get("Password").equals("" + pass)) { // password colu
                     this.pass = Integer.parseInt(String.valueOf(a.get("Password")));
                     JOptionPane.showMessageDialog(null , "Login Successfully!");
@@ -227,8 +225,13 @@ public class Login extends PopUp {
             break;
         }
     }
+    
     public static int getPass(){
         return Login.pass;
+    }
+    
+    public static String getUser(){
+        return Login.user;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

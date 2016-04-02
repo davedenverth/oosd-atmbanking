@@ -5,7 +5,6 @@
  */
 package atm;
 
-import static atm.Withdraw.no;
 import edu.sit.cs.db.CSDbDelegate;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -24,6 +23,8 @@ public class Deposit extends PopUp {
         format = new DateATM();
         initComponents();
     }
+    
+    public static String user; 
  
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,20 +90,23 @@ public class Deposit extends PopUp {
         CSDbDelegate get = db.getConnect();
         
         get.connect();
-        no = Login.getPass();
-
-        String balance1 = "SELECT Balance FROM ATMuser WHERE Password=  "+no ;
+        //no = Login.getPass();
+        user = Login.getUser(); //fix db
+        
+        String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'";
         
         HashMap b = get.queryRow(balance1);
 
+        //before deposit
         double balance = Double.parseDouble(b.get("Balance")+"");
         double amount = Double.parseDouble(deposit.getText());
         System.out.println("Balance = "+balance);
-        balance = balance + amount;
         
+        //after deposit
+        balance = balance + amount;
         System.out.println("Balance after deposit = "+balance);
         
-        String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Password ="+no; 
+        String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
         get.executeQuery(sql_update);
        
         String date = format.getFormat();
@@ -110,18 +114,16 @@ public class Deposit extends PopUp {
         String time = format.getFormat();
         //this.time = time;
         
-         String ac1 = "SELECT ACno FROM ATMuser WHERE Password=  "+no ;
-         HashMap a = get.queryRow(ac1);
-         int  account = Integer.parseInt(a.get("ACno")+"");
-         System.out.println("Account no = "+account);
+        String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
+        HashMap a = get.queryRow(ac1);
+        int  account = Integer.parseInt(a.get("ACno")+"");
+        System.out.println("Account no = "+account);
          
-        
-        
-        
         String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
         String value = "VALUES ('"+date+"','"+time+"','"+account+"','"+"Deposit"+"','"+amount+"'"
                 + ",'"+balance+"')";
         String sql_add = insert + value;
+        
         boolean insertComplete = get.executeQuery(sql_add);
         if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
         else
@@ -132,8 +134,7 @@ public class Deposit extends PopUp {
         JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+account+"\n"
                                             +"TRANSACTION: "+"Deposit"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
         
-
-       // db.executeQuery(sql_create);
+        // db.executeQuery(sql_create);
         get.disconnect();
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -175,10 +176,9 @@ public class Deposit extends PopUp {
         //CSDbDelegate get = db.getConnect();
     }
     
-     public void setFormat(FormatDateTime ft){
+    public void setFormat(FormatDateTime ft){
          format = ft;
-     }
-
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField deposit;

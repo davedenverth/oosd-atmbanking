@@ -14,16 +14,19 @@ import javax.swing.JOptionPane;
  * @author Oriopun Ai
  */
 public class Withdraw extends PopUp {
-    FormatDateTime format;
+    
+    public FormatDateTime format;
+    
     /**
      * Creates new form Withdraw
      */
     public Withdraw() {
         format = new DateATM();
         initComponents();
-        
     }
-    public static int no; 
+    //public static int no; 
+    public static String user; 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -89,41 +92,42 @@ public class Withdraw extends PopUp {
         CSDbDelegate get = db.getConnect();
         
         get.connect();
-        no = Login.getPass();
+        //no = Login.getPass();
+        user = Login.getUser(); //fix db
 
-        String balance1 = "SELECT Balance FROM ATMuser WHERE Password=  "+no ;
+        String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'";
         
         HashMap b = get.queryRow(balance1);
 
         double balance = Double.parseDouble(b.get("Balance")+"");
         double amount = Double.parseDouble(withdraw.getText());
+        
+        //before withdraw
         System.out.println("Balance = "+balance);
         balance = balance - amount;
+        
+        //after withdraw
         System.out.println("Balance after withdraw = "+balance);
-        String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Password ="+no; 
+        String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
         db.getConnect().executeQuery(sql_update);
        
-        
         /*Withdraw w = new Withdraw();
         String date = w.getDate();
-       
         String time = w.getTime();*/
         String date = format.getFormat();
         setFormat(new TimeATM());
         String time = format.getFormat();
       
-        
-         String ac1 = "SELECT ACno FROM ATMuser WHERE Password=  "+no ;
-         HashMap a = get.queryRow(ac1);
-         int  ac = Integer.parseInt(a.get("ACno")+"");
-        
-        
+        String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
+        HashMap a = get.queryRow(ac1);
+        int  ac = Integer.parseInt(a.get("ACno")+"");
         
         String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
         String value = "VALUES ('"+date+"','"+time+"','"+ac+"','"+"Withdraw"+"','"+amount+"'"
                 + ",'"+balance+"')";
         String sql_add = insert + value;
         boolean insertComplete = get.executeQuery(sql_add);
+        
         if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
         else
             JOptionPane.showMessageDialog(this, "Error!" , "Execute Problem", JOptionPane.ERROR_MESSAGE);
@@ -132,7 +136,6 @@ public class Withdraw extends PopUp {
                                             +"TRANSACTION: "+"Withdraw"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
         setVisible(false);
         get.disconnect();
-       
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
@@ -169,8 +172,8 @@ public class Withdraw extends PopUp {
             }
         });
         //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
-      
     }
+    
     public void setFormat(FormatDateTime ft){
         format = ft;
     }

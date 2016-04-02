@@ -12,7 +12,9 @@ import edu.sit.cs.db.CSDbDelegate;
  * @author Wanmoon
  */
 public class ConnectDB {
-    CSDbDelegate db;
+    
+    private CSDbDelegate db;
+    
     public ConnectDB(){
         db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
     }

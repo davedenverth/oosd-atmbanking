@@ -7,14 +7,12 @@ package atm;
 
 import edu.sit.cs.db.CSDbDelegate;
 
-
 /**
  *
  * @author Oriopun AI
  */
 public class Transaction extends PopUp {
 
-   
     /**
      * Creates new form Transaction
      */
@@ -124,14 +122,8 @@ public class Transaction extends PopUp {
     }// </editor-fold>//GEN-END:initComponents
 
     private void okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okMouseClicked
-       
-       System.exit(0);
-        
-        
-       
-
-       // TODO add your handling code here:
-
+        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_okMouseClicked
 
     private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
@@ -140,8 +132,6 @@ public class Transaction extends PopUp {
 
     private void depositBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositBtnActionPerformed
         // TODO add your handling code here:
-
-
     }//GEN-LAST:event_depositBtnActionPerformed
 
     private void withdrawBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawBtnActionPerformed
@@ -149,28 +139,22 @@ public class Transaction extends PopUp {
     }//GEN-LAST:event_withdrawBtnActionPerformed
 
     private void depositBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_depositBtnMouseClicked
-                                // TODO add your handling code here:
+        // TODO add your handling code here:
         Deposit d = new Deposit();
         d.setVisible(true);
-        //clickButton();
 
     }//GEN-LAST:event_depositBtnMouseClicked
 
     private void withdrawBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_withdrawBtnMouseClicked
         // TODO add your handling code here:
-        
         Withdraw w = new Withdraw();
         w.setVisible(true);
-        //clickButton();
     }//GEN-LAST:event_withdrawBtnMouseClicked
 
     private void changePasswordBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changePasswordBtnMouseClicked
         // TODO add your handling code here:
         ChangePassword c = new ChangePassword();
         c.setVisible(true);
-        
-       // clickButton();
-        
     }//GEN-LAST:event_changePasswordBtnMouseClicked
 
     /**
@@ -203,15 +187,9 @@ public class Transaction extends PopUp {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               // Resizable(false);
                 new Transaction().setVisible(true);
-                
-                
             }
         });
-        
-        
-        
     }
     
     /*public static int no;
@@ -246,8 +224,7 @@ public class Transaction extends PopUp {
     public void withdraw(int amount, double balance) {
         balance = balance - amount;
     }*/
-
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel accountBook;
     private javax.swing.JButton accountBookBtn;
