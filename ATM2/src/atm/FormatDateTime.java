@@ -9,6 +9,6 @@ package atm;
  *
  * @author Game
  */
-public interface FormatInterface {
+public interface FormatDateTime {
     public String getFormat();
 }

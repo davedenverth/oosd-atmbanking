@@ -5,9 +5,7 @@
  */
 package atm;
 
-import java.util.Date;
 import edu.sit.cs.db.CSDbDelegate;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 
@@ -16,11 +14,12 @@ import javax.swing.JOptionPane;
  * @author Oriopun Ai
  */
 public class Withdraw extends javax.swing.JFrame {
-
+    FormatDateTime format;
     /**
      * Creates new form Withdraw
      */
     public Withdraw() {
+        format = new DateATM();
         initComponents();
         
     }
@@ -105,10 +104,13 @@ public class Withdraw extends javax.swing.JFrame {
         db.getConnect().executeQuery(sql_update);
        
         
-        Withdraw w = new Withdraw();
+        /*Withdraw w = new Withdraw();
         String date = w.getDate();
        
-        String time = w.getTime();
+        String time = w.getTime();*/
+        String date = format.getFormat();
+        setFormat(new TimeATM());
+        String time = format.getFormat();
       
         
          String ac1 = "SELECT ACno FROM ATMuser WHERE Password=  "+no ;
@@ -169,19 +171,9 @@ public class Withdraw extends javax.swing.JFrame {
         //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
       
     }
- public String getDate(){
-      Date date = new Date( );
-      SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy");
-      String s =String.valueOf(ft.format(date));
-      return s;
- }
- public String getTime(){
-      Date time = new Date( );
-      SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss");
-      String s =String.valueOf(ft.format(time));
-      return s;
- 
- }
+    public void setFormat(FormatDateTime ft){
+        format = ft;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
