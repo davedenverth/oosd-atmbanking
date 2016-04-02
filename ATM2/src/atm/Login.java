@@ -6,18 +6,16 @@
 package atm;
 
 import edu.sit.cs.db.CSDbDelegate;
-import java.awt.Container;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author Oriopun AI
  */
-public class Login extends javax.swing.JFrame {
+public class Login extends PopUp {
 
     //public static CSDbDelegate in = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
     public static int pass;

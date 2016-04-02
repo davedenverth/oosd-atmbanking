@@ -7,9 +7,6 @@ package atm;
 
 import static atm.Withdraw.no;
 import edu.sit.cs.db.CSDbDelegate;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 
@@ -17,13 +14,14 @@ import javax.swing.JOptionPane;
  *
  * @author Oriopun Ai
  */
-public class Deposit extends javax.swing.JFrame {
-
+public class Deposit extends PopUp {
+    FormatDateTime format;
     /**
      * Creates new form Deposit
      */
     
     public Deposit() {
+        format = new DateATM();
         initComponents();
     }
  
@@ -107,12 +105,10 @@ public class Deposit extends javax.swing.JFrame {
         String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Password ="+no; 
         get.executeQuery(sql_update);
        
-        
-        Deposit d = new Deposit();
-        String date = d.getDate();
-        
-        String time = d.getTime();
-        this.time = time;
+        String date = format.getFormat();
+        setFormat(new TimeATM());
+        String time = format.getFormat();
+        //this.time = time;
         
          String ac1 = "SELECT ACno FROM ATMuser WHERE Password=  "+no ;
          HashMap a = get.queryRow(ac1);
@@ -134,26 +130,11 @@ public class Deposit extends javax.swing.JFrame {
         
         
         JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+account+"\n"
-                                            +"TRANSACTION: "+"Doposit"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
+                                            +"TRANSACTION: "+"Deposit"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
         
-        
-//        Receipt r =new Receipt();
-//        r.setVisible(true);
-//        r.receipt();
-        
-       
-        
-        
-            
-             
-           
-             
-        
-        
-       
-        
+
        // db.executeQuery(sql_create);
-       get.disconnect();
+        get.disconnect();
     }//GEN-LAST:event_jButton1MouseClicked
 
     /**
@@ -193,28 +174,10 @@ public class Deposit extends javax.swing.JFrame {
         //ConnectDB db = new ConnectDB();
         //CSDbDelegate get = db.getConnect();
     }
-     public String getDate(){
-      Date date = new Date( );
-      SimpleDateFormat ft = new SimpleDateFormat ("dd.MM.yyyy");
-      String s =String.valueOf(ft.format(date));
-      return s;
- }
- public String getTime(){
-      Date time = new Date( );
-      SimpleDateFormat ft = new SimpleDateFormat ("hh:mm:ss");
-      String s =String.valueOf(ft.format(time));
-      return s;
- 
- }
- String time;
- public static String timer;
- public static String getTimer(){
-     return Deposit.timer;
- }
- 
-
-
- 
+    
+     public void setFormat(FormatDateTime ft){
+         format = ft;
+     }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

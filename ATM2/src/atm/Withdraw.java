@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  *
  * @author Oriopun Ai
  */
-public class Withdraw extends javax.swing.JFrame {
+public class Withdraw extends PopUp {
     FormatDateTime format;
     /**
      * Creates new form Withdraw

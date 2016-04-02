@@ -13,10 +13,8 @@ import javax.swing.JOptionPane;
  *
  * @author Oriopun Ai
  */
-public class ChangePassword extends javax.swing.JFrame {
+public class ChangePassword extends PopUp {
 
-    int testCommit = 0;
-    int abc = 0;
     /**
      * Creates new form ChangePassword
      */
@@ -90,17 +88,17 @@ public class ChangePassword extends javax.swing.JFrame {
         
         get.connect();
         no = Login.getPass();
-        System.out.println("Password = "+no);
+        System.out.println("Password = "+ String.valueOf(no));
         
         double newNo = Double.parseDouble(renewPassword.getText());
-        System.out.println("New password = "+newNo);
+        System.out.println("New password = "+ String.valueOf(newNo));
         
         String sql_update = "UPDATE `ATMuser` SET `Password`="+"'"+newNo+"'" +"WHERE Password ="+no; 
         get.executeQuery(sql_update);
         
         
-           JOptionPane.showMessageDialog(null , "Update password Successfully!");
-           setVisible(false);
+        JOptionPane.showMessageDialog(null , "Update password Successfully!");
+        setVisible(false);
         get.disconnect();
     }//GEN-LAST:event_jButton1MouseClicked
 

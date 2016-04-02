@@ -6,22 +6,13 @@
 package atm;
 
 import edu.sit.cs.db.CSDbDelegate;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.HashMap;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
+
 
 /**
  *
  * @author Oriopun AI
  */
-public class Transaction extends javax.swing.JFrame {
+public class Transaction extends PopUp {
 
    
     /**
