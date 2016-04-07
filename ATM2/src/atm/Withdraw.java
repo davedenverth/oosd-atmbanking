@@ -60,7 +60,7 @@ public class Withdraw extends PopUp {
                 jButton1MouseClicked(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, -1, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, -1, -1));
 
         withdraw.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
         withdraw.addActionListener(new java.awt.event.ActionListener() {
@@ -68,10 +68,10 @@ public class Withdraw extends PopUp {
                 withdrawActionPerformed(evt);
             }
         });
-        getContentPane().add(withdraw, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 110, -1));
+        getContentPane().add(withdraw, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 110, -1));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/withdraw.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 300));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 450, 300));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/25488042-men-hand-businessman-puts-credit-card-into-atm.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));

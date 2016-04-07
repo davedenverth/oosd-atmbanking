@@ -40,11 +40,8 @@ public class Login extends PopUp {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Password = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        ATMLogin = new javax.swing.JLabel();
-        Username = new javax.swing.JLabel();
         jPasswordField1 = new javax.swing.JPasswordField();
         jTextField2 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -52,11 +49,6 @@ public class Login extends PopUp {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        Password.setBackground(new java.awt.Color(255, 255, 255));
-        Password.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        Password.setText("Password");
-        getContentPane().add(Password, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, -1, 30));
 
         jButton1.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
         jButton1.setText("Login");
@@ -70,7 +62,7 @@ public class Login extends PopUp {
                 jButton1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 70, -1));
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 70, -1));
 
         jButton2.setFont(new java.awt.Font("Cambria", 0, 12)); // NOI18N
         jButton2.setText("Cancel");
@@ -79,16 +71,7 @@ public class Login extends PopUp {
                 jButton2ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, 70, -1));
-
-        ATMLogin.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
-        ATMLogin.setText("ATM Login");
-        getContentPane().add(ATMLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, -1, -1));
-
-        Username.setBackground(new java.awt.Color(255, 255, 255));
-        Username.setFont(new java.awt.Font("Cambria", 1, 24)); // NOI18N
-        Username.setText("Username");
-        getContentPane().add(Username, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, -1, 30));
+        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 70, -1));
 
         jPasswordField1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +79,7 @@ public class Login extends PopUp {
                 jPasswordField1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 160, 160, 30));
+        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 180, 160, 30));
 
         jTextField2.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
@@ -106,12 +89,11 @@ public class Login extends PopUp {
         });
         getContentPane().add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 160, 30));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/Transparent.png"))); // NOI18N
-        jLabel3.setText("jLabel3");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 390, 260));
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/login.png"))); // NOI18N
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-80, 0, 520, 300));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/21330742-black-credit-card-and-glasses-on-laptop (1).jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 300));
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -235,9 +217,6 @@ public class Login extends PopUp {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel ATMLogin;
-    private javax.swing.JLabel Password;
-    private javax.swing.JLabel Username;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

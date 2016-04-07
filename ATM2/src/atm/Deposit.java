@@ -37,8 +37,6 @@ public class Deposit extends PopUp {
 
         jButton1 = new javax.swing.JButton();
         deposit = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -62,16 +60,8 @@ public class Deposit extends PopUp {
         });
         getContentPane().add(deposit, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 110, -1));
 
-        jLabel4.setFont(new java.awt.Font("Cambria", 0, 24)); // NOI18N
-        jLabel4.setText("Please enter amount");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
-        jLabel3.setText("Deposit");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 50, -1, -1));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/Transparent.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 410, 260));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/deposit.png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 430, 300));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/25488042-men-hand-businessman-puts-credit-card-into-atm.jpg"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -185,7 +175,5 @@ public class Deposit extends PopUp {
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     // End of variables declaration//GEN-END:variables
 }
