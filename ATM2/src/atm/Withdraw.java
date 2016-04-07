@@ -39,6 +39,7 @@ public class Withdraw extends PopUp {
         jButton2 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         withdraw = new javax.swing.JTextField();
+        jButton3 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -53,14 +54,19 @@ public class Withdraw extends PopUp {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        jButton1.setText("Ok");
+        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jButton1.setText("OK");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton1MouseClicked(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, -1, -1));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 210, 50, 30));
 
         withdraw.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
         withdraw.addActionListener(new java.awt.event.ActionListener() {
@@ -68,7 +74,15 @@ public class Withdraw extends PopUp {
                 withdrawActionPerformed(evt);
             }
         });
-        getContentPane().add(withdraw, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 110, -1));
+        getContentPane().add(withdraw, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 160, 110, -1));
+
+        jButton3.setText("Cancel");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 210, -1, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/withdraw.png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 450, 300));
@@ -140,6 +154,17 @@ public class Withdraw extends PopUp {
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        dispose();
+        // go back to transaction page
+        Transaction main = new Transaction();
+        main.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
     //private void jButton3Backbutton(java.awt.event.ActionEvent)
     /**
      * @param args the command line arguments
@@ -184,6 +209,7 @@ public class Withdraw extends PopUp {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField withdraw;
