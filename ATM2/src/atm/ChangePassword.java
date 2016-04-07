@@ -33,64 +33,50 @@ public class ChangePassword extends PopUp {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        renewPassword = new javax.swing.JPasswordField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        OKbtn = new javax.swing.JButton();
+        renewPasswordField = new javax.swing.JPasswordField();
+        Cancelbtn = new javax.swing.JButton();
+        BG_changePass = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("OK");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        OKbtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        OKbtn.setText("OK");
+        OKbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                OKbtnMouseClicked(evt);
             }
         });
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        OKbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                OKbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, -1, -1));
+        getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 80, -1));
 
-        renewPassword.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        getContentPane().add(renewPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 130, -1));
+        renewPasswordField.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
+        getContentPane().add(renewPasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 150, 40));
 
-        jLabel4.setFont(new java.awt.Font("Cambria", 0, 24)); // NOI18N
-        jLabel4.setText("Please Enter your new password ");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
-
-        jLabel3.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
-        jLabel3.setText("Change Password");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
-
-        jButton3.setText("Cancel");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        Cancelbtn.setText("Cancel");
+        Cancelbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                CancelbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 220, -1, -1));
+        getContentPane().add(Cancelbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/Transparent2.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 410, 260));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/25488042-men-hand-businessman-puts-credit-card-into-atm.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        BG_changePass.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/changePass.png"))); // NOI18N
+        getContentPane().add(BG_changePass, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void OKbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_OKbtnActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
         // TODO add your handling code here:
         //CSDbDelegate(host, port ,database_name, username, password)
         //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");    
@@ -100,7 +86,7 @@ public class ChangePassword extends PopUp {
         
         no = Login.getPass();
         user = Login.getUser();
-        int newNo = Integer.parseInt(renewPassword.getText());
+        int newNo = Integer.parseInt(renewPasswordField.getText());
         
         System.out.println("Username = "+ String.valueOf(user));
         System.out.println("Password = "+ String.valueOf(no));
@@ -112,14 +98,14 @@ public class ChangePassword extends PopUp {
         JOptionPane.showMessageDialog(null , "Update Password Successfully!");
         setVisible(false);
         get.disconnect();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_OKbtnMouseClicked
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
          dispose();
         // go back to transaction page
         Transaction main = new Transaction();
         main.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_CancelbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,12 +144,9 @@ public class ChangePassword extends PopUp {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPasswordField renewPassword;
+    private javax.swing.JLabel BG_changePass;
+    private javax.swing.JButton Cancelbtn;
+    private javax.swing.JButton OKbtn;
+    private javax.swing.JPasswordField renewPasswordField;
     // End of variables declaration//GEN-END:variables
 }

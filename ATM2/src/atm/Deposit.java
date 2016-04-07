@@ -35,54 +35,50 @@ public class Deposit extends PopUp {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
-        deposit = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        OKbtn = new javax.swing.JButton();
+        depositField = new javax.swing.JTextField();
+        Cancelbtn = new javax.swing.JButton();
+        BG_deposit = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("OK");
-        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+        OKbtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        OKbtn.setText("OK");
+        OKbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton1MouseClicked(evt);
+                OKbtnMouseClicked(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 210, 50, -1));
+        getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 90, -1));
 
-        deposit.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        deposit.addActionListener(new java.awt.event.ActionListener() {
+        depositField.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
+        depositField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                depositActionPerformed(evt);
+                depositFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(deposit, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 110, -1));
+        getContentPane().add(depositField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 140, 40));
 
-        jButton2.setText("Cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        Cancelbtn.setText("Cancel");
+        Cancelbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                CancelbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 210, -1, -1));
+        getContentPane().add(Cancelbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, -1));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/deposit.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 430, 300));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/25488042-men-hand-businessman-puts-credit-card-into-atm.jpg"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        BG_deposit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/deposit.png"))); // NOI18N
+        getContentPane().add(BG_deposit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void depositActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositActionPerformed
+    private void depositFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_depositActionPerformed
+    }//GEN-LAST:event_depositFieldActionPerformed
 
-    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+    private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
        
         //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
         ConnectDB db = new ConnectDB();
@@ -98,7 +94,7 @@ public class Deposit extends PopUp {
 
         //before deposit
         double balance = Double.parseDouble(b.get("Balance")+"");
-        double amount = Double.parseDouble(deposit.getText());
+        double amount = Double.parseDouble(depositField.getText());
         System.out.println("Balance = "+balance);
         
         //after deposit
@@ -135,14 +131,14 @@ public class Deposit extends PopUp {
         
         // db.executeQuery(sql_create);
         get.disconnect();
-    }//GEN-LAST:event_jButton1MouseClicked
+    }//GEN-LAST:event_OKbtnMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
          dispose();
         // go back to transaction page
         Transaction main = new Transaction();
         main.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_CancelbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,10 +183,9 @@ public class Deposit extends PopUp {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField deposit;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel BG_deposit;
+    private javax.swing.JButton Cancelbtn;
+    private javax.swing.JButton OKbtn;
+    private javax.swing.JTextField depositField;
     // End of variables declaration//GEN-END:variables
 }

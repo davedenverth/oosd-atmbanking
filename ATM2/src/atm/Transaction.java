@@ -32,48 +32,23 @@ public class Transaction extends PopUp {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        transaction = new javax.swing.JLabel();
-        deposit = new javax.swing.JLabel();
-        withdraw = new javax.swing.JLabel();
-        changePassword = new javax.swing.JLabel();
-        accountBook = new javax.swing.JLabel();
-        accountBookBtn = new javax.swing.JButton();
-        changePasswordBtn = new javax.swing.JButton();
+        Accountbtn = new javax.swing.JButton();
+        ChangePassbtn = new javax.swing.JButton();
         withdrawBtn = new javax.swing.JButton();
         depositBtn = new javax.swing.JButton();
-        ok = new javax.swing.JButton();
-        background = new javax.swing.JLabel();
+        Exitbtn = new javax.swing.JButton();
+        BG_transac = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(Accountbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 317, 24, 24));
 
-        transaction.setFont(new java.awt.Font("Cambria", 1, 36)); // NOI18N
-        transaction.setText("Transaction");
-        getContentPane().add(transaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 160, -1, -1));
-
-        deposit.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        deposit.setText("Deposit");
-        getContentPane().add(deposit, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, -1, -1));
-
-        withdraw.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        withdraw.setText("Withdraw");
-        getContentPane().add(withdraw, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, -1, -1));
-
-        changePassword.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        changePassword.setText("Change Password");
-        getContentPane().add(changePassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, -1, -1));
-
-        accountBook.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        accountBook.setText("Account Book");
-        getContentPane().add(accountBook, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 310, -1, -1));
-        getContentPane().add(accountBookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 317, 24, 24));
-
-        changePasswordBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        ChangePassbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                changePasswordBtnMouseClicked(evt);
+                ChangePassbtnMouseClicked(evt);
             }
         });
-        getContentPane().add(changePasswordBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 285, 24, 24));
+        getContentPane().add(ChangePassbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 285, 24, 24));
 
         withdrawBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -99,36 +74,36 @@ public class Transaction extends PopUp {
         });
         getContentPane().add(depositBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 225, 24, 24));
 
-        ok.setBackground(java.awt.Color.black);
-        ok.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        ok.setForeground(new java.awt.Color(255, 255, 255));
-        ok.setText("EXIT");
-        ok.addMouseListener(new java.awt.event.MouseAdapter() {
+        Exitbtn.setBackground(java.awt.Color.black);
+        Exitbtn.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
+        Exitbtn.setForeground(new java.awt.Color(255, 255, 255));
+        Exitbtn.setText("EXIT");
+        Exitbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                okMouseClicked(evt);
+                ExitbtnMouseClicked(evt);
             }
         });
-        ok.addActionListener(new java.awt.event.ActionListener() {
+        Exitbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                okActionPerformed(evt);
+                ExitbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(ok, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 270, 30));
+        getContentPane().add(Exitbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 270, 30));
 
-        background.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/ATM-Machine.jpg"))); // NOI18N
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
+        BG_transac.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/transaction.png"))); // NOI18N
+        getContentPane().add(BG_transac, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void okMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_okMouseClicked
+    private void ExitbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitbtnMouseClicked
         // TODO add your handling code here:
         System.exit(0);
-    }//GEN-LAST:event_okMouseClicked
+    }//GEN-LAST:event_ExitbtnMouseClicked
 
-    private void okActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okActionPerformed
+    private void ExitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_okActionPerformed
+    }//GEN-LAST:event_ExitbtnActionPerformed
 
     private void depositBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositBtnActionPerformed
         // TODO add your handling code here:
@@ -151,11 +126,11 @@ public class Transaction extends PopUp {
         w.setVisible(true);
     }//GEN-LAST:event_withdrawBtnMouseClicked
 
-    private void changePasswordBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_changePasswordBtnMouseClicked
+    private void ChangePassbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChangePassbtnMouseClicked
         // TODO add your handling code here:
         ChangePassword c = new ChangePassword();
         c.setVisible(true);
-    }//GEN-LAST:event_changePasswordBtnMouseClicked
+    }//GEN-LAST:event_ChangePassbtnMouseClicked
 
     /**
      * @param args the command line arguments
@@ -226,16 +201,11 @@ public class Transaction extends PopUp {
     }*/
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel accountBook;
-    private javax.swing.JButton accountBookBtn;
-    private javax.swing.JLabel background;
-    private javax.swing.JLabel changePassword;
-    private javax.swing.JButton changePasswordBtn;
-    private javax.swing.JLabel deposit;
+    private javax.swing.JButton Accountbtn;
+    private javax.swing.JLabel BG_transac;
+    private javax.swing.JButton ChangePassbtn;
+    private javax.swing.JButton Exitbtn;
     private javax.swing.JButton depositBtn;
-    private javax.swing.JButton ok;
-    private javax.swing.JLabel transaction;
-    private javax.swing.JLabel withdraw;
     private javax.swing.JButton withdrawBtn;
     // End of variables declaration//GEN-END:variables
 }
