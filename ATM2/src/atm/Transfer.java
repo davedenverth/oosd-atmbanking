@@ -11,22 +11,21 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Oriopun Ai
+ * @author Wanmoon
  */
-public class Deposit extends PopUp {
+public class Transfer extends PopUp {
     
     FormatDateTime format;
     public static String user; 
     
     /**
-     * Creates new form Deposit
+     * Creates new form Transfer
      */
-    
-    public Deposit() {
+    public Transfer() {
         format = new DateATM();
         initComponents();
     }
- 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -37,29 +36,20 @@ public class Deposit extends PopUp {
     private void initComponents() {
 
         OKbtn = new javax.swing.JButton();
-        depositField = new javax.swing.JTextField();
         Cancelbtn = new javax.swing.JButton();
-        BG_deposit = new javax.swing.JLabel();
+        TransfertoIDField = new javax.swing.JTextField();
+        TransferMoneyField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        OKbtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         OKbtn.setText("OK");
-        OKbtn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                OKbtnMouseClicked(evt);
-            }
-        });
-        getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 90, -1));
-
-        depositField.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        depositField.addActionListener(new java.awt.event.ActionListener() {
+        OKbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                depositFieldActionPerformed(evt);
+                OKbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(depositField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 140, 40));
+        getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 213, -1, -1));
 
         Cancelbtn.setText("Cancel");
         Cancelbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -67,59 +57,76 @@ public class Deposit extends PopUp {
                 CancelbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(Cancelbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, -1));
-
-        BG_deposit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/deposit.png"))); // NOI18N
-        getContentPane().add(BG_deposit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 430, 300));
+        getContentPane().add(Cancelbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 213, -1, -1));
+        getContentPane().add(TransfertoIDField, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 107, 144, 36));
+        getContentPane().add(TransferMoneyField, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 161, 144, 34));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void depositFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositFieldActionPerformed
+    private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_depositFieldActionPerformed
+        dispose();
+        // go back to transaction page
+        Transaction main = new Transaction();
+        main.setVisible(true);
+    }//GEN-LAST:event_CancelbtnActionPerformed
 
-    private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
-       
-        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
+    private void OKbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbtnActionPerformed
+        // TODO add your handling code here:
         ConnectDB db = new ConnectDB();
         CSDbDelegate get = db.getConnect();
         
         get.connect();
-        //no = Login.getPass();
-        user = Login.getUser(); //fix db
+        user = Login.getUser(); //get user who use this atm
         
-        //getbalance from this user
-        String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'";
+        //get balance of this user
+        String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'"; 
         
         HashMap b = get.queryRow(balance1);
-
-        //before deposit
-        double balance = Double.parseDouble(b.get("Balance")+"");
-        double amount = Double.parseDouble(depositField.getText());
-        System.out.println("Balance = "+balance);
         
-        //after deposit
-        balance = balance + amount;
-        System.out.println("Balance after deposit = "+balance);
+        //get data from textfield
+        String transfer_ID = TransfertoIDField.getText();
+        double amount = Double.parseDouble(TransferMoneyField.getText());
+        System.out.println("Transfer to account no. = "+transfer_ID);
         
-        String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
-        get.executeQuery(sql_update);
-       
-        String date = format.getFormat();
-        setFormat(new TimeATM());
-        String time = format.getFormat();
-        //this.time = time;
-        
-        //get ac co
+        //get ac no.of user
         String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
         HashMap a = get.queryRow(ac1);
         int  account = Integer.parseInt(a.get("ACno")+"");
-        System.out.println("Account no = "+account);
-         
+        System.out.println("My Account no = "+account);
+       
+        //before deposit
+        double balance = Double.parseDouble(b.get("Balance")+"");
+        System.out.println("Balance = "+balance);
+        
+        //deleted money from user account
+        balance = balance - amount;
+        System.out.println("Balance after transfer = "+ balance);
+        
+        //update db user
+        String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
+        get.executeQuery(sql_update);
+        
+        //add money to other account
+        String sql_balance2 = "SELECT Balance FROM ATMuser WHERE ACno = '"+transfer_ID+"'";
+        HashMap b2 = get.queryRow(sql_balance2);
+        double balance2 = Double.parseDouble(b2.get("Balance")+"");
+        System.out.println("Old balance before transfer = "+balance2); //ลบด้วย
+        balance2 = balance2 + amount;
+        System.out.println("Balance after transfer = "+balance2);
+
+        //update db user2
+        String sql_update2 = "UPDATE `ATMuser` SET `Balance`="+"'"+balance2+"'" +"WHERE ACno = '"+transfer_ID+"'"; 
+        get.executeQuery(sql_update2);
+        
+        String date = format.getFormat();
+        setFormat(new TimeATM());
+        String time = format.getFormat();
+        
         //reciept to transaction table
         String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
-        String value = "VALUES ('"+date+"','"+time+"','"+account+"','"+"Deposit"+"','"+amount+"'"
+        String value = "VALUES ('"+date+"','"+time+"','"+account+"','"+"Transfer"+"','"+amount+"'"
                 + ",'"+balance+"')";
         String sql_add = insert + value;
         
@@ -131,18 +138,10 @@ public class Deposit extends PopUp {
         
         
         JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+account+"\n"
-                                            +"TRANSACTION: "+"Deposit"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
+                                            +"TRANSACTION: "+"Transfer"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
         
-        // db.executeQuery(sql_create);
         get.disconnect();
-    }//GEN-LAST:event_OKbtnMouseClicked
-
-    private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
-         dispose();
-        // go back to transaction page
-        Transaction main = new Transaction();
-        main.setVisible(true);
-    }//GEN-LAST:event_CancelbtnActionPerformed
+    }//GEN-LAST:event_OKbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,25 +160,23 @@ public class Deposit extends PopUp {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Transfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Deposit().setVisible(true);
+                new Transfer().setVisible(true);
             }
         });
-        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
-        //ConnectDB db = new ConnectDB();
-        //CSDbDelegate get = db.getConnect();
     }
     
     public void setFormat(FormatDateTime ft){
@@ -187,9 +184,9 @@ public class Deposit extends PopUp {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel BG_deposit;
     private javax.swing.JButton Cancelbtn;
     private javax.swing.JButton OKbtn;
-    private javax.swing.JTextField depositField;
+    private javax.swing.JTextField TransferMoneyField;
+    private javax.swing.JTextField TransfertoIDField;
     // End of variables declaration//GEN-END:variables
 }

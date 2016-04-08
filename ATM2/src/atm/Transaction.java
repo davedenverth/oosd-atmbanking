@@ -37,6 +37,7 @@ public class Transaction extends PopUp {
         withdrawBtn = new javax.swing.JButton();
         depositBtn = new javax.swing.JButton();
         Exitbtn = new javax.swing.JButton();
+        tranferBtn = new javax.swing.JButton();
         BG_transac = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -90,6 +91,13 @@ public class Transaction extends PopUp {
         });
         getContentPane().add(Exitbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 270, 30));
 
+        tranferBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tranferBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(tranferBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, 30, 30));
+
         BG_transac.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/transaction.png"))); // NOI18N
         getContentPane().add(BG_transac, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
 
@@ -131,6 +139,12 @@ public class Transaction extends PopUp {
         ChangePassword c = new ChangePassword();
         c.setVisible(true);
     }//GEN-LAST:event_ChangePassbtnMouseClicked
+
+    private void tranferBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tranferBtnActionPerformed
+        // TODO add your handling code here:
+        Transfer t = new Transfer();
+        t.setVisible(true);
+    }//GEN-LAST:event_tranferBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -206,6 +220,7 @@ public class Transaction extends PopUp {
     private javax.swing.JButton ChangePassbtn;
     private javax.swing.JButton Exitbtn;
     private javax.swing.JButton depositBtn;
+    private javax.swing.JButton tranferBtn;
     private javax.swing.JButton withdrawBtn;
     // End of variables declaration//GEN-END:variables
 }

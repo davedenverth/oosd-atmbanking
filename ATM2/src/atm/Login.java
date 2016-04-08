@@ -101,7 +101,6 @@ public class Login extends PopUp {
 
     private void Login_buttomActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
-
     }
     
     private void LoginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginbtnActionPerformed
@@ -182,7 +181,7 @@ public class Login extends PopUp {
     }
     
     public void checkPassword(String user, int pass) {
-        String output = "";
+        //String output = "";
         String sql = "SELECT * FROM ATMuser ";
         ArrayList<HashMap> list = get.queryRows(sql);
         boolean checkSuccess = get.executeQuery(sql);
