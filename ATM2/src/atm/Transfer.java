@@ -39,6 +39,7 @@ public class Transfer extends PopUp {
         Cancelbtn = new javax.swing.JButton();
         TransfertoIDField = new javax.swing.JTextField();
         TransferMoneyField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -49,7 +50,7 @@ public class Transfer extends PopUp {
                 OKbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(69, 213, -1, -1));
+        getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, -1));
 
         Cancelbtn.setText("Cancel");
         Cancelbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -57,9 +58,12 @@ public class Transfer extends PopUp {
                 CancelbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(Cancelbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(251, 213, -1, -1));
-        getContentPane().add(TransfertoIDField, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 107, 144, 36));
-        getContentPane().add(TransferMoneyField, new org.netbeans.lib.awtextra.AbsoluteConstraints(131, 161, 144, 34));
+        getContentPane().add(Cancelbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, -1, -1));
+        getContentPane().add(TransfertoIDField, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 144, 36));
+        getContentPane().add(TransferMoneyField, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 144, 34));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/transfer.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -188,5 +192,6 @@ public class Transfer extends PopUp {
     private javax.swing.JButton OKbtn;
     private javax.swing.JTextField TransferMoneyField;
     private javax.swing.JTextField TransfertoIDField;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
