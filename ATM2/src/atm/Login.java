@@ -29,6 +29,8 @@ public class Login extends PopUp {
      */
     public Login() {
         initComponents();
+        user = "";
+        pass = 0;
     }
 
     /**
@@ -197,7 +199,8 @@ public class Login extends PopUp {
                     Transaction t = new Transaction();
                     //t.no = Integer.parseInt(String.valueOf(a.get("A/C No.")));
                     t.setVisible(true);
-                    setVisible(false);
+                    //setVisible(false);
+                    dispose();
                     break;
                 } else {
                     JOptionPane.showMessageDialog(null, "Wrong Password!","Wrong Password", JOptionPane.ERROR_MESSAGE);
