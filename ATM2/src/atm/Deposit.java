@@ -81,7 +81,58 @@ public class Deposit extends PopUp {
 
     private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
        
+        performFunction();
+        
+    }//GEN-LAST:event_OKbtnMouseClicked
+
+    private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
+        dispose();
+        // go back to transaction page
+    }//GEN-LAST:event_CancelbtnActionPerformed
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Deposit().setVisible(true);
+            }
+        });
         //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
+        //ConnectDB db = new ConnectDB();
+        //CSDbDelegate get = db.getConnect();
+    }
+    
+    public void setFormat(FormatDateTime ft){
+         format = ft;
+    }
+
+    public void performFunction(){
         ConnectDB db = new ConnectDB();
         CSDbDelegate get = db.getConnect();
         
@@ -133,59 +184,9 @@ public class Deposit extends PopUp {
         JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+account+"\n"
                                             +"TRANSACTION: "+"Deposit"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
         
-        // db.executeQuery(sql_create);
+
         get.disconnect();
-    }//GEN-LAST:event_OKbtnMouseClicked
-
-    private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
-         dispose();
-        // go back to transaction page
-        Transaction main = new Transaction();
-        main.setVisible(true);
-    }//GEN-LAST:event_CancelbtnActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Deposit.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Deposit().setVisible(true);
-            }
-        });
-        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
-        //ConnectDB db = new ConnectDB();
-        //CSDbDelegate get = db.getConnect();
     }
-    
-    public void setFormat(FormatDateTime ft){
-         format = ft;
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BG_deposit;
     private javax.swing.JButton Cancelbtn;
