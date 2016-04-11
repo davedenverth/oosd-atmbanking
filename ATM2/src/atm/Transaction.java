@@ -106,7 +106,9 @@ public class Transaction extends PopUp {
 
     private void ExitbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitbtnMouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+        dispose();
+        PopUp login = new Login();
+        login.setVisible(true);
     }//GEN-LAST:event_ExitbtnMouseClicked
 
     private void ExitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitbtnActionPerformed
@@ -123,20 +125,20 @@ public class Transaction extends PopUp {
 
     private void depositBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_depositBtnMouseClicked
         // TODO add your handling code here:
-        Deposit d = new Deposit();
+        PopUp d = new Deposit();
         d.setVisible(true);
 
     }//GEN-LAST:event_depositBtnMouseClicked
 
     private void withdrawBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_withdrawBtnMouseClicked
         // TODO add your handling code here:
-        Withdraw w = new Withdraw();
+        PopUp w = new Withdraw();
         w.setVisible(true);
     }//GEN-LAST:event_withdrawBtnMouseClicked
 
     private void ChangePassbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChangePassbtnMouseClicked
         // TODO add your handling code here:
-        ChangePassword c = new ChangePassword();
+        PopUp c = new ChangePassword();
         c.setVisible(true);
     }//GEN-LAST:event_ChangePassbtnMouseClicked
 
