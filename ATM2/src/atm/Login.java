@@ -128,7 +128,7 @@ public class Login extends PopUp {
         // TODO add your handling code here:
         String user = UserField.getText();
         int pass = Integer.parseInt(PasswordField.getText());
-        checkPassword(user + "", pass);
+        checkPassword(user, pass);
     }//GEN-LAST:event_LoginbtnMouseClicked
 
     private void UserFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserFieldActionPerformed
@@ -182,16 +182,17 @@ public class Login extends PopUp {
     
     public void checkPassword(String user, int pass) {
         //String output = "";
-        String sql = "SELECT * FROM ATMuser ";
+        String sql = "SELECT * FROM ATMuser";
         ArrayList<HashMap> list = get.queryRows(sql);
-        boolean checkSuccess = get.executeQuery(sql);
-        System.out.println(checkSuccess);
+        get.executeQuery(sql);
+        boolean hasAccount = false;
 
         for (HashMap a : list) { // create a for รองรับ hashmap list
             if (a.get("Username").equals(user)) { //login
-                this.user = user;
+                hasAccount = true;
+                Login.user = user;
                 if (a.get("Password").equals("" + pass)) { // password colu
-                    this.pass = Integer.parseInt(String.valueOf(a.get("Password")));
+                    Login.pass = Integer.parseInt(String.valueOf(a.get("Password")));
                     JOptionPane.showMessageDialog(null , "Login Successfully!");
                     Transaction t = new Transaction();
                     //t.no = Integer.parseInt(String.valueOf(a.get("A/C No.")));
@@ -203,8 +204,10 @@ public class Login extends PopUp {
                     break;
                 }
             }
+            
+        }
+        if(!hasAccount){
             JOptionPane.showMessageDialog(null, "Please Register","No Account",JOptionPane.ERROR_MESSAGE);
-            break;
         }
     }
     
