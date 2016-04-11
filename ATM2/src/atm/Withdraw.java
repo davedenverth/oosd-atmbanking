@@ -91,56 +91,7 @@ public class Withdraw extends PopUp {
 
     private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
         // TODO add your handling code here:
-        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
-        
-        ConnectDB db = new ConnectDB();
-        CSDbDelegate get = db.getConnect();
-        
-        get.connect();
-        //no = Login.getPass();
-        user = Login.getUser(); //fix db
-
-        String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'";
-        
-        HashMap b = get.queryRow(balance1);
-
-        double balance = Double.parseDouble(b.get("Balance")+"");
-        double amount = Double.parseDouble(withdrawField.getText());
-        
-        //before withdraw
-        System.out.println("Balance = "+balance);
-        balance = balance - amount;
-        
-        //after withdraw
-        System.out.println("Balance after withdraw = "+balance);
-        String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
-        db.getConnect().executeQuery(sql_update);
-       
-        /*Withdraw w = new Withdraw();
-        String date = w.getDate();
-        String time = w.getTime();*/
-        String date = format.getFormat();
-        setFormat(new TimeATM());
-        String time = format.getFormat();
-      
-        String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
-        HashMap a = get.queryRow(ac1);
-        int  ac = Integer.parseInt(a.get("ACno")+"");
-        
-        String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
-        String value = "VALUES ('"+date+"','"+time+"','"+ac+"','"+"Withdraw"+"','"+amount+"'"
-                + ",'"+balance+"')";
-        String sql_add = insert + value;
-        boolean insertComplete = get.executeQuery(sql_add);
-        
-        if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
-        else
-            JOptionPane.showMessageDialog(this, "Error!" , "Execute Problem", JOptionPane.ERROR_MESSAGE);
-       // db.executeQuery(sql_create);
-        JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+ac+"\n"
-                                            +"TRANSACTION: "+"Withdraw"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
-        setVisible(false);
-        get.disconnect();
+        performFunction();
     }//GEN-LAST:event_OKbtnMouseClicked
 
     private void withdrawFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawFieldActionPerformed
@@ -154,8 +105,6 @@ public class Withdraw extends PopUp {
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
         dispose();
         // go back to transaction page
-        Transaction main = new Transaction();
-        main.setVisible(true);
     }//GEN-LAST:event_CancelbtnActionPerformed
 
     private void OKbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbtnActionPerformed
@@ -200,6 +149,58 @@ public class Withdraw extends PopUp {
     
     public void setFormat(FormatDateTime ft){
         format = ft;
+    }
+    
+    public void performFunction(){
+        ConnectDB db = new ConnectDB();
+        CSDbDelegate get = db.getConnect();
+        
+        get.connect();
+        //no = Login.getPass();
+        user = Login.getUser(); //fix db
+
+        String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'";
+        
+        HashMap b = get.queryRow(balance1);
+
+        double balance = Double.parseDouble(b.get("Balance")+"");
+        double amount = Double.parseDouble(withdrawField.getText());
+        
+        if(amount > balance){
+            JOptionPane.showMessageDialog(null, "Insufficient Fund!", "Invalid Transaction", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        //before withdraw
+        System.out.println("Balance = "+balance);
+        balance = balance - amount;
+        
+        //after withdraw
+        System.out.println("Balance after withdraw = "+balance);
+        String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
+        get.executeQuery(sql_update);
+       
+        String date = format.getFormat();
+        setFormat(new TimeATM());
+        String time = format.getFormat();
+      
+        String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
+        HashMap a = get.queryRow(ac1);
+        int  ac = Integer.parseInt(a.get("ACno")+"");
+        
+        String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
+        String value = "VALUES ('"+date+"','"+time+"','"+ac+"','"+"Withdraw"+"','"+amount+"'"
+                + ",'"+balance+"')";
+        String sql_add = insert + value;
+        boolean insertComplete = get.executeQuery(sql_add);
+        
+        if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
+        else
+            JOptionPane.showMessageDialog(this, "Error!" , "Execute Problem", JOptionPane.ERROR_MESSAGE);
+       // db.executeQuery(sql_create);
+        JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+ac+"\n"
+                                            +"TRANSACTION: "+"Withdraw"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
+        setVisible(false);
+        get.disconnect();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
