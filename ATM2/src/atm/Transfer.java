@@ -42,7 +42,6 @@ public class Transfer extends PopUp {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         OKbtn.setText("OK");
         OKbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -50,7 +49,6 @@ public class Transfer extends PopUp {
                 OKbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 230, -1, -1));
 
         Cancelbtn.setText("Cancel");
         Cancelbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -58,12 +56,41 @@ public class Transfer extends PopUp {
                 CancelbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(Cancelbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, -1, -1));
-        getContentPane().add(TransfertoIDField, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 144, 36));
-        getContentPane().add(TransferMoneyField, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 144, 34));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/transfer.png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 400, 300));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(TransfertoIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(TransferMoneyField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(150, 150, 150)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(OKbtn)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(70, 70, 70)
+                        .addComponent(Cancelbtn))))
+            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(120, 120, 120)
+                .addComponent(TransfertoIDField, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(TransferMoneyField, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(OKbtn)
+                    .addComponent(Cancelbtn)))
+            .addComponent(jLabel1)
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
