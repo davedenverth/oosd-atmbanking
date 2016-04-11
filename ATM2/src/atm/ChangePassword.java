@@ -77,34 +77,11 @@ public class ChangePassword extends PopUp {
     }//GEN-LAST:event_OKbtnActionPerformed
 
     private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
-        // TODO add your handling code here:
-        //CSDbDelegate(host, port ,database_name, username, password)
-        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");    
-        ConnectDB db = new ConnectDB();
-        CSDbDelegate get = db.getConnect();
-        get.connect();
-        
-        no = Login.getPass();
-        user = Login.getUser();
-        int newNo = Integer.parseInt(renewPasswordField.getText());
-        
-        System.out.println("Username = "+ String.valueOf(user));
-        System.out.println("Password = "+ String.valueOf(no));
-        System.out.println("New password = "+ String.valueOf(newNo));
-        
-        String sql_update = "UPDATE `ATMuser` SET `Password` = "+"'"+newNo+"' "+"WHERE Username = '"+user+"'"; //fix db 
-        get.executeQuery(sql_update);
-        
-        JOptionPane.showMessageDialog(null , "Update Password Successfully!");
-        setVisible(false);
-        get.disconnect();
+        performFunction();
     }//GEN-LAST:event_OKbtnMouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
-         dispose();
-        // go back to transaction page
-        Transaction main = new Transaction();
-        main.setVisible(true);
+        dispose();
     }//GEN-LAST:event_CancelbtnActionPerformed
 
     /**
@@ -141,6 +118,27 @@ public class ChangePassword extends PopUp {
             }
         });
          //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
+    }
+    
+    public void performFunction(){
+        ConnectDB db = new ConnectDB();
+        CSDbDelegate get = db.getConnect();
+        get.connect();
+        
+        no = Login.getPass();
+        user = Login.getUser();
+        int newNo = Integer.parseInt(renewPasswordField.getText());
+        
+        System.out.println("Username = "+ String.valueOf(user));
+        System.out.println("Password = "+ String.valueOf(no));
+        System.out.println("New password = "+ String.valueOf(newNo));
+        
+        String sql_update = "UPDATE `ATMuser` SET `Password` = "+"'"+newNo+"' "+"WHERE Username = '"+user+"'"; //fix db 
+        get.executeQuery(sql_update);
+        
+        JOptionPane.showMessageDialog(null , "Update Password Successfully!");
+        setVisible(false);
+        get.disconnect();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
