@@ -39,7 +39,7 @@ public class Transfer extends PopUp {
         Cancelbtn = new javax.swing.JButton();
         TransfertoIDField = new javax.swing.JTextField();
         TransferMoneyField = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        BG_transfer = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,7 +57,13 @@ public class Transfer extends PopUp {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/transfer.png"))); // NOI18N
+        TransfertoIDField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TransfertoIDFieldActionPerformed(evt);
+            }
+        });
+
+        BG_transfer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/transfer.png"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -76,7 +82,7 @@ public class Transfer extends PopUp {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(70, 70, 70)
                         .addComponent(Cancelbtn))))
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(BG_transfer, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -89,7 +95,7 @@ public class Transfer extends PopUp {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(OKbtn)
                     .addComponent(Cancelbtn)))
-            .addComponent(jLabel1)
+            .addComponent(BG_transfer)
         );
 
         pack();
@@ -157,7 +163,7 @@ public class Transfer extends PopUp {
         
         //reciept to transaction table
         String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
-        String value = "VALUES ('"+date+"','"+time+"','"+account+"','"+"Transfer"+"','"+amount+"'"
+        String value = "VALUES ('"+date+"','"+time+"','"+account+"','"+"Transfer to Account no. "+transfer_ID+"','"+amount+"'"
                 + ",'"+balance+"')";
         String sql_add = insert + value;
         
@@ -168,11 +174,16 @@ public class Transfer extends PopUp {
         setVisible(false);
         
         
-        JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+account+"\n"
-                                            +"TRANSACTION: "+"Transfer"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
+        JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+
+                "A/C No.: "+account+"\n"+"TRANSACTION: "+"Transfer to Account no. "+transfer_ID+"\n"+"AMOUNT: "+
+                amount+"\n"+"BALANCE: "+balance+"\n");
         
         get.disconnect();
     }//GEN-LAST:event_OKbtnActionPerformed
+
+    private void TransfertoIDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransfertoIDFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TransfertoIDFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -215,10 +226,10 @@ public class Transfer extends PopUp {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BG_transfer;
     private javax.swing.JButton Cancelbtn;
     private javax.swing.JButton OKbtn;
     private javax.swing.JTextField TransferMoneyField;
     private javax.swing.JTextField TransfertoIDField;
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }

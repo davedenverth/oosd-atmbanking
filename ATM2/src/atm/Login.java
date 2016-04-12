@@ -101,10 +101,9 @@ public class Login extends PopUp {
         System.exit(0); //close java frame loei
     }//GEN-LAST:event_Exit_buttomActionPerformed
 
-    private void Login_buttomActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-    
+    private void Login_buttomActionPerformed(java.awt.event.ActionEvent evt) { 
+    } 
+     
     private void LoginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginbtnActionPerformed
         Loginbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

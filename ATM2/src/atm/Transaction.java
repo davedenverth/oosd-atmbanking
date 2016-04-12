@@ -42,14 +42,20 @@ public class Transaction extends PopUp {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(Accountbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 317, 24, 24));
+
+        Accountbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AccountbtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Accountbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(151, 316, 24, 24));
 
         ChangePassbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ChangePassbtnMouseClicked(evt);
             }
         });
-        getContentPane().add(ChangePassbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 285, 24, 24));
+        getContentPane().add(ChangePassbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(154, 284, 24, 24));
 
         withdrawBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -99,7 +105,7 @@ public class Transaction extends PopUp {
         getContentPane().add(tranferBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, 30, 30));
 
         BG_transac.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/transaction.png"))); // NOI18N
-        getContentPane().add(BG_transac, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, 600));
+        getContentPane().add(BG_transac, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -147,6 +153,12 @@ public class Transaction extends PopUp {
         Transfer t = new Transfer();
         t.setVisible(true);
     }//GEN-LAST:event_tranferBtnActionPerformed
+
+    private void AccountbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountbtnActionPerformed
+        // TODO add your handling code here:
+        AccountBook a = new AccountBook();
+        a.setVisible(true);
+    }//GEN-LAST:event_AccountbtnActionPerformed
 
     /**
      * @param args the command line arguments
