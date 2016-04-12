@@ -80,9 +80,7 @@ public class Deposit extends PopUp {
     }//GEN-LAST:event_depositFieldActionPerformed
 
     private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
-       
-        performFunction();
-        
+       performFunction();
     }//GEN-LAST:event_OKbtnMouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed

@@ -70,45 +70,11 @@ public class AccountBook extends PopUp {
     private void CancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtnActionPerformed
         // TODO add your handling code here:
         dispose();
-        //go back to transaction page
-        Transaction main = new Transaction();
-        main.setVisible(true);
     }//GEN-LAST:event_CancelBtnActionPerformed
 
     private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
         // TODO add your handling code here:
-        ConnectDB db = new ConnectDB();
-        CSDbDelegate get = db.getConnect();
-        
-        get.connect();
-        user = Login.getUser(); //get user who use this atm
-        
-        //get data from textfield
-        int acc_no = Integer.parseInt(AccountField.getText());
-        System.out.println("Account no. = "+acc_no);
-        
-        //get ac no.of user
-        String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
-        HashMap a = get.queryRow(ac1);
-        int  account = Integer.parseInt(a.get("ACno")+"");
-        System.out.println("My Account no = "+account);
-        
-        //get data of this acc no.
-        String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '"+acc_no+"'";
-        HashMap a2 = get.queryRow(sql_ac);
-        String data_Acc = a2.get("*")+"";
-        //System.out.println("data :" +a2);
-        //ArrayList<Hashmap>
-        
-        //check accno.
-        if(acc_no==account){
-            JOptionPane.showMessageDialog(null,data_Acc);
-        }else{
-            JOptionPane.showMessageDialog(null, "Not Your Account no.!",
-                    "ERROR!", JOptionPane.ERROR_MESSAGE);
-        }
-        
-        get.disconnect();
+        performFunction();
     }//GEN-LAST:event_okBtnActionPerformed
 
     /**
@@ -150,6 +116,48 @@ public class AccountBook extends PopUp {
          format = ft;
     }
 
+    public void performFunction(){
+        ConnectDB db = new ConnectDB();
+        CSDbDelegate get = db.getConnect();
+        
+        get.connect();
+        user = Login.getUser(); //get user who use this atm
+        
+        //get data from textfield
+        int acc_no = Integer.parseInt(AccountField.getText());
+        System.out.println("Account no. = "+acc_no);
+        
+        //get ac no.of user
+        String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
+        HashMap a = get.queryRow(ac1);
+        int  account = Integer.parseInt(a.get("ACno")+"");
+        System.out.println("My Account no = "+account);
+        
+        //get data of this acc no.
+        String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '"+acc_no+"'";
+        //HashMap a2 = get.queryRow(sql_ac);
+        //String data_Acc = a2.get("*")+"";
+        //System.out.println("data :" +a2);
+        ArrayList<HashMap> list = get.queryRows(sql_ac);
+        String n;
+        for (HashMap data : list) {
+            System.out.printf("%s\t %s\t %s\t %s\t %s\t %s\t \n", new Object[] { data.get("DATE"), data.get("TIME"), 
+            data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE")  });
+        }
+        
+        //check accno.
+        if(acc_no==account){
+            
+            JOptionPane.showMessageDialog(null,"Date\t\tTime\t\tAccount No.\t\tTransaction\t\tAmount\t\tBalance\n");
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Not Your Account no.!",
+                    "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        get.disconnect();
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AccountField;
     private javax.swing.JLabel BG_accountBook;
