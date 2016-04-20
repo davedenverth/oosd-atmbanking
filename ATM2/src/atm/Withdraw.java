@@ -6,7 +6,12 @@
 package atm;
 
 import edu.sit.cs.db.CSDbDelegate;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -90,8 +95,12 @@ public class Withdraw extends PopUp {
     }// </editor-fold>//GEN-END:initComponents
 
     private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
-        // TODO add your handling code here:
-        performFunction();
+        try {
+            // TODO add your handling code here:
+            performFunction();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Withdraw.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_OKbtnMouseClicked
 
     private void withdrawFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawFieldActionPerformed
@@ -151,7 +160,7 @@ public class Withdraw extends PopUp {
         format = ft;
     }
     
-    public void performFunction(){
+    public void performFunction() throws FileNotFoundException{
         ConnectDB db = new ConnectDB();
         CSDbDelegate get = db.getConnect();
         
@@ -197,8 +206,30 @@ public class Withdraw extends PopUp {
         else
             JOptionPane.showMessageDialog(this, "Error!" , "Execute Problem", JOptionPane.ERROR_MESSAGE);
        // db.executeQuery(sql_create);
-        JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+ac+"\n"
-                                            +"TRANSACTION: "+"Withdraw"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
+        
+        //popup receipt
+        int yesno = JOptionPane.YES_NO_OPTION;
+        JOptionPane.showConfirmDialog(null, "DATE: "+date+"\t\t"+"TIME: "+time+"\n"+
+                "My Account No.: "+ac+"\n"+"TRANSACTION: "+"Withdraw"+"\n"+"AMOUNT: "+
+                amount+"\n"+"BALANCE: "+balance+"\n\nDo you want to print the receipt?", "ATM RECEIPT", yesno);
+        
+            //choose to print receipt
+            if(yesno == 0){
+                //print receipt
+                System.out.println("Print receipt already");
+                File file = new File("reciep_file_acno."+ac+".txt");
+    
+                PrintWriter write = new PrintWriter(file); //for write in file
+                write.println("Receipt of Account no."+ac);
+                write.println("Date : "+ date);
+                write.println("Time : "+ time);
+                write.println("My account no. : "+ ac);
+                write.println("Transaction : Withdraw");
+                write.println("Amount : "+amount);
+                write.println("My Balance : " + balance);
+                write.close();
+            } 
+        
         setVisible(false);
         get.disconnect();
     }

@@ -6,7 +6,12 @@
 package atm;
 
 import edu.sit.cs.db.CSDbDelegate;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -80,7 +85,11 @@ public class Deposit extends PopUp {
     }//GEN-LAST:event_depositFieldActionPerformed
 
     private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
-       performFunction();
+        try {
+            performFunction();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Deposit.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_OKbtnMouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
@@ -130,7 +139,7 @@ public class Deposit extends PopUp {
          format = ft;
     }
 
-    public void performFunction(){
+    public void performFunction() throws FileNotFoundException{
         ConnectDB db = new ConnectDB();
         CSDbDelegate get = db.getConnect();
         
@@ -166,7 +175,7 @@ public class Deposit extends PopUp {
         int  account = Integer.parseInt(a.get("ACno")+"");
         System.out.println("Account no = "+account);
          
-        //reciept to transaction table
+        //receipt to transaction table
         String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
         String value = "VALUES ('"+date+"','"+time+"','"+account+"','"+"Deposit"+"','"+amount+"'"
                 + ",'"+balance+"')";
@@ -178,11 +187,30 @@ public class Deposit extends PopUp {
             JOptionPane.showMessageDialog(this, "Error!" , "Execute Problem", JOptionPane.ERROR_MESSAGE);
         setVisible(false);
         
+        //receipt
+        int yesno = JOptionPane.YES_NO_OPTION;
+        JOptionPane.showConfirmDialog(null, "DATE: "+date+"\t\t"+"TIME: "+time+"\n"+
+                "My Account No.: "+account+"\n"+"TRANSACTION: "+"Deposite"+"\n"+"AMOUNT: "+
+                amount+"\n"+"BALANCE: "+balance+"\n\nDo you want to print the receipt?", "ATM RECEIPT", yesno);
         
-        JOptionPane.showMessageDialog(null,"\tATM RECEIPT\n\n"+"DATE: "+date+"\n"+"TIME: "+time+"\n"+"A/C No.: "+account+"\n"
-                                            +"TRANSACTION: "+"Deposit"+"\n"+"AMOUNT: "+amount+"\n"+"BALANCE: "+balance+"\n");
+            //choose to print receipt
+            if(yesno == 0){
+                //print receipt
+                System.out.println("Print receipt already");
+                File file = new File("receipt/receipt_file_acno."+account+".txt");
+    
+                PrintWriter write = new PrintWriter(file); //for write in file
+                write.println("Receipt of Account no."+account);
+                write.println("Date : "+ date);
+                write.println("Time : "+ time);
+                write.println("My account no. : "+ account);
+                write.println("Transaction : Deposite");
+                write.println("Amount : "+amount);
+                write.println("My Balance : " + balance);
+                write.close();
+            } 
         
-
+        setVisible(false); 
         get.disconnect();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
