@@ -194,7 +194,7 @@ public class Deposit extends PopUp {
                 amount+"\n"+"BALANCE: "+balance+"\n\nDo you want to print the receipt?", "ATM RECEIPT", yesno);
         
             //choose to print receipt
-            if(yesno == 0){
+            if(yesno == JOptionPane.YES_OPTION){
                 //print receipt
                 System.out.println("Print receipt already");
                 File file = new File("receipt/receipt_file_acno."+account+".txt");

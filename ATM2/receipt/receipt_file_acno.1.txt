@@ -1,7 +1,7 @@
-Reciept of Account no.1
-Date : 20.04.2016
-Time : 14:16:32
+Receipt of Account no.1
+Date : 21.04.2016
+Time : 18:39:02
 My account no. : 1
 Transaction : Deposite
-Amount : 12341.0
-My Balance : 114084.0
+Amount : 1414.0
+My Balance : 2419519.0

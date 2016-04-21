@@ -135,21 +135,23 @@ public class AccountBook extends PopUp {
         
         //get data of this acc no.
         String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '"+acc_no+"'";
-        //HashMap a2 = get.queryRow(sql_ac);
-        //String data_Acc = a2.get("*")+"";
-        //System.out.println("data :" +a2);
+        
         ArrayList<HashMap> list = get.queryRows(sql_ac);
-        String n;
-        for (HashMap data : list) {
-            System.out.printf("%s\t %s\t %s\t %s\t %s\t %s\t \n", new Object[] { data.get("DATE"), data.get("TIME"), 
-            data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE")  });
+        String col = "Date\t\tTime\t\tAccount No.\t\tTransaction\t\tAmount\t\tBalance\n";
+        System.out.print(col);
+        
+        String result = "";
+        for(HashMap data : list) {
+            System.out.printf("%s\t %s\t %s\t %s\t %s\t %s\t \n", new Object[]{ data.get("DATE"), data.get("TIME"), 
+                    data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE") });
+            result += data.get("DATE") + "\t " + data.get("TIME") + "\t " + data.get("ACno") + "\t " + 
+                    data.get("TRANSACTION")+ "\t " + data.get("AMOUNT")+ "\t " + data.get("BALANCE") + " \n";
         }
         
         //check accno.
         if(acc_no==account){
-            
-            JOptionPane.showMessageDialog(null,"Date\t\tTime\t\tAccount No.\t\tTransaction\t\tAmount\t\tBalance\n");
-            
+            //show transaction of this account
+            JOptionPane.showMessageDialog(null, col+result,"Transaction of Account "+acc_no, JOptionPane.INFORMATION_MESSAGE );
         }else{
             JOptionPane.showMessageDialog(null, "Not Your Account no.!",
                     "ERROR!", JOptionPane.ERROR_MESSAGE);

@@ -155,7 +155,7 @@ public class Transfer extends PopUp {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Transfer().setVisible(true);
+                new Transfer().setVisible(true);          
             }
         });
     }
@@ -237,7 +237,7 @@ public class Transfer extends PopUp {
             if(yesno == 0){
                 //print receipt
                 System.out.println("Print receipt already");
-                File file = new File("reciep_file_acno."+account+".txt");
+                File file = new File("receipt/reciep_file_acno."+account+".txt");
     
                 PrintWriter write = new PrintWriter(file); //for write in file
                 write.println("Receipt of Account no."+account);

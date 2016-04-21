@@ -198,6 +198,7 @@ public class Login extends PopUp {
                     Transaction t = new Transaction();
                     //t.no = Integer.parseInt(String.valueOf(a.get("A/C No.")));
                     t.setVisible(true);
+                    t.setLocationRelativeTo(null); //make transaction menu show in center screen
                     //setVisible(false);
                     dispose();
                     break;
