@@ -6,6 +6,8 @@
 package atm;
 
 import edu.sit.cs.db.CSDbDelegate;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -19,9 +21,11 @@ import javax.swing.JOptionPane;
  * @author Oriopun Ai
  */
 public class Deposit extends PopUp {
-    
+    private double amount=0;
     FormatDateTime format;
     public static String user; 
+   // private int amount;
+    //private int depositss;
     
     /**
      * Creates new form Deposit
@@ -30,6 +34,7 @@ public class Deposit extends PopUp {
     public Deposit() {
         format = new DateATM();
         initComponents();
+        //depositField.addPropertyChangeListener("value", this);
     }
  
     /**
@@ -154,7 +159,13 @@ public class Deposit extends PopUp {
 
         //before deposit
         double balance = Double.parseDouble(b.get("Balance")+"");
-        double amount = Double.parseDouble(depositField.getText());
+        try{
+         amount = Double.parseDouble(depositField.getText());
+        }catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(null,"Please input only number!!");
+                   
+        }
         System.out.println("Balance = "+balance);
         
         //after deposit
@@ -219,4 +230,7 @@ public class Deposit extends PopUp {
     private javax.swing.JButton OKbtn;
     private javax.swing.JTextField depositField;
     // End of variables declaration//GEN-END:variables
-}
+
+  
+    }
+

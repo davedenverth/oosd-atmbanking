@@ -127,8 +127,14 @@ public class ChangePassword extends PopUp {
         
         no = Login.getPass();
         user = Login.getUser();
-        int newNo = Integer.parseInt(renewPasswordField.getText());
-        
+        int newNo =0;
+        try{
+        newNo= Integer.parseInt(renewPasswordField.getText());
+        }catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(null,"Please input only number!!");
+                   
+        }
         System.out.println("Username = "+ String.valueOf(user));
         System.out.println("Password = "+ String.valueOf(no));
         System.out.println("New password = "+ String.valueOf(newNo));

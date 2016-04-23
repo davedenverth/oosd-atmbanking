@@ -178,8 +178,24 @@ public class Transfer extends PopUp {
         
         //get data from textfield
         String transfer_ID = TransfertoIDField.getText();
-        double amount = Double.parseDouble(TransferMoneyField.getText());
-        System.out.println("Transfer to account no. = "+transfer_ID);
+        int tt=0;
+        try{
+            
+        tt=Integer.parseInt(transfer_ID);
+        }catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(null,"Please input only number!!");
+                   
+        }
+        double amount=0;
+        try{
+        amount = Double.parseDouble(TransferMoneyField.getText());
+        }catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(null,"Please input only number!!");
+                   
+        }
+        System.out.println("Transfer to account no. = "+tt);
         
         //get ac no.of user
         String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";

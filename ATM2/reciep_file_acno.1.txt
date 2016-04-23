@@ -1,0 +1,7 @@
+Receipt of Account no.1
+Date : 24.04.2559
+Time : 00:25:27
+My account no. : 1
+Transaction : Withdraw
+Amount : 8888.0
+My Balance : 2412863.0

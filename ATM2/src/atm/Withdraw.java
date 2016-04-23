@@ -56,7 +56,6 @@ public class Withdraw extends PopUp {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         OKbtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         OKbtn.setText("OK");
@@ -70,7 +69,6 @@ public class Withdraw extends PopUp {
                 OKbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 80, 30));
 
         withdrawField.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
         withdrawField.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +76,6 @@ public class Withdraw extends PopUp {
                 withdrawFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(withdrawField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 140, 40));
 
         Cancelbtn.setText("Cancel");
         Cancelbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -86,10 +83,37 @@ public class Withdraw extends PopUp {
                 CancelbtnActionPerformed(evt);
             }
         });
-        getContentPane().add(Cancelbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, 30));
 
         BG_withdraw.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/withdraw.png"))); // NOI18N
-        getContentPane().add(BG_withdraw, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 300));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(140, 140, 140)
+                .addComponent(withdrawField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(240, 240, 240)
+                .addComponent(Cancelbtn))
+            .addComponent(BG_withdraw, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(110, 110, 110)
+                .addComponent(OKbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addComponent(withdrawField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(Cancelbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(BG_withdraw)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(220, 220, 220)
+                .addComponent(OKbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -173,8 +197,14 @@ public class Withdraw extends PopUp {
         HashMap b = get.queryRow(balance1);
 
         double balance = Double.parseDouble(b.get("Balance")+"");
-        double amount = Double.parseDouble(withdrawField.getText());
-        
+        double amount=0;
+        try{
+         amount = Double.parseDouble(withdrawField.getText());
+        }catch(NumberFormatException e)
+        {
+            JOptionPane.showMessageDialog(null,"Please input only number!!");
+                   
+        }
         if(amount > balance){
             JOptionPane.showMessageDialog(null, "Insufficient Fund!", "Invalid Transaction", JOptionPane.ERROR_MESSAGE);
             return;
