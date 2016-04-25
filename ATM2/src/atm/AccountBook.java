@@ -124,39 +124,45 @@ public class AccountBook extends PopUp {
         user = Login.getUser(); //get user who use this atm
         
         //get data from textfield
-        int acc_no = Integer.parseInt(AccountField.getText());
-        System.out.println("Account no. = "+acc_no);
+        if(isNumeric(AccountField.getText())){
+            
+            int acc_no = Integer.parseInt(AccountField.getText());
+            System.out.println("Account no. = "+acc_no);
         
         //get ac no.of user
-        String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
-        HashMap a = get.queryRow(ac1);
-        int  account = Integer.parseInt(a.get("ACno")+"");
-        System.out.println("My Account no = "+account);
+            String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
+            HashMap a = get.queryRow(ac1);
+            int  account = Integer.parseInt(a.get("ACno")+"");
+            System.out.println("My Account no = "+account);
         
         //get data of this acc no.
-        String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '"+acc_no+"'";
+            String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '"+acc_no+"'";
         
-        ArrayList<HashMap> list = get.queryRows(sql_ac);
-        String col = "Date\t\tTime\t\tAccount No.\t\tTransaction\t\tAmount\t\tBalance\n";
-        System.out.print(col);
+            ArrayList<HashMap> list = get.queryRows(sql_ac);
+            String col = "Date\t\tTime\t\tAccount No.\t\tTransaction\t\tAmount\t\tBalance\n";
+            System.out.print(col);
         
-        String result = "";
-        for(HashMap data : list) {
-            System.out.printf("%s\t %s\t %s\t %s\t %s\t %s\t \n", new Object[]{ data.get("DATE"), data.get("TIME"), 
-                    data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE") });
-            result += data.get("DATE") + "\t " + data.get("TIME") + "\t " + data.get("ACno") + "\t " + 
-                    data.get("TRANSACTION")+ "\t " + data.get("AMOUNT")+ "\t " + data.get("BALANCE") + " \n";
-        }
+            String result = "";
+            for(HashMap data : list) {
+                System.out.printf("%s\t %s\t %s\t %s\t %s\t %s\t \n", new Object[]{ data.get("DATE"), data.get("TIME"), 
+                        data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE") });
+                result += data.get("DATE") + "\t " + data.get("TIME") + "\t " + data.get("ACno") + "\t " + 
+                       data.get("TRANSACTION")+ "\t " + data.get("AMOUNT")+ "\t " + data.get("BALANCE") + " \n";
+            }
         
         //check accno.
-        if(acc_no==account){
+            if(acc_no==account){
             //show transaction of this account
             JOptionPane.showMessageDialog(null, col+result,"Transaction of Account "+acc_no, JOptionPane.INFORMATION_MESSAGE );
-        }else{
+            }
+            else{
             JOptionPane.showMessageDialog(null, "Not Your Account no.!",
                     "ERROR!", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        
+        else{
+            JOptionPane.showMessageDialog(null, "Please put in a number", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        }
         get.disconnect();
     }
     
