@@ -199,10 +199,9 @@ public class Deposit extends PopUp {
         setVisible(false);
         
         //receipt
-        int yesno = JOptionPane.YES_NO_OPTION;
-        JOptionPane.showConfirmDialog(null, "DATE: "+date+"\t\t"+"TIME: "+time+"\n"+
+        int yesno = JOptionPane.showConfirmDialog(null, "DATE: "+date+"\t\t"+"TIME: "+time+"\n"+
                 "My Account No.: "+account+"\n"+"TRANSACTION: "+"Deposite"+"\n"+"AMOUNT: "+
-                amount+"\n"+"BALANCE: "+balance+"\n\nDo you want to print the receipt?", "ATM RECEIPT", yesno);
+                amount+"\n"+"BALANCE: "+balance+"\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
         
             //choose to print receipt
             if(yesno == JOptionPane.YES_OPTION){

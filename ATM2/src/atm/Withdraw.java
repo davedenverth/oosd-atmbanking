@@ -56,6 +56,7 @@ public class Withdraw extends PopUp {
         });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         OKbtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         OKbtn.setText("OK");
@@ -69,6 +70,7 @@ public class Withdraw extends PopUp {
                 OKbtnActionPerformed(evt);
             }
         });
+        getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 80, 30));
 
         withdrawField.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
         withdrawField.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +78,7 @@ public class Withdraw extends PopUp {
                 withdrawFieldActionPerformed(evt);
             }
         });
+        getContentPane().add(withdrawField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 140, 40));
 
         Cancelbtn.setText("Cancel");
         Cancelbtn.addActionListener(new java.awt.event.ActionListener() {
@@ -83,37 +86,10 @@ public class Withdraw extends PopUp {
                 CancelbtnActionPerformed(evt);
             }
         });
+        getContentPane().add(Cancelbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, 30));
 
         BG_withdraw.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/withdraw.png"))); // NOI18N
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(140, 140, 140)
-                .addComponent(withdrawField, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(240, 240, 240)
-                .addComponent(Cancelbtn))
-            .addComponent(BG_withdraw, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(110, 110, 110)
-                .addComponent(OKbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(160, 160, 160)
-                .addComponent(withdrawField, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(Cancelbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(BG_withdraw)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(220, 220, 220)
-                .addComponent(OKbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        getContentPane().add(BG_withdraw, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -238,16 +214,15 @@ public class Withdraw extends PopUp {
        // db.executeQuery(sql_create);
         
         //popup receipt
-        int yesno = JOptionPane.YES_NO_OPTION;
-        JOptionPane.showConfirmDialog(null, "DATE: "+date+"\t\t"+"TIME: "+time+"\n"+
+        int yesno = JOptionPane.showConfirmDialog(null, "DATE: "+date+"\t\t"+"TIME: "+time+"\n"+
                 "My Account No.: "+ac+"\n"+"TRANSACTION: "+"Withdraw"+"\n"+"AMOUNT: "+
-                amount+"\n"+"BALANCE: "+balance+"\n\nDo you want to print the receipt?", "ATM RECEIPT", yesno);
+                amount+"\n"+"BALANCE: "+balance+"\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
         
             //choose to print receipt
             if(yesno == 0){
                 //print receipt
                 System.out.println("Print receipt already");
-                File file = new File("reciep_file_acno."+ac+".txt");
+                File file = new File("receipt/receipt_file_acno."+ac+".txt");
     
                 PrintWriter write = new PrintWriter(file); //for write in file
                 write.println("Receipt of Account no."+ac);
