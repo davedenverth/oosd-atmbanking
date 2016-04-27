@@ -192,19 +192,23 @@ public class Login extends PopUp {
             if (a.get("Username").equals(user)) { //login
                 hasAccount = true;
                 Login.user = user;
-                if (a.get("Password").equals("" + pass)) { // password colu
-                    Login.pass = Integer.parseInt(String.valueOf(a.get("Password")));
-                    JOptionPane.showMessageDialog(null , "Login Successfully!");
-                    Transaction t = new Transaction();
-                    //t.no = Integer.parseInt(String.valueOf(a.get("A/C No.")));
-                    t.setVisible(true);
-                    t.setLocationRelativeTo(null); //make transaction menu show in center screen
-                    //setVisible(false);
-                    dispose();
-                    break;
+                if(Integer.toString(pass).length()>4){
+                    JOptionPane.showMessageDialog(null, "Please enter 4 digit numbers!", "Please enter 4 digit numbers!", JOptionPane.ERROR_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Wrong Password!","Wrong Password", JOptionPane.ERROR_MESSAGE);
-                    break;
+                    if (a.get("Password").equals("" + pass)) { // password colu
+                        Login.pass = Integer.parseInt(String.valueOf(a.get("Password")));
+                        JOptionPane.showMessageDialog(null , "Login Successfully!");
+                        Transaction t = new Transaction();
+                        //t.no = Integer.parseInt(String.valueOf(a.get("A/C No.")));
+                        t.setVisible(true);
+                        t.setLocationRelativeTo(null); //make transaction menu show in center screen
+                        //setVisible(false);
+                        dispose();
+                        break;
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Wrong Password!","Wrong Password", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
                 }
             }
             
