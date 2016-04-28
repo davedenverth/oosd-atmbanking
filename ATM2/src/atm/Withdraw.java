@@ -174,13 +174,13 @@ public class Withdraw extends PopUp {
 
         double balance = Double.parseDouble(b.get("Balance")+"");
         double amount=0;
-        try{
-         amount = Double.parseDouble(withdrawField.getText());
-        }catch(NumberFormatException e)
-        {
-            JOptionPane.showMessageDialog(null,"Please input only number!!");
-                   
+        
+        try {
+            amount = Double.parseDouble(withdrawField.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please input only number!!");
         }
+        
         if(amount > balance){
             JOptionPane.showMessageDialog(null, "Insufficient Fund!", "Invalid Transaction", JOptionPane.ERROR_MESSAGE);
             return;

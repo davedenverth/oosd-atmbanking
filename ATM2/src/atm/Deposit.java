@@ -6,8 +6,6 @@
 package atm;
 
 import edu.sit.cs.db.CSDbDelegate;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;

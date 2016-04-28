@@ -183,9 +183,8 @@ public class Login extends PopUp {
     
     public void checkPassword(String user, int pass) {
         //String output = "";
-        String sql = "SELECT * FROM ATMuser";
+        String sql = "SELECT Username, Password FROM ATMuser";
         ArrayList<HashMap> list = get.queryRows(sql);
-        get.executeQuery(sql);
         boolean hasAccount = false;
 
         for (HashMap a : list) { // create a for รองรับ hashmap list

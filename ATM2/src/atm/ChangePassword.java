@@ -20,8 +20,8 @@ public class ChangePassword extends PopUp {
     public ChangePassword() {
         initComponents();
     }
-    
-    public static int no; 
+
+    public static int no;
     public static String user; // fix db
 
     /**
@@ -117,36 +117,36 @@ public class ChangePassword extends PopUp {
                 new ChangePassword().setVisible(true);
             }
         });
-         //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
+        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
     }
-    
-    public void performFunction(){
+
+    public void performFunction() {
         ConnectDB db = new ConnectDB();
         CSDbDelegate get = db.getConnect();
         get.connect();
-        
+
         no = Login.getPass();
         user = Login.getUser();
-        int newNo =0;
-        try{
-        newNo= Integer.parseInt(renewPasswordField.getText());
-        }catch(NumberFormatException e)
-        {
-            JOptionPane.showMessageDialog(null,"Please input only number!!");
-                   
+        int newNo = 0;
+
+        try {
+            newNo = Integer.parseInt(renewPasswordField.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please input only number!!");
         }
-        System.out.println("Username = "+ String.valueOf(user));
-        System.out.println("Password = "+ String.valueOf(no));
-        System.out.println("New password = "+ String.valueOf(newNo));
         
-        String sql_update = "UPDATE `ATMuser` SET `Password` = "+"'"+newNo+"' "+"WHERE Username = '"+user+"'"; //fix db 
+        System.out.println("Username = " + String.valueOf(user));
+        System.out.println("Password = " + String.valueOf(no));
+        System.out.println("New password = " + String.valueOf(newNo));
+
+        String sql_update = "UPDATE `ATMuser` SET `Password` = " + "'" + newNo + "' " + "WHERE Username = '" + user + "'"; //fix db 
         get.executeQuery(sql_update);
-        
-        JOptionPane.showMessageDialog(null , "Update Password Successfully!");
+
+        JOptionPane.showMessageDialog(null, "Update Password Successfully!");
         setVisible(false);
         get.disconnect();
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BG_changePass;
     private javax.swing.JButton Cancelbtn;

@@ -177,93 +177,95 @@ public class Transfer extends PopUp {
         HashMap b = get.queryRow(balance1);
         
         //get data from textfield
-        String transfer_ID = TransfertoIDField.getText();
-        int tt=0;
-        try{
-            
-        tt=Integer.parseInt(transfer_ID);
-        }catch(NumberFormatException e)
-        {
-            JOptionPane.showMessageDialog(null,"Please input only number!!");
-                   
-        }
-        double amount=0;
-        try{
-        amount = Double.parseDouble(TransferMoneyField.getText());
-        }catch(NumberFormatException e)
-        {
-            JOptionPane.showMessageDialog(null,"Please input only number!!");
-                   
-        }
-        System.out.println("Transfer to account no. = "+tt);
+        //String transfer_ID = TransfertoIDField.getText();
+        int transfer_ID=0;
         
+        try {
+            transfer_ID = Integer.parseInt(TransfertoIDField.getText());
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please enter only account no.");
+        }
+
+        double amount = 0;
+
+        try {
+            amount = Double.parseDouble(TransferMoneyField.getText());
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please enter only number");
+        }
+
         //get ac no.of user
-        String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
+        String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '" + user + "'";
         HashMap a = get.queryRow(ac1);
-        int  account = Integer.parseInt(a.get("ACno")+"");
-        System.out.println("My Account no = "+account);
-       
+        int account = Integer.parseInt(a.get("ACno") + "");
+        System.out.println("My Account no = " + account);
+
         //before deposit
-        double balance = Double.parseDouble(b.get("Balance")+"");
-        System.out.println("Balance = "+balance);
-        
+        double balance = Double.parseDouble(b.get("Balance") + "");
+        System.out.println("Balance = " + balance);
+
         //deleted money from user account
         balance = balance - amount;
-        System.out.println("Balance after transfer = "+ balance);
-        
+        System.out.println("Balance after transfer = " + balance);
+
         //update db user
-        String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
+        String sql_update = "UPDATE `ATMuser` SET `Balance`=" + "'" + balance + "'" + "WHERE Username = '" + user + "'";
         get.executeQuery(sql_update);
-        
+
         //add money to other account
-        String sql_balance2 = "SELECT Balance FROM ATMuser WHERE ACno = '"+transfer_ID+"'";
+        String sql_balance2 = "SELECT Balance FROM ATMuser WHERE ACno = '" + transfer_ID + "'";
         HashMap b2 = get.queryRow(sql_balance2);
-        double balance2 = Double.parseDouble(b2.get("Balance")+"");
-        System.out.println("Old balance before transfer = "+balance2); //ลบด้วย
+        double balance2 = Double.parseDouble(b2.get("Balance") + "");
+        System.out.println("Old balance before transfer = " + balance2); //ลบด้วย
         balance2 = balance2 + amount;
-        System.out.println("Balance after transfer = "+balance2);
+        System.out.println("Balance after transfer = " + balance2);
 
         //update db user2
-        String sql_update2 = "UPDATE `ATMuser` SET `Balance`="+"'"+balance2+"'" +"WHERE ACno = '"+transfer_ID+"'"; 
+        String sql_update2 = "UPDATE `ATMuser` SET `Balance`=" + "'" + balance2 + "'" + "WHERE ACno = '" + transfer_ID + "'";
         get.executeQuery(sql_update2);
-        
+
         String date = format.getFormat();
         setFormat(new TimeATM());
         String time = format.getFormat();
-        
-        //receipt to transaction table
-        String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
-        String value = "VALUES ('"+date+"','"+time+"','"+account+"','"+"Transfer to Account no. "+transfer_ID+"','"+amount+"'"
-                + ",'"+balance+"')";
-        String sql_add = insert + value;
-        
-        boolean insertComplete = get.executeQuery(sql_add);
-        if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
-        else
-            JOptionPane.showMessageDialog(this, "Error!" , "Execute Problem", JOptionPane.ERROR_MESSAGE);
-        setVisible(false);
-        
-        //receipt
-        int yesno = JOptionPane.showConfirmDialog(null, "DATE: "+date+"\t\t"+"TIME: "+time+"\n"+
-                "My Account No.: "+account+"\n"+"TRANSACTION: "+"Transfer to Account no. "+transfer_ID+"\n"+"AMOUNT: "+
-                amount+"\n"+"BALANCE: "+balance+"\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
 
-            //choose to print receipt
-            if(yesno == JOptionPane.YES_OPTION){
-                //print receipt
-                System.out.println("Print receipt already");
-                File file = new File("receipt/reciep_file_acno."+account+".txt");
-    
-                PrintWriter write = new PrintWriter(file); //for write in file
-                write.println("Receipt of Account no."+account);
-                write.println("Date : "+ date);
-                write.println("Time : "+ time);
-                write.println("My account no. : "+ account);
-                write.println("Transaction : Transfer to account no. " + transfer_ID);
-                write.println("Amount : "+amount);
-                write.println("My Balance : " + balance);
-                write.close();
-            } 
+        //receipt to transaction table
+        String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)";
+        String value = "VALUES ('" + date + "','" + time + "','" + account + "','" + "Transfer to Account no. " + transfer_ID + "','" + amount + "'"
+                + ",'" + balance + "')";
+        String sql_add = insert + value;
+
+        boolean insertComplete = get.executeQuery(sql_add);
+        if (insertComplete) {
+            JOptionPane.showMessageDialog(null, "Process Successfully!");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error!", "Execute Problem", JOptionPane.ERROR_MESSAGE);
+        }
+        setVisible(false);
+
+        //receipt
+        int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
+                + "My Account No.: " + account + "\n" + "TRANSACTION: " + "Transfer to Account no. " + transfer_ID + "\n" + "AMOUNT: "
+                + amount + "\n" + "BALANCE: " + balance + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
+
+        //choose to print receipt
+        if (yesno == JOptionPane.YES_OPTION) {
+            //print receipt
+            System.out.println("Print receipt already");
+            File file = new File("receipt/reciep_file_acno." + account + ".txt");
+
+            PrintWriter write = new PrintWriter(file); //for write in file
+            write.println("Receipt of Account no." + account);
+            write.println("Date : " + date);
+            write.println("Time : " + time);
+            write.println("My account no. : " + account);
+            write.println("Transaction : Transfer to account no. " + transfer_ID);
+            write.println("Amount : " + amount);
+            write.println("My Balance : " + balance);
+            write.close();
+        }
+
+        System.out.println("Transfer to account no. = " + transfer_ID);
         
         setVisible(false);    
         get.disconnect();
