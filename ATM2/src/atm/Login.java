@@ -90,9 +90,10 @@ public class Login extends PopUp {
         getContentPane().add(Cancelbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 220, -1, -1));
 
         BG_login.setIcon(new javax.swing.ImageIcon(getClass().getResource("/atm/login.png"))); // NOI18N
-        getContentPane().add(BG_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 440, 300));
+        getContentPane().add(BG_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 0, -1, 300));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
      private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Exit_buttomActionPerformed
