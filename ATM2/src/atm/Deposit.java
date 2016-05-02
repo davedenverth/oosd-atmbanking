@@ -18,23 +18,23 @@ import javax.swing.JOptionPane;
  * @author Game
  */
 public class Deposit extends PopUp implements FunctionATM {
+
     private double amount = 0;
     FormatDateTime format;
-    public static String user; 
-   // private int amount;
+    public static String user;
+    // private int amount;
     //private int depositss;
-    
+
     /**
      * Creates new form Deposit
      */
-    
     public Deposit() {
         format = new DateATM();
         db = new ConnectDB();
         get = db.getConnect();
         initComponents();
     }
- 
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -137,91 +137,90 @@ public class Deposit extends PopUp implements FunctionATM {
         //ConnectDB db = new ConnectDB();
         //CSDbDelegate get = db.getConnect();
     }
-    
-    public void setFormat(FormatDateTime ft){
-         format = ft;
+
+    public void setFormat(FormatDateTime ft) {
+        format = ft;
     }
 
-    public void performFunction() throws FileNotFoundException{
+    public void performFunction() throws FileNotFoundException {
 
-        
         get.connect();
-        if(get.getDbConnection() == null){
-            JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
+        if (get.getDbConnection() == null) {
+            JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
         //no = Login.getPass();
         user = Login.getUser(); //fix db
-        
+
         //getbalance from this user
-        String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'";
-        
+        String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '" + user + "'";
+
         HashMap b = get.queryRow(balance1);
 
         //before deposit
-        double balance = Double.parseDouble(b.get("Balance")+"");
-        try{
-         amount = Double.parseDouble(depositField.getText());
-        }catch(NumberFormatException e)
-        {
-            JOptionPane.showMessageDialog(null,"Please input only number!!");
-                   
-        }
-        System.out.println("Balance = "+balance);
-        
-        //after deposit
-        balance = balance + amount;
-        System.out.println("Balance after deposit = "+balance);
-        
-        String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
-        get.executeQuery(sql_update);
-       
-        String date = format.getFormat();
-        setFormat(new TimeATM());
-        String time = format.getFormat();
-        //this.time = time;
-        
-        //get ac co
-        String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
-        HashMap a = get.queryRow(ac1);
-        int  account = Integer.parseInt(a.get("ACno")+"");
-        System.out.println("Account no = "+account);
-         
-        //receipt to transaction table
-        String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
-        String value = "VALUES ('"+date+"','"+time+"','"+account+"','"+"Deposit"+"','"+amount+"'"
-                + ",'"+balance+"')";
-        String sql_add = insert + value;
-        
-        boolean insertComplete = get.executeQuery(sql_add);
-        if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
-        else
-            JOptionPane.showMessageDialog(this, "Error!" , "Execute Problem", JOptionPane.ERROR_MESSAGE);
-        setVisible(false);
-        
-        //receipt
-        int yesno = JOptionPane.showConfirmDialog(null, "DATE: "+date+"\t\t"+"TIME: "+time+"\n"+
-                "My Account No.: "+account+"\n"+"TRANSACTION: "+"Deposite"+"\n"+"AMOUNT: "+
-                amount+"\n"+"BALANCE: "+balance+"\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
-        
+        double balance = Double.parseDouble(b.get("Balance") + "");
+        try {
+            amount = Double.parseDouble(depositField.getText());
+
+            System.out.println("Balance = " + balance);
+
+            //after deposit
+            balance = balance + amount;
+            System.out.println("Balance after deposit = " + balance);
+
+            String sql_update = "UPDATE `ATMuser` SET `Balance`=" + "'" + balance + "'" + "WHERE Username = '" + user + "'";
+            get.executeQuery(sql_update);
+
+            String date = format.getFormat();
+            setFormat(new TimeATM());
+            String time = format.getFormat();
+            //this.time = time;
+
+            //get ac co
+            String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '" + user + "'";
+            HashMap a = get.queryRow(ac1);
+            int account = Integer.parseInt(a.get("ACno") + "");
+            System.out.println("Account no = " + account);
+
+            //receipt to transaction table
+            String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)";
+            String value = "VALUES ('" + date + "','" + time + "','" + account + "','" + "Deposit" + "','" + amount + "'"
+                    + ",'" + balance + "')";
+            String sql_add = insert + value;
+
+            boolean insertComplete = get.executeQuery(sql_add);
+            if (insertComplete) {
+                JOptionPane.showMessageDialog(null, "Process Successfully!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error!", "Execute Problem", JOptionPane.ERROR_MESSAGE);
+            }
+            setVisible(false);
+
+            //receipt
+            int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
+                    + "My Account No.: " + account + "\n" + "TRANSACTION: " + "Deposite" + "\n" + "AMOUNT: "
+                    + amount + "\n" + "BALANCE: " + balance + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
+
             //choose to print receipt
-            if(yesno == JOptionPane.YES_OPTION){
+            if (yesno == JOptionPane.YES_OPTION) {
                 //print receipt
                 System.out.println("Print receipt already");
-                File file = new File("receipt/receipt_file_acno."+account+".txt");
-    
+                File file = new File("receipt/receipt_file_acno." + account + ".txt");
+
                 PrintWriter write = new PrintWriter(file); //for write in file
-                write.println("Receipt of Account no."+account);
-                write.println("Date : "+ date);
-                write.println("Time : "+ time);
-                write.println("My account no. : "+ account);
+                write.println("Receipt of Account no." + account);
+                write.println("Date : " + date);
+                write.println("Time : " + time);
+                write.println("My account no. : " + account);
                 write.println("Transaction : Deposite");
-                write.println("Amount : "+amount);
+                write.println("Amount : " + amount);
                 write.println("My Balance : " + balance);
                 write.close();
-            } 
-        
-        setVisible(false); 
+            }
+            setVisible(false);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Please input only number");
+        }
         get.disconnect();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -231,6 +230,4 @@ public class Deposit extends PopUp implements FunctionATM {
     private javax.swing.JTextField depositField;
     // End of variables declaration//GEN-END:variables
 
-  
-    }
-
+}

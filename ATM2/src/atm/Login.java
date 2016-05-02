@@ -176,7 +176,7 @@ public class Login extends PopUp {
             if (a.get("Username").equals(user)) { //login
                 hasAccount = true;
                 Login.user = user;
-                if(Integer.toString(pass).length()>4){
+                if(Integer.toString(pass).length()==4){
                     JOptionPane.showMessageDialog(null, "Please enter 4 digit numbers!", "Please enter 4 digit numbers!", JOptionPane.ERROR_MESSAGE);
                 } else {
                     if (a.get("Password").equals("" + pass)) { // password colu

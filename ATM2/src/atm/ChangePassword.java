@@ -5,18 +5,17 @@
  */
 package atm;
 
-
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Oriopun Ai
  */
-public class ChangePassword extends PopUp{
+public class ChangePassword extends PopUp {
 
     /**
      * Creates new form ChangePassword
      */
-    
     public ChangePassword() {
         db = new ConnectDB();
         get = db.getConnect();
@@ -124,8 +123,8 @@ public class ChangePassword extends PopUp{
 
     public void performFunction() {
         get.connect();
-        if(get.getDbConnection() == null){
-            JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
+        if (get.getDbConnection() == null) {
+            JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
@@ -135,19 +134,20 @@ public class ChangePassword extends PopUp{
 
         try {
             newNo = Integer.parseInt(renewPasswordField.getText());
+
+            System.out.println("Username = " + String.valueOf(user));
+            System.out.println("Password = " + String.valueOf(no));
+            System.out.println("New password = " + String.valueOf(newNo));
+
+            String sql_update = "UPDATE `ATMuser` SET `Password` = " + "'" + newNo + "' " + "WHERE Username = '" + user + "'"; //fix db 
+            get.executeQuery(sql_update);
+
+            JOptionPane.showMessageDialog(null, "Update Password Successfully!");
+            setVisible(false);
+
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Please input only number!!");
+            JOptionPane.showMessageDialog(null, "Please input only number");
         }
-        
-        System.out.println("Username = " + String.valueOf(user));
-        System.out.println("Password = " + String.valueOf(no));
-        System.out.println("New password = " + String.valueOf(newNo));
-
-        String sql_update = "UPDATE `ATMuser` SET `Password` = " + "'" + newNo + "' " + "WHERE Username = '" + user + "'"; //fix db 
-        get.executeQuery(sql_update);
-
-        JOptionPane.showMessageDialog(null, "Update Password Successfully!");
-        setVisible(false);
         get.disconnect();
     }
 
