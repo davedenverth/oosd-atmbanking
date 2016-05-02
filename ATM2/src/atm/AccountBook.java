@@ -7,6 +7,8 @@ package atm;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 
@@ -119,8 +121,8 @@ public class AccountBook extends PopUp {
     }
 
     public void performFunction(){
+        System.out.println(get.connect());
         
-        get.connect();
         if(get.getDbConnection() == null){
             JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -140,24 +142,25 @@ public class AccountBook extends PopUp {
             System.out.println("My Account no = "+account);
         
         //get data of this acc no.
-            String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '"+acc_no+"'";
+            String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '"+acc_no+"' ORDER BY date,time LIMIT 5";
         
             ArrayList<HashMap> list = get.queryRows(sql_ac);
             String col = "Date\t\tTime\t\tAccount No.\t\tTransaction\t\tAmount\t\tBalance\n";
             System.out.print(col);
         
             String result = "";
-            int i = 1; // For 5 results only
+            int i = 5; // For 5 results only
+            
             for(HashMap data : list) {
-                if(i > 5) break;
+                if(i == 0) break;
                 System.out.printf("%s\t %s\t %s\t %s\t %s\t %s\t \n", new Object[]{ data.get("DATE"), data.get("TIME"), 
                         data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE") });
                 result += data.get("DATE") + "\t " + data.get("TIME") + "\t " + data.get("ACno") + "\t " + 
                        data.get("TRANSACTION")+ "\t " + data.get("AMOUNT")+ "\t " + data.get("BALANCE") + " \n";
-                i++;
+                i--;
             }
         
-        //check accno.
+            //check accno.
             if(acc_no==account){
             //show transaction of this account
             JOptionPane.showMessageDialog(null, col+result,"Transaction of Account "+acc_no, JOptionPane.INFORMATION_MESSAGE );
@@ -170,7 +173,7 @@ public class AccountBook extends PopUp {
         else{
             JOptionPane.showMessageDialog(null, "Please put in a number", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
-        get.disconnect();
+        System.out.println(get.disconnect());
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

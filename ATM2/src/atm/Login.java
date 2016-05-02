@@ -113,7 +113,7 @@ public class Login extends PopUp {
             String user = UserField.getText();
             int pass = Integer.parseInt(PasswordField.getText());
             checkPassword(user, pass);
-            get.disconnect();
+            System.out.println(get.disconnect());
         }
         else{
             JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -123,7 +123,7 @@ public class Login extends PopUp {
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
         // TODO add your handling code here:
         if(get.getDbConnection() != null){
-            get.disconnect();
+            System.out.println(get.disconnect());
         }
         System.exit(0); //close java frame loei
     }//GEN-LAST:event_CancelbtnActionPerformed

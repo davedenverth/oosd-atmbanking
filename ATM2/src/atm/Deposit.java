@@ -144,7 +144,8 @@ public class Deposit extends PopUp implements FunctionATM {
 
     public void performFunction() throws FileNotFoundException {
 
-        get.connect();
+        System.out.println(get.connect());
+        
         if (get.getDbConnection() == null) {
             JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -221,7 +222,7 @@ public class Deposit extends PopUp implements FunctionATM {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please input only number");
         }
-        get.disconnect();
+        System.out.println(get.disconnect());
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BG_deposit;

@@ -168,9 +168,8 @@ public class Transfer extends PopUp {
     }
     
     public void performFunction() throws FileNotFoundException{
-
+        System.out.println(get.connect());
         
-        get.connect();
         if(get.getDbConnection() == null){
             JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -274,7 +273,7 @@ public class Transfer extends PopUp {
         System.out.println("Transfer to account no. = " + transfer_ID);
         
         setVisible(false);    
-        get.disconnect();
+        System.out.println(get.disconnect());
         
     }
 

@@ -122,7 +122,7 @@ public class ChangePassword extends PopUp {
     }
 
     public void performFunction() {
-        get.connect();
+        System.out.println(get.connect());
         if (get.getDbConnection() == null) {
             JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -148,7 +148,7 @@ public class ChangePassword extends PopUp {
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please input only number");
         }
-        get.disconnect();
+        System.out.println(get.disconnect());
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
