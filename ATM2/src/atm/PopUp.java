@@ -9,7 +9,7 @@ import javax.swing.JFrame;
  *
  * @author Game
  */
-public class PopUp extends JFrame{
+public abstract class PopUp extends JFrame{
     public boolean isNumeric(String s){
         try{
             Integer.parseInt(s);
