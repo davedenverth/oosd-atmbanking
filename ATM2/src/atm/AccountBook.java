@@ -17,14 +17,15 @@ import javax.swing.JOptionPane;
 public class AccountBook extends PopUp {
 
     FormatDateTime format;
-    public static String user; 
-    
+    public static String user;
+
     /**
      * Creates new form AccountBook
      */
     public AccountBook() {
         format = new DateATM();
         db = new ConnectDB();
+        get = db.getConnect();
         initComponents();
     }
 
@@ -119,8 +120,9 @@ public class AccountBook extends PopUp {
 
     public void performFunction(){
         
-        db.connect();
-        if(db.getDbConnection() == null){
+        get.connect();
+        if(get.getDbConnection() == null){
+            JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
         user = Login.getUser(); //get user who use this atm
@@ -133,14 +135,14 @@ public class AccountBook extends PopUp {
         
         //get ac no.of user
             String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
-            HashMap a = db.queryRow(ac1);
+            HashMap a = get.queryRow(ac1);
             int  account = Integer.parseInt(a.get("ACno")+"");
             System.out.println("My Account no = "+account);
         
         //get data of this acc no.
             String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '"+acc_no+"'";
         
-            ArrayList<HashMap> list = db.queryRows(sql_ac);
+            ArrayList<HashMap> list = get.queryRows(sql_ac);
             String col = "Date\t\tTime\t\tAccount No.\t\tTransaction\t\tAmount\t\tBalance\n";
             System.out.print(col);
         
@@ -168,7 +170,7 @@ public class AccountBook extends PopUp {
         else{
             JOptionPane.showMessageDialog(null, "Please put in a number", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
-        db.disconnect();
+        get.disconnect();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

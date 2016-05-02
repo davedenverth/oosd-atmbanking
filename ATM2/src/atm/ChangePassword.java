@@ -16,9 +16,11 @@ public class ChangePassword extends PopUp{
     /**
      * Creates new form ChangePassword
      */
+    
     public ChangePassword() {
-        initComponents();
         db = new ConnectDB();
+        get = db.getConnect();
+        initComponents();
     }
 
     public static int no;
@@ -121,7 +123,11 @@ public class ChangePassword extends PopUp{
     }
 
     public void performFunction() {
-        db.connect();
+        get.connect();
+        if(get.getDbConnection() == null){
+            JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
         no = Login.getPass();
         user = Login.getUser();
@@ -138,11 +144,11 @@ public class ChangePassword extends PopUp{
         System.out.println("New password = " + String.valueOf(newNo));
 
         String sql_update = "UPDATE `ATMuser` SET `Password` = " + "'" + newNo + "' " + "WHERE Username = '" + user + "'"; //fix db 
-        db.executeQuery(sql_update);
+        get.executeQuery(sql_update);
 
         JOptionPane.showMessageDialog(null, "Update Password Successfully!");
         setVisible(false);
-        db.disconnect();
+        get.disconnect();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

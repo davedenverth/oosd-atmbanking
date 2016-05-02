@@ -13,7 +13,7 @@ import edu.sit.cs.db.CSDbDelegate;
  */
 public class ConnectDB extends CSDbDelegate {
     
-    private CSDbDelegate db;
+    public CSDbDelegate db;
     
     public ConnectDB(){
         db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");

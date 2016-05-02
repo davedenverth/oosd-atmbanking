@@ -31,6 +31,7 @@ public class Deposit extends PopUp implements FunctionATM {
     public Deposit() {
         format = new DateATM();
         db = new ConnectDB();
+        get = db.getConnect();
         initComponents();
     }
  
@@ -144,8 +145,9 @@ public class Deposit extends PopUp implements FunctionATM {
     public void performFunction() throws FileNotFoundException{
 
         
-        db.connect();
-        if(db.getDbConnection() == null){
+        get.connect();
+        if(get.getDbConnection() == null){
+            JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
         //no = Login.getPass();
@@ -154,7 +156,7 @@ public class Deposit extends PopUp implements FunctionATM {
         //getbalance from this user
         String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'";
         
-        HashMap b = db.queryRow(balance1);
+        HashMap b = get.queryRow(balance1);
 
         //before deposit
         double balance = Double.parseDouble(b.get("Balance")+"");
@@ -172,7 +174,7 @@ public class Deposit extends PopUp implements FunctionATM {
         System.out.println("Balance after deposit = "+balance);
         
         String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
-        db.executeQuery(sql_update);
+        get.executeQuery(sql_update);
        
         String date = format.getFormat();
         setFormat(new TimeATM());
@@ -181,7 +183,7 @@ public class Deposit extends PopUp implements FunctionATM {
         
         //get ac co
         String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
-        HashMap a = db.queryRow(ac1);
+        HashMap a = get.queryRow(ac1);
         int  account = Integer.parseInt(a.get("ACno")+"");
         System.out.println("Account no = "+account);
          
@@ -191,7 +193,7 @@ public class Deposit extends PopUp implements FunctionATM {
                 + ",'"+balance+"')";
         String sql_add = insert + value;
         
-        boolean insertComplete = db.executeQuery(sql_add);
+        boolean insertComplete = get.executeQuery(sql_add);
         if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
         else
             JOptionPane.showMessageDialog(this, "Error!" , "Execute Problem", JOptionPane.ERROR_MESSAGE);
@@ -220,7 +222,7 @@ public class Deposit extends PopUp implements FunctionATM {
             } 
         
         setVisible(false); 
-        db.disconnect();
+        get.disconnect();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BG_deposit;

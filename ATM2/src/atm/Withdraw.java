@@ -26,9 +26,11 @@ public class Withdraw extends PopUp {
     /**
      * Creates new form Withdraw
      */
+    
     public Withdraw() {
         format = new DateATM();
         db = new ConnectDB();
+        get = db.getConnect();
         initComponents();
     }
     //public static int no; 
@@ -158,12 +160,16 @@ public class Withdraw extends PopUp {
  
 
         
-        db.connect();
+        get.connect();
+        if(get.getDbConnection() == null){
+            JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         user = Login.getUser(); //fix db
 
         String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'";
         
-        HashMap b = db.queryRow(balance1);
+        HashMap b = get.queryRow(balance1);
 
         double balance = Double.parseDouble(b.get("Balance")+"");
         double amount=0;
@@ -185,21 +191,21 @@ public class Withdraw extends PopUp {
         //after withdraw
         System.out.println("Balance after withdraw = "+balance);
         String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
-        db.executeQuery(sql_update);
+        get.executeQuery(sql_update);
        
         String date = format.getFormat();
         setFormat(new TimeATM());
         String time = format.getFormat();
       
         String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
-        HashMap a = db.queryRow(ac1);
+        HashMap a = get.queryRow(ac1);
         int  ac = Integer.parseInt(a.get("ACno")+"");
         
         String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
         String value = "VALUES ('"+date+"','"+time+"','"+ac+"','"+"Withdraw"+"','"+amount+"'"
                 + ",'"+balance+"')";
         String sql_add = insert + value;
-        boolean insertComplete = db.executeQuery(sql_add);
+        boolean insertComplete = get.executeQuery(sql_add);
         
         if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
         else
@@ -229,7 +235,7 @@ public class Withdraw extends PopUp {
             } 
         
         setVisible(false);
-        db.disconnect();
+        get.disconnect();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

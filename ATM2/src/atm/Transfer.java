@@ -5,7 +5,7 @@
  */
 package atm;
 
-import edu.sit.cs.db.CSDbDelegate;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -26,9 +26,11 @@ public class Transfer extends PopUp {
     /**
      * Creates new form Transfer
      */
+    
     public Transfer() {
         format = new DateATM();
         db = new ConnectDB();
+        get = db.getConnect();
         initComponents();
     }
 
@@ -168,8 +170,9 @@ public class Transfer extends PopUp {
     public void performFunction() throws FileNotFoundException{
 
         
-        db.connect();
-        if(db.getDbConnection() == null){
+        get.connect();
+        if(get.getDbConnection() == null){
+            JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
         user = Login.getUser(); //get user who use this atm
@@ -177,7 +180,7 @@ public class Transfer extends PopUp {
         //get balance of this user
         String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'"; 
         
-        HashMap b = db.queryRow(balance1);
+        HashMap b = get.queryRow(balance1);
         
         //get data from textfield
         //String transfer_ID = TransfertoIDField.getText();
@@ -200,7 +203,7 @@ public class Transfer extends PopUp {
 
         //get ac no.of user
         String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '" + user + "'";
-        HashMap a = db.queryRow(ac1);
+        HashMap a = get.queryRow(ac1);
         int account = Integer.parseInt(a.get("ACno") + "");
         System.out.println("My Account no = " + account);
 
@@ -214,11 +217,11 @@ public class Transfer extends PopUp {
 
         //update db user
         String sql_update = "UPDATE `ATMuser` SET `Balance`=" + "'" + balance + "'" + "WHERE Username = '" + user + "'";
-        db.executeQuery(sql_update);
+        get.executeQuery(sql_update);
 
         //add money to other account
         String sql_balance2 = "SELECT Balance FROM ATMuser WHERE ACno = '" + transfer_ID + "'";
-        HashMap b2 = db.queryRow(sql_balance2);
+        HashMap b2 = get.queryRow(sql_balance2);
         double balance2 = Double.parseDouble(b2.get("Balance") + "");
         System.out.println("Old balance before transfer = " + balance2); //ลบด้วย
         balance2 = balance2 + amount;
@@ -226,7 +229,7 @@ public class Transfer extends PopUp {
 
         //update db user2
         String sql_update2 = "UPDATE `ATMuser` SET `Balance`=" + "'" + balance2 + "'" + "WHERE ACno = '" + transfer_ID + "'";
-        db.executeQuery(sql_update2);
+        get.executeQuery(sql_update2);
 
         String date = format.getFormat();
         setFormat(new TimeATM());
@@ -238,7 +241,7 @@ public class Transfer extends PopUp {
                 + ",'" + balance + "')";
         String sql_add = insert + value;
 
-        boolean insertComplete = db.executeQuery(sql_add);
+        boolean insertComplete = get.executeQuery(sql_add);
         if (insertComplete) {
             JOptionPane.showMessageDialog(null, "Process Successfully!");
         } else {
@@ -271,7 +274,7 @@ public class Transfer extends PopUp {
         System.out.println("Transfer to account no. = " + transfer_ID);
         
         setVisible(false);    
-        db.disconnect();
+        get.disconnect();
         
     }
 

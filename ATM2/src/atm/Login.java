@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package atm;
-
+import edu.sit.cs.db.CSDbDelegate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -17,12 +17,13 @@ public class Login extends PopUp {
 
 
     public static int pass;
-    public static String user; 
+    public static String user;
     /**
      * Creates new form Receipt
      */
     public Login() {
         db = new ConnectDB();
+        get = db.getConnect();
         initComponents();
         user = "";
         pass = 0;
@@ -107,12 +108,12 @@ public class Login extends PopUp {
 
     private void LoginbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginbtnMouseClicked
         // TODO add your handling code here:
-        System.out.println(db.connect());
-        if(db.getDbConnection() != null){
+        System.out.println(get.connect());
+        if(get.getDbConnection() != null){
             String user = UserField.getText();
             int pass = Integer.parseInt(PasswordField.getText());
             checkPassword(user, pass);
-            db.disconnect();
+            get.disconnect();
         }
         else{
             JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -121,8 +122,8 @@ public class Login extends PopUp {
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
         // TODO add your handling code here:
-        if(db.getDbConnection() != null){
-            db.disconnect();
+        if(get.getDbConnection() != null){
+            get.disconnect();
         }
         System.exit(0); //close java frame loei
     }//GEN-LAST:event_CancelbtnActionPerformed
@@ -168,7 +169,7 @@ public class Login extends PopUp {
     public void checkPassword(String user, int pass) {
         //String output = "";
         String sql = "SELECT Username, Password FROM ATMuser";
-        ArrayList<HashMap> list = db.queryRows(sql);
+        ArrayList<HashMap> list = get.queryRows(sql);
         boolean hasAccount = false;
 
         for (HashMap a : list) { // create a for รองรับ hashmap list
