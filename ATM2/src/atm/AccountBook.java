@@ -147,7 +147,7 @@ public class AccountBook extends PopUp {
             System.out.print(col);
         
             String result = "";
-            int i = 1;
+            int i = 1; // For 5 results only
             for(HashMap data : list) {
                 if(i > 5) break;
                 System.out.printf("%s\t %s\t %s\t %s\t %s\t %s\t \n", new Object[]{ data.get("DATE"), data.get("TIME"), 
