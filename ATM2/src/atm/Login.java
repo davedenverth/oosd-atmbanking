@@ -5,7 +5,6 @@
  */
 package atm;
 
-import edu.sit.cs.db.CSDbDelegate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -16,18 +15,14 @@ import javax.swing.JOptionPane;
  */
 public class Login extends PopUp {
 
-    //public static CSDbDelegate in = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", 
-        //"csc105_2014", "csc105");
-    
+
     public static int pass;
     public static String user; 
-    public static ConnectDB db = new ConnectDB();
-    public static CSDbDelegate get = db.getConnect();
-    
     /**
      * Creates new form Receipt
      */
     public Login() {
+        db = new ConnectDB();
         initComponents();
         user = "";
         pass = 0;
@@ -66,19 +61,9 @@ public class Login extends PopUp {
         getContentPane().add(Loginbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 70, -1));
 
         PasswordField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        PasswordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PasswordFieldActionPerformed(evt);
-            }
-        });
         getContentPane().add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 170, 160, 30));
 
         UserField.setFont(new java.awt.Font("Cambria", 0, 14)); // NOI18N
-        UserField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UserFieldActionPerformed(evt);
-            }
-        });
         getContentPane().add(UserField, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 120, 160, 30));
 
         Cancelbtn.setText("Cancel");
@@ -97,9 +82,7 @@ public class Login extends PopUp {
     }// </editor-fold>//GEN-END:initComponents
 
      private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Exit_buttomActionPerformed
-        // TODO add your handling code here:
-        System.out.println(get.disconnect()); //when push exit buttom
-        System.exit(0); //close java frame loei
+
     }//GEN-LAST:event_Exit_buttomActionPerformed
 
     private void Login_buttomActionPerformed(java.awt.event.ActionEvent evt) { 
@@ -122,24 +105,25 @@ public class Login extends PopUp {
         });        // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void PasswordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PasswordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PasswordFieldActionPerformed
-
     private void LoginbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginbtnMouseClicked
         // TODO add your handling code here:
-        String user = UserField.getText();
-        int pass = Integer.parseInt(PasswordField.getText());
-        checkPassword(user, pass);
+        System.out.println(db.connect());
+        if(db.getDbConnection() != null){
+            String user = UserField.getText();
+            int pass = Integer.parseInt(PasswordField.getText());
+            checkPassword(user, pass);
+            db.disconnect();
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_LoginbtnMouseClicked
-
-    private void UserFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UserFieldActionPerformed
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
         // TODO add your handling code here:
-        System.out.println(get.disconnect()); //when push exit buttom
+        if(db.getDbConnection() != null){
+            db.disconnect();
+        }
         System.exit(0); //close java frame loei
     }//GEN-LAST:event_CancelbtnActionPerformed
 
@@ -176,7 +160,6 @@ public class Login extends PopUp {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                System.out.println(get.connect());
                 new Login().setVisible(true);
             }
         });
@@ -185,7 +168,7 @@ public class Login extends PopUp {
     public void checkPassword(String user, int pass) {
         //String output = "";
         String sql = "SELECT Username, Password FROM ATMuser";
-        ArrayList<HashMap> list = get.queryRows(sql);
+        ArrayList<HashMap> list = db.queryRows(sql);
         boolean hasAccount = false;
 
         for (HashMap a : list) { // create a for รองรับ hashmap list

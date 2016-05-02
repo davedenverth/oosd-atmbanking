@@ -5,7 +5,6 @@
  */
 package atm;
 
-import edu.sit.cs.db.CSDbDelegate;
 
 /**
  *
@@ -18,9 +17,6 @@ public class Transaction extends PopUp {
      */
     public Transaction() {
         initComponents();
-        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
-        ConnectDB db = new ConnectDB();
-        CSDbDelegate get = db.getConnect();
     }
 
     /**

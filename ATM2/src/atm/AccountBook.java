@@ -5,7 +5,7 @@
  */
 package atm;
 
-import edu.sit.cs.db.CSDbDelegate;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
@@ -24,6 +24,7 @@ public class AccountBook extends PopUp {
      */
     public AccountBook() {
         format = new DateATM();
+        db = new ConnectDB();
         initComponents();
     }
 
@@ -117,10 +118,11 @@ public class AccountBook extends PopUp {
     }
 
     public void performFunction(){
-        ConnectDB db = new ConnectDB();
-        CSDbDelegate get = db.getConnect();
         
-        get.connect();
+        db.connect();
+        if(db.getDbConnection() == null){
+            return;
+        }
         user = Login.getUser(); //get user who use this atm
         
         //get data from textfield
@@ -131,23 +133,26 @@ public class AccountBook extends PopUp {
         
         //get ac no.of user
             String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
-            HashMap a = get.queryRow(ac1);
+            HashMap a = db.queryRow(ac1);
             int  account = Integer.parseInt(a.get("ACno")+"");
             System.out.println("My Account no = "+account);
         
         //get data of this acc no.
             String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '"+acc_no+"'";
         
-            ArrayList<HashMap> list = get.queryRows(sql_ac);
+            ArrayList<HashMap> list = db.queryRows(sql_ac);
             String col = "Date\t\tTime\t\tAccount No.\t\tTransaction\t\tAmount\t\tBalance\n";
             System.out.print(col);
         
             String result = "";
+            int i = 1;
             for(HashMap data : list) {
+                if(i > 5) break;
                 System.out.printf("%s\t %s\t %s\t %s\t %s\t %s\t \n", new Object[]{ data.get("DATE"), data.get("TIME"), 
                         data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE") });
                 result += data.get("DATE") + "\t " + data.get("TIME") + "\t " + data.get("ACno") + "\t " + 
                        data.get("TRANSACTION")+ "\t " + data.get("AMOUNT")+ "\t " + data.get("BALANCE") + " \n";
+                i++;
             }
         
         //check accno.
@@ -163,7 +168,7 @@ public class AccountBook extends PopUp {
         else{
             JOptionPane.showMessageDialog(null, "Please put in a number", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
-        get.disconnect();
+        db.disconnect();
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -5,7 +5,6 @@
  */
 package atm;
 
-import edu.sit.cs.db.CSDbDelegate;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -16,10 +15,10 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Oriopun Ai
+ * @author Game
  */
-public class Deposit extends PopUp {
-    private double amount=0;
+public class Deposit extends PopUp implements FunctionATM {
+    private double amount = 0;
     FormatDateTime format;
     public static String user; 
    // private int amount;
@@ -31,8 +30,8 @@ public class Deposit extends PopUp {
     
     public Deposit() {
         format = new DateATM();
+        db = new ConnectDB();
         initComponents();
-        //depositField.addPropertyChangeListener("value", this);
     }
  
     /**
@@ -143,17 +142,19 @@ public class Deposit extends PopUp {
     }
 
     public void performFunction() throws FileNotFoundException{
-        ConnectDB db = new ConnectDB();
-        CSDbDelegate get = db.getConnect();
+
         
-        get.connect();
+        db.connect();
+        if(db.getDbConnection() == null){
+            return;
+        }
         //no = Login.getPass();
         user = Login.getUser(); //fix db
         
         //getbalance from this user
         String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'";
         
-        HashMap b = get.queryRow(balance1);
+        HashMap b = db.queryRow(balance1);
 
         //before deposit
         double balance = Double.parseDouble(b.get("Balance")+"");
@@ -171,7 +172,7 @@ public class Deposit extends PopUp {
         System.out.println("Balance after deposit = "+balance);
         
         String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
-        get.executeQuery(sql_update);
+        db.executeQuery(sql_update);
        
         String date = format.getFormat();
         setFormat(new TimeATM());
@@ -180,7 +181,7 @@ public class Deposit extends PopUp {
         
         //get ac co
         String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
-        HashMap a = get.queryRow(ac1);
+        HashMap a = db.queryRow(ac1);
         int  account = Integer.parseInt(a.get("ACno")+"");
         System.out.println("Account no = "+account);
          
@@ -190,7 +191,7 @@ public class Deposit extends PopUp {
                 + ",'"+balance+"')";
         String sql_add = insert + value;
         
-        boolean insertComplete = get.executeQuery(sql_add);
+        boolean insertComplete = db.executeQuery(sql_add);
         if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
         else
             JOptionPane.showMessageDialog(this, "Error!" , "Execute Problem", JOptionPane.ERROR_MESSAGE);
@@ -219,7 +220,7 @@ public class Deposit extends PopUp {
             } 
         
         setVisible(false); 
-        get.disconnect();
+        db.disconnect();
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BG_deposit;

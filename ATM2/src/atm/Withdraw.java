@@ -5,7 +5,7 @@
  */
 package atm;
 
-import edu.sit.cs.db.CSDbDelegate;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -20,13 +20,15 @@ import javax.swing.JOptionPane;
  */
 public class Withdraw extends PopUp {
     
-    public FormatDateTime format;
+    private FormatDateTime format;
+    //private final ConnectDB db;
     
     /**
      * Creates new form Withdraw
      */
     public Withdraw() {
         format = new DateATM();
+        db = new ConnectDB();
         initComponents();
     }
     //public static int no; 
@@ -73,11 +75,6 @@ public class Withdraw extends PopUp {
         getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 80, 30));
 
         withdrawField.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        withdrawField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                withdrawFieldActionPerformed(evt);
-            }
-        });
         getContentPane().add(withdrawField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 140, 40));
 
         Cancelbtn.setText("Cancel");
@@ -98,14 +95,11 @@ public class Withdraw extends PopUp {
         try {
             // TODO add your handling code here:
             performFunction();
-        } catch (FileNotFoundException ex) {
+        } 
+        catch (FileNotFoundException ex) {
             Logger.getLogger(Withdraw.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_OKbtnMouseClicked
-
-    private void withdrawFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_withdrawFieldActionPerformed
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
@@ -161,16 +155,15 @@ public class Withdraw extends PopUp {
     }
     
     public void performFunction() throws FileNotFoundException{
-        ConnectDB db = new ConnectDB();
-        CSDbDelegate get = db.getConnect();
+ 
+
         
-        get.connect();
-        //no = Login.getPass();
+        db.connect();
         user = Login.getUser(); //fix db
 
         String balance1 = "SELECT Balance FROM ATMuser WHERE Username = '"+user+"'";
         
-        HashMap b = get.queryRow(balance1);
+        HashMap b = db.queryRow(balance1);
 
         double balance = Double.parseDouble(b.get("Balance")+"");
         double amount=0;
@@ -192,21 +185,21 @@ public class Withdraw extends PopUp {
         //after withdraw
         System.out.println("Balance after withdraw = "+balance);
         String sql_update = "UPDATE `ATMuser` SET `Balance`="+"'"+balance+"'" +"WHERE Username = '"+user+"'"; 
-        get.executeQuery(sql_update);
+        db.executeQuery(sql_update);
        
         String date = format.getFormat();
         setFormat(new TimeATM());
         String time = format.getFormat();
       
         String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
-        HashMap a = get.queryRow(ac1);
+        HashMap a = db.queryRow(ac1);
         int  ac = Integer.parseInt(a.get("ACno")+"");
         
         String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)"; 
         String value = "VALUES ('"+date+"','"+time+"','"+ac+"','"+"Withdraw"+"','"+amount+"'"
                 + ",'"+balance+"')";
         String sql_add = insert + value;
-        boolean insertComplete = get.executeQuery(sql_add);
+        boolean insertComplete = db.executeQuery(sql_add);
         
         if(insertComplete) JOptionPane.showMessageDialog(null , "Process Successfully!");
         else
@@ -236,7 +229,7 @@ public class Withdraw extends PopUp {
             } 
         
         setVisible(false);
-        get.disconnect();
+        db.disconnect();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
