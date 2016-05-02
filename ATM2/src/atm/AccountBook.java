@@ -5,10 +5,7 @@
  */
 package atm;
 
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
 
@@ -115,67 +112,65 @@ public class AccountBook extends PopUp {
             }
         });
     }
-    
-    public void setFormat(FormatDateTime ft){
-         format = ft;
+
+    public void setFormat(FormatDateTime ft) {
+        format = ft;
     }
 
-    public void performFunction(){
+    public void performFunction() {
         System.out.println(get.connect());
-        
-        if(get.getDbConnection() == null){
-            JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
+
+        if (get.getDbConnection() == null) {
+            JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
+
         user = Login.getUser(); //get user who use this atm
-        
+
         //get data from textfield
-        if(isNumeric(AccountField.getText())){
-            
+        if (isNumeric(AccountField.getText())) {
+
             int acc_no = Integer.parseInt(AccountField.getText());
-            System.out.println("Account no. = "+acc_no);
-        
-        //get ac no.of user
-            String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '"+user+"'";
+            System.out.println("Account no. = " + acc_no);
+
+            //get ac no.of user
+            String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '" + user + "'";
             HashMap a = get.queryRow(ac1);
-            int  account = Integer.parseInt(a.get("ACno")+"");
-            System.out.println("My Account no = "+account);
-        
-        //get data of this acc no.
-            String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '"+acc_no+"' ORDER BY date,time LIMIT 5";
-        
-            ArrayList<HashMap> list = get.queryRows(sql_ac);
-            String col = "Date\t\tTime\t\tAccount No.\t\tTransaction\t\tAmount\t\tBalance\n";
-            System.out.print(col);
-        
-            String result = "";
-            int i = 5; // For 5 results only
-            
-            for(HashMap data : list) {
-                if(i == 0) break;
-                System.out.printf("%s\t %s\t %s\t %s\t %s\t %s\t \n", new Object[]{ data.get("DATE"), data.get("TIME"), 
-                        data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE") });
-                result += data.get("DATE") + "\t " + data.get("TIME") + "\t " + data.get("ACno") + "\t " + 
-                       data.get("TRANSACTION")+ "\t " + data.get("AMOUNT")+ "\t " + data.get("BALANCE") + " \n";
-                i--;
-            }
-        
+            int account = Integer.parseInt(a.get("ACno") + "");
+            System.out.println("My Account no = " + account);
+
             //check accno.
-            if(acc_no==account){
-            //show transaction of this account
-            JOptionPane.showMessageDialog(null, col+result,"Transaction of Account "+acc_no, JOptionPane.INFORMATION_MESSAGE );
+            if (acc_no == account) {
+                //get data of this acc no.
+                String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '" + acc_no + "' ORDER BY date,time LIMIT 5";
+
+                ArrayList<HashMap> list = get.queryRows(sql_ac);
+                String col = "\t\t\tDate\t\t\t No.\t\t\tTransaction\t\t\tAmount\t\t\tBalance\n";
+                System.out.print(col);
+
+                String result = "";
+                int i = 5; // For 5 results only
+
+                for (HashMap data : list) {
+                    System.out.printf("%s\t %s\t %s\t %s\t\t %s\t %s\t \n", new Object[]{data.get("DATE"), data.get("TIME"),
+                        data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE")});
+
+                    result += data.get("DATE") + "\t\t\t\t " + data.get("TIME") + "\t\t\t\t " + data.get("ACno") + "\t\t\t\t\t\t "
+                            + data.get("TRANSACTION") + "\t\t\t\t " + data.get("AMOUNT") + "\t\t\t\t " + data.get("BALANCE") + " \n";
+                }
+                //show transaction of this account
+                JOptionPane.showMessageDialog(null, col + result, "Transaction of Account " + acc_no, JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                System.out.println("Not your account no.");
+                JOptionPane.showMessageDialog(null, "Not Your Account no.!",
+                        "ERROR!", JOptionPane.ERROR_MESSAGE);
             }
-            else{
-            JOptionPane.showMessageDialog(null, "Not Your Account no.!",
-                    "ERROR!", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        else{
-            JOptionPane.showMessageDialog(null, "Please put in a number", "ERROR!", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Please enter only number", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         System.out.println(get.disconnect());
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AccountField;
     private javax.swing.JLabel BG_accountBook;

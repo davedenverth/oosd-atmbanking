@@ -146,7 +146,7 @@ public class ChangePassword extends PopUp {
             setVisible(false);
 
         } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(null, "Please input only number");
+            JOptionPane.showMessageDialog(null, "Please enter only number", "Error!", JOptionPane.ERROR_MESSAGE);
         }
         System.out.println(get.disconnect());
     }
