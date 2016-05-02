@@ -11,7 +11,7 @@ import edu.sit.cs.db.CSDbDelegate;
  *
  * @author Wanmoon
  */
-public class ConnectDB {
+public class ConnectDB extends CSDbDelegate {
     
     private CSDbDelegate db;
     
