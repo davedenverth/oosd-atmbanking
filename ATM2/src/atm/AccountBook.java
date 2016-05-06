@@ -7,7 +7,11 @@ package atm;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,7 +21,8 @@ public class AccountBook extends PopUp {
 
     FormatDateTime format;
     public static String user;
-     String [][] resultss= new String[5][6];
+    String[][] resultss = new String[5][6];
+
     /**
      * Creates new form AccountBook
      */
@@ -145,30 +150,20 @@ public class AccountBook extends PopUp {
                 String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '" + acc_no + "' ORDER BY DATE DESC,TIME DESC LIMIT 5";
 
                 ArrayList<HashMap> list = get.queryRows(sql_ac);
-//                String col = "Date\t\t Time\t\t No.\tTransaction\t\t\tAmount\t\tBalance\n";
-//                System.out.print(col);
 
-//                String result = "";
                 int i = 0; // For 5 results only
                 for (HashMap data : list) {
-                   // System.out.printf("%s\t %s\t %s\t %s\t\t\t %s\t\t %s\t \n", new Object[]{data.get("DATE"), data.get("TIME"),
-                    //    data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE")});
-
-  //                  result += data.get("DATE") + " " + data.get("TIME") + " " + data.get("ACno") + " "
-  //                          + data.get("TRANSACTION") + " " + data.get("AMOUNT") + " " + data.get("BALANCE") + " \n";
-                            resultss[i][0]=(String) data.get("DATE");
-                            resultss[i][1]=(String) data.get("TIME");
-                            resultss[i][2]=(String) data.get("ACno");
-                            resultss[i][3]=(String) data.get("TRANSACTION");
-                            resultss[i][4]=(String) data.get("AMOUNT");
-                            resultss[i][5]=(String) data.get("BALANCE");
-                            i+=1;
+                    resultss[i][0] = (String) data.get("DATE");
+                    resultss[i][1] = (String) data.get("TIME");
+                    resultss[i][2] = (String) data.get("ACno");
+                    resultss[i][3] = (String) data.get("TRANSACTION");
+                    resultss[i][4] = (String) data.get("AMOUNT");
+                    resultss[i][5] = (String) data.get("BALANCE");
+                    i += 1;
                 }
-                 //System.out.println(result);
-                AccountBalance cc=  new AccountBalance(resultss);
-                cc.setVisible(true);
                 //show transaction of this account
-                //JOptionPane.showMessageDialog(null, col + result, "Transaction of Account " + acc_no, JOptionPane.INFORMATION_MESSAGE);
+                popupBalance(resultss);
+
             } else {
                 System.out.println("Not your account no.");
                 JOptionPane.showMessageDialog(null, "Not Your Account no.!",
@@ -178,7 +173,27 @@ public class AccountBook extends PopUp {
             JOptionPane.showMessageDialog(null, "Please enter only number", "ERROR!", JOptionPane.ERROR_MESSAGE);
         }
         System.out.println(get.disconnect());
-    } //
+    }
+    
+    public void popupBalance(String[][] results){
+    
+        resultss = results;
+        
+        // table data
+        String[] columnNames = new String[]{
+            "Date", "Time", "Account No.", "Transaction", "Amount", "Balance"};
+        
+        JFrame frame = new JFrame("My last 5 Transaction");
+        DefaultTableModel tableModel = new DefaultTableModel(resultss, columnNames);
+        JTable table = new JTable(tableModel);
+
+        // adds the table to the frame
+        frame.add(new JScrollPane(table));
+        frame.setSize(640, 150);
+        frame.setLocationRelativeTo(null);
+        frame.setTitle("My last 5 Transaction");
+        frame.setVisible(true);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField AccountField;
