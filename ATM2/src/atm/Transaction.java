@@ -197,38 +197,7 @@ public class Transaction extends PopUp {
         });
     }
     
-    /*public static int no;
-    public static double amount;
-    public static int transac;
 
-    public double transaction(int transac, int amount) {
-        CSDbDelegate db = new CSDbDelegate("cs14sitkmutt.me", "3306", "CSC105_G3", "CSC105_G3", "cstermproj");
-        this.amount= amount;
-        this.transac = transac;
-        
-        String balance1 = "SELECT Balance FROM ATMtransaction WHERE A/C No.= " + no;
-        HashMap b = db.queryRow(balance1);
-        double balance = Double.parseDouble(balance1); 
-        System.out.println(b.get("Balance")); 
-
-        //double balance = (double)Balance;   
-        if (transac == 1) {
-            deposit(amount,balance);
-            
-        } else {
-            withdraw(amount,balance);
-        }
-    return balance;
-    }
-
-    public void deposit(int amount, double balance) {
-        balance = balance + amount;
-
-    }
-
-    public void withdraw(int amount, double balance) {
-        balance = balance - amount;
-    }*/
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Accountbtn;
