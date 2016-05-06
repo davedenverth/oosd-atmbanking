@@ -17,7 +17,7 @@ public class AccountBook extends PopUp {
 
     FormatDateTime format;
     public static String user;
-
+     String [][] resultss= new String[5][6];
     /**
      * Creates new form AccountBook
      */
@@ -142,24 +142,33 @@ public class AccountBook extends PopUp {
             //check accno.
             if (acc_no == account) {
                 //get data of this acc no.
-                String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '" + acc_no + "' ORDER BY date,time LIMIT 5";
+                String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '" + acc_no + "' ORDER BY DATE DESC,TIME DESC LIMIT 5";
 
                 ArrayList<HashMap> list = get.queryRows(sql_ac);
-                String col = "\t\t\tDate\t\t\t No.\t\t\tTransaction\t\t\tAmount\t\t\tBalance\n";
-                System.out.print(col);
+//                String col = "Date\t\t Time\t\t No.\tTransaction\t\t\tAmount\t\tBalance\n";
+//                System.out.print(col);
 
-                String result = "";
-                int i = 5; // For 5 results only
-
+//                String result = "";
+                int i = 0; // For 5 results only
                 for (HashMap data : list) {
-                    System.out.printf("%s\t %s\t %s\t %s\t\t %s\t %s\t \n", new Object[]{data.get("DATE"), data.get("TIME"),
-                        data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE")});
+                   // System.out.printf("%s\t %s\t %s\t %s\t\t\t %s\t\t %s\t \n", new Object[]{data.get("DATE"), data.get("TIME"),
+                    //    data.get("ACno"), data.get("TRANSACTION"), data.get("AMOUNT"), data.get("BALANCE")});
 
-                    result += data.get("DATE") + "\t\t\t\t " + data.get("TIME") + "\t\t\t\t " + data.get("ACno") + "\t\t\t\t\t\t "
-                            + data.get("TRANSACTION") + "\t\t\t\t " + data.get("AMOUNT") + "\t\t\t\t " + data.get("BALANCE") + " \n";
+  //                  result += data.get("DATE") + " " + data.get("TIME") + " " + data.get("ACno") + " "
+  //                          + data.get("TRANSACTION") + " " + data.get("AMOUNT") + " " + data.get("BALANCE") + " \n";
+                            resultss[i][0]=(String) data.get("DATE");
+                            resultss[i][1]=(String) data.get("TIME");
+                            resultss[i][2]=(String) data.get("ACno");
+                            resultss[i][3]=(String) data.get("TRANSACTION");
+                            resultss[i][4]=(String) data.get("AMOUNT");
+                            resultss[i][5]=(String) data.get("BALANCE");
+                            i+=1;
                 }
+                 //System.out.println(result);
+                AccountBalance cc=  new AccountBalance(resultss);
+                cc.setVisible(true);
                 //show transaction of this account
-                JOptionPane.showMessageDialog(null, col + result, "Transaction of Account " + acc_no, JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(null, col + result, "Transaction of Account " + acc_no, JOptionPane.INFORMATION_MESSAGE);
             } else {
                 System.out.println("Not your account no.");
                 JOptionPane.showMessageDialog(null, "Not Your Account no.!",
