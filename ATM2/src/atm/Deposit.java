@@ -62,11 +62,6 @@ public class Deposit extends PopUp implements FunctionATM {
         getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 90, -1));
 
         depositField.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
-        depositField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                depositFieldActionPerformed(evt);
-            }
-        });
         getContentPane().add(depositField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 160, 140, 40));
 
         Cancelbtn.setText("Cancel");
@@ -82,10 +77,6 @@ public class Deposit extends PopUp implements FunctionATM {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void depositFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_depositFieldActionPerformed
 
     private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
         try {
@@ -146,7 +137,7 @@ public class Deposit extends PopUp implements FunctionATM {
 
         System.out.println(get.connect());
         
-        if (get.getDbConnection() == null) {
+        if (!connectionIsOn()) {
             JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }

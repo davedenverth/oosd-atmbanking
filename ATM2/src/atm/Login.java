@@ -109,15 +109,16 @@ public class Login extends PopUp {
     private void LoginbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginbtnMouseClicked
         // TODO add your handling code here:
         System.out.println(get.connect());
-        if(get.getDbConnection() != null){
-            String user = UserField.getText();
-            int pass = Integer.parseInt(PasswordField.getText());
-            checkPassword(user, pass);
-            System.out.println(get.disconnect());
+        if (!connectionIsOn()) {
+            JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
         }
-        else{
-            JOptionPane.showMessageDialog(null,"Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
+        String user = UserField.getText();
+        int pass = Integer.parseInt(PasswordField.getText());
+        checkPassword(user, pass);
+        System.out.println(get.disconnect());
+        
+
     }//GEN-LAST:event_LoginbtnMouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed

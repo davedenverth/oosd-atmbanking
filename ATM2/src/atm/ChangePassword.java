@@ -123,7 +123,7 @@ public class ChangePassword extends PopUp {
 
     public void performFunction() {
         System.out.println(get.connect());
-        if (get.getDbConnection() == null) {
+        if (!connectionIsOn()) {
             JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
