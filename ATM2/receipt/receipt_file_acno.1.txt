@@ -1,7 +1,7 @@
 Receipt of Account no.1
-Date : 06.05.2016
-Time : 22:16:17
+Date : 07.05.2016
+Time : 01:53:16
 My account no. : 1
-Transaction : Deposit
-Amount : 2323.0
-My Balance : 11445357.00
+Transaction : Withdraw
+Amount : 345134.0
+My Balance : 11096571.00
