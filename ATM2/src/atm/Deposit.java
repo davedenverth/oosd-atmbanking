@@ -154,11 +154,11 @@ public class Deposit extends PopUp implements FunctionATM {
         try {
             amount = Double.parseDouble(depositField.getText());
 
-            System.out.println("Balance = " + balance);
+            System.out.println("Balance = " + String.format("%.2f", balance));
 
             //after deposit
             balance = balance + amount;
-            System.out.println("Balance after deposit = " + balance);
+            System.out.println("Balance after deposit = " + String.format("%.2f", balance));
 
             String sql_update = "UPDATE `ATMuser` SET `Balance`=" + "'" + balance + "'" + "WHERE Username = '" + user + "'";
             get.executeQuery(sql_update);
@@ -190,8 +190,8 @@ public class Deposit extends PopUp implements FunctionATM {
 
             //receipt
             int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
-                    + "My Account No.: " + account + "\n" + "TRANSACTION: " + "Deposite" + "\n" + "AMOUNT: "
-                    + amount + "\n" + "BALANCE: " + balance + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
+                    + "My Account No.: " + account + "\n" + "TRANSACTION: " + "Deposit" + "\n" + "AMOUNT: "
+                    + amount + "\n" + "BALANCE: " + String.format("%.2f", balance) + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
 
             //choose to print receipt
             if (yesno == JOptionPane.YES_OPTION) {
@@ -204,9 +204,9 @@ public class Deposit extends PopUp implements FunctionATM {
                 write.println("Date : " + date);
                 write.println("Time : " + time);
                 write.println("My account no. : " + account);
-                write.println("Transaction : Deposite");
+                write.println("Transaction : Deposit");
                 write.println("Amount : " + amount);
-                write.println("My Balance : " + balance);
+                write.println("My Balance : " + String.format("%.2f", balance));
                 write.close();
             }
             setVisible(false);

@@ -198,11 +198,11 @@ public class Transfer extends PopUp {
 
                 //before deposit
                 double balance = Double.parseDouble(b.get("Balance") + "");
-                System.out.println("Balance = " + balance);
+                System.out.println("Balance = " + String.format("%.2f", balance));
 
                 //deleted money from user account
                 balance = balance - amount;
-                System.out.println("Balance after transfer = " + balance);
+                System.out.println("Balance after transfer = " + String.format("%.2f", balance));
 
                 //update db user
                 String sql_update = "UPDATE `ATMuser` SET `Balance`=" + "'" + balance + "'" + "WHERE Username = '" + user + "'";
@@ -212,9 +212,9 @@ public class Transfer extends PopUp {
                 String sql_balance2 = "SELECT Balance FROM ATMuser WHERE ACno = '" + transfer_ID + "'";
                 HashMap b2 = get.queryRow(sql_balance2);
                 double balance2 = Double.parseDouble(b2.get("Balance") + "");
-                System.out.println("Old balance before transfer = " + balance2); //ลบด้วย
+                System.out.println("Old balance before transfer = " + String.format("%.2f", balance2)); //ลบด้วย
                 balance2 = balance2 + amount;
-                System.out.println("Balance after transfer = " + balance2);
+                System.out.println("Balance after transfer = " + String.format("%.2f", balance2));
 
                 //update db user2
                 String sql_update2 = "UPDATE `ATMuser` SET `Balance`=" + "'" + balance2 + "'" + "WHERE ACno = '" + transfer_ID + "'";
@@ -256,7 +256,7 @@ public class Transfer extends PopUp {
                     write.println("My account no. : " + account);
                     write.println("Transaction : Transfer to account no. " + transfer_ID);
                     write.println("Amount : " + amount);
-                    write.println("My Balance : " + balance);
+                    write.println("My Balance : " + String.format("%.2f", balance));
                     write.close();
                 }
 
