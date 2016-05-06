@@ -16,11 +16,15 @@ public abstract class PopUp extends JFrame{
     
     public boolean isNumeric(String s){
         try{
-            Integer.parseInt(s);
+            Double.parseDouble(s);
         }
         catch(NumberFormatException e){
             return false;
         }
         return true;
+    }
+    
+    public boolean connectionIsOn(){
+        return get.getDbConnection() != null;
     }
 }
