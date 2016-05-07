@@ -19,8 +19,6 @@ import javax.swing.JOptionPane;
  */
 public class Withdraw extends PopUp {
 
-    private FormatDateTime format;
-    //private final ConnectDB db;
 
     /**
      * Creates new form Withdraw
@@ -149,9 +147,6 @@ public class Withdraw extends PopUp {
         //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
     }
 
-    public void setFormat(FormatDateTime ft) {
-        format = ft;
-    }
 
     public void performFunction() throws FileNotFoundException {
         System.out.println(get.connect());
@@ -166,7 +161,7 @@ public class Withdraw extends PopUp {
         HashMap b = get.queryRow(balance1);
 
         double balance = Double.parseDouble(b.get("Balance") + "");
-        double amount = 0;
+        double amount;
 
         try {
             amount = Double.parseDouble(withdrawField.getText());

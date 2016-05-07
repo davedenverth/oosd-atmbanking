@@ -13,6 +13,7 @@ import edu.sit.cs.db.CSDbDelegate;
 public abstract class PopUp extends JFrame{
     public ConnectDB db;
     public CSDbDelegate get;
+    public FormatDateTime format;
     
     public boolean isNumeric(String s){
         try{
@@ -26,5 +27,9 @@ public abstract class PopUp extends JFrame{
     
     public boolean connectionIsOn(){
         return get.getDbConnection() != null;
+    }
+    
+    public void setFormat(FormatDateTime ft){
+        format = ft;
     }
 }

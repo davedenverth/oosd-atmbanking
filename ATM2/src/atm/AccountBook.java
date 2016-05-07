@@ -19,9 +19,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class AccountBook extends PopUp {
 
-    FormatDateTime format;
     public static String user;
-    String[][] resultss = new String[5][6];
+    private String[][] resultss = new String[10][6];
 
     /**
      * Creates new form AccountBook
@@ -118,10 +117,6 @@ public class AccountBook extends PopUp {
         });
     }
 
-    public void setFormat(FormatDateTime ft) {
-        format = ft;
-    }
-
     public void performFunction() {
         System.out.println(get.connect());
 
@@ -147,11 +142,11 @@ public class AccountBook extends PopUp {
             //check accno.
             if (acc_no == account) {
                 //get data of this acc no.
-                String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '" + acc_no + "' ORDER BY DATE DESC,TIME DESC LIMIT 5";
+                String sql_ac = "SELECT * FROM ATMtransaction WHERE ACno = '" + acc_no + "' ORDER BY DATE DESC,TIME DESC LIMIT 10";
 
                 ArrayList<HashMap> list = get.queryRows(sql_ac);
-
-                int i = 0; // For 5 results only
+                int i = 0;
+                 // For 5 results only
                 for (HashMap data : list) {
                     resultss[i][0] = (String) data.get("DATE");
                     resultss[i][1] = (String) data.get("TIME");
@@ -159,7 +154,7 @@ public class AccountBook extends PopUp {
                     resultss[i][3] = (String) data.get("TRANSACTION");
                     resultss[i][4] = (String) data.get("AMOUNT");
                     resultss[i][5] = (String) data.get("BALANCE");
-                    i += 1;
+                    i++;
                 }
                 //show transaction of this account
                 popupBalance(resultss);
@@ -181,17 +176,15 @@ public class AccountBook extends PopUp {
         
         // table data
         String[] columnNames = new String[]{
-            "Date", "Time", "Account No.", "Transaction", "Amount", "Balance"};
+            "Date", "Time", "Account No.", "Transaction", "Amount", "Net Balance"};
         
-        JFrame frame = new JFrame("My last 5 Transaction");
+        JFrame frame = new JFrame("Your last 10 Transaction");
         DefaultTableModel tableModel = new DefaultTableModel(resultss, columnNames);
         JTable table = new JTable(tableModel);
-
         // adds the table to the frame
         frame.add(new JScrollPane(table));
-        frame.setSize(640, 150);
+        frame.setSize(640, 200);
         frame.setLocationRelativeTo(null);
-        frame.setTitle("My last 5 Transaction");
         frame.setVisible(true);
     }
 

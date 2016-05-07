@@ -241,7 +241,7 @@ public class Transfer extends PopUp {
                 //receipt
                 int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
                         + "My Account No.: " + account + "\n" + "TRANSACTION: " + "Transfer to Acc. no. " + transfer_ID + "\n" + "AMOUNT: "
-                        + amount + "\n" + "BALANCE: " + balance + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
+                        + amount + "\n" + "BALANCE: " + String.format("%.2f", balance) + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
 
                 //choose to print receipt
                 if (yesno == JOptionPane.YES_OPTION) {

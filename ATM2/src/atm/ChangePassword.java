@@ -130,13 +130,13 @@ public class ChangePassword extends PopUp {
 
         no = Login.getPass();
         user = Login.getUser();
-        int newNo = 0;
+        int newNo;
 
         try {
             newNo = Integer.parseInt(renewPasswordField.getText());
 
             System.out.println("Username = " + String.valueOf(user));
-            System.out.println("Password = " + String.valueOf(no));
+            System.out.println("Old Password = " + String.valueOf(no));
             System.out.println("New password = " + String.valueOf(newNo));
 
             String sql_update = "UPDATE `ATMuser` SET `Password` = " + "'" + newNo + "' " + "WHERE Username = '" + user + "'"; //fix db 
