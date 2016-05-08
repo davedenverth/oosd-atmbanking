@@ -163,7 +163,10 @@ public class Withdraw extends PopUp {
 
         try {
             amount = Double.parseDouble(withdrawField.getText());
-            if (amount < 2000000000) {//fix double size bug
+
+            if (amount < 1) {
+                JOptionPane.showMessageDialog(null, "Please deposite more than 0 bath", "Error!", JOptionPane.ERROR_MESSAGE);
+            } else if (amount < 2000000000 && amount > 0) {//fix double size bug
                 if (amount > balance) {
                     JOptionPane.showMessageDialog(null, "Insufficient Fund!", "Invalid Transaction", JOptionPane.ERROR_MESSAGE);
                     return;

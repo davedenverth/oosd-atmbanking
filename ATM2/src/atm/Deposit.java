@@ -151,10 +151,13 @@ public class Deposit extends PopUp implements FunctionATM {
 
         //before deposit
         double balance = Double.parseDouble(b.get("Balance") + "");
-        
+
         try {
             amount = Double.parseDouble(depositField.getText());
-            if (amount < 2000000000){//fix double size bug
+            
+            if (amount < 1) {
+                JOptionPane.showMessageDialog(null, "Please deposite more than 0 bath", "Error!", JOptionPane.ERROR_MESSAGE);
+            } else if (amount < 2000000000 && amount >0) {//fix double size bug
                 System.out.println("Balance = " + String.format("%.2f", balance));
 
                 //after deposit
@@ -214,7 +217,6 @@ public class Deposit extends PopUp implements FunctionATM {
             } else {
                 JOptionPane.showMessageDialog(null, "Please deposite less than 2,000,000,000", "Error!", JOptionPane.ERROR_MESSAGE);
             }
-
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please enter only number", "Error!", JOptionPane.ERROR_MESSAGE);
         }
