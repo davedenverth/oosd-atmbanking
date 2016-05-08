@@ -113,9 +113,7 @@ public class Login extends PopUp {
             JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        user = UserField.getText();
-        pass = Integer.parseInt(PasswordField.getText());
-        checkPassword(user, pass);
+        checkPassword();
         System.out.println(get.disconnect());
 
 
@@ -167,20 +165,19 @@ public class Login extends PopUp {
         });
     }
 
-    public void checkPassword(String user, int pass) {
-        //String output = "";
+    public void checkPassword() {
         String sql = "SELECT Username, Password FROM ATMuser";
         ArrayList<HashMap> list = get.queryRows(sql);
         boolean hasAccount = false;
+        user = UserField.getText();
 
         for (HashMap a : list) { // create a for รองรับ hashmap list
             if (a.get("Username").equals(user)) { //login
                 hasAccount = true;
                 Login.user = user;
 
-                
-                //try {
-                    
+                try {
+                    pass = Integer.parseInt(PasswordField.getText());
                     
                     if (Integer.toString(pass).length() != 4) {
                         JOptionPane.showMessageDialog(null, "Please enter 4 digit numbers!", "Please enter 4 digit numbers!", JOptionPane.ERROR_MESSAGE);
@@ -197,11 +194,10 @@ public class Login extends PopUp {
                         JOptionPane.showMessageDialog(null, "Wrong Password!", "Wrong Password", JOptionPane.ERROR_MESSAGE);
                         break;
                     }
-                /*} catch (NumberFormatException e) {
+                } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "Please enter only number", "Error!", JOptionPane.ERROR_MESSAGE);
-                }*/
+                }
             }
-
         }
         if (!hasAccount) {
             JOptionPane.showMessageDialog(null, "Please Register", "No Account", JOptionPane.ERROR_MESSAGE);
