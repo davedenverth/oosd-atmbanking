@@ -19,7 +19,6 @@ import javax.swing.JOptionPane;
  */
 public class Withdraw extends PopUp {
 
-
     /**
      * Creates new form Withdraw
      */
@@ -147,7 +146,6 @@ public class Withdraw extends PopUp {
         //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
     }
 
-
     public void performFunction() throws FileNotFoundException {
         System.out.println(get.connect());
         if (!connectionIsOn()) {
@@ -165,63 +163,66 @@ public class Withdraw extends PopUp {
 
         try {
             amount = Double.parseDouble(withdrawField.getText());
+            if (amount < 2000000000) {//fix double size bug
+                if (amount > balance) {
+                    JOptionPane.showMessageDialog(null, "Insufficient Fund!", "Invalid Transaction", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                //before withdraw
+                System.out.println("Balance = " + String.format("%.2f", balance));
+                balance = balance - amount;
 
-            if (amount > balance) {
-                JOptionPane.showMessageDialog(null, "Insufficient Fund!", "Invalid Transaction", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            //before withdraw
-            System.out.println("Balance = " + String.format("%.2f", balance));
-            balance = balance - amount;
+                //after withdraw
+                System.out.println("Balance after withdraw = " + String.format("%.2f", balance));
+                String sql_update = "UPDATE `ATMuser` SET `Balance`=" + "'" + balance + "'" + "WHERE Username = '" + user + "'";
+                get.executeQuery(sql_update);
 
-            //after withdraw
-            System.out.println("Balance after withdraw = " + String.format("%.2f", balance));
-            String sql_update = "UPDATE `ATMuser` SET `Balance`=" + "'" + balance + "'" + "WHERE Username = '" + user + "'";
-            get.executeQuery(sql_update);
+                String date = format.getFormat();
+                setFormat(new TimeATM());
+                String time = format.getFormat();
 
-            String date = format.getFormat();
-            setFormat(new TimeATM());
-            String time = format.getFormat();
+                String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '" + user + "'";
+                HashMap a = get.queryRow(ac1);
+                int ac = Integer.parseInt(a.get("ACno") + "");
 
-            String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '" + user + "'";
-            HashMap a = get.queryRow(ac1);
-            int ac = Integer.parseInt(a.get("ACno") + "");
+                String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)";
+                String value = "VALUES ('" + date + "','" + time + "','" + ac + "','" + "Withdraw" + "','" + amount + "'"
+                        + ",'" + balance + "')";
+                String sql_add = insert + value;
+                boolean insertComplete = get.executeQuery(sql_add);
 
-            String insert = "INSERT INTO ATMtransaction(DATE, TIME, ACno, TRANSACTION, AMOUNT, BALANCE)";
-            String value = "VALUES ('" + date + "','" + time + "','" + ac + "','" + "Withdraw" + "','" + amount + "'"
-                    + ",'" + balance + "')";
-            String sql_add = insert + value;
-            boolean insertComplete = get.executeQuery(sql_add);
+                if (insertComplete) {
+                    JOptionPane.showMessageDialog(null, "Process Successfully!");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error!", "Execute Problem", JOptionPane.ERROR_MESSAGE);
+                }
+                // db.executeQuery(sql_create);
 
-            if (insertComplete) {
-                JOptionPane.showMessageDialog(null, "Process Successfully!");
+                //popup receipt
+                int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
+                        + "My Account No.: " + ac + "\n" + "TRANSACTION: " + "Withdraw" + "\n" + "AMOUNT: "
+                        + amount + "\n" + "BALANCE: " + String.format("%.2f", balance) + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
+
+                //choose to print receipt
+                if (yesno == 0) {
+                    //print receipt
+                    System.out.println("Print receipt already");
+                    File file = new File("receipt/receipt_file_acno." + ac + ".txt");
+
+                    PrintWriter write = new PrintWriter(file); //for write in file
+                    write.println("Receipt of Account no." + ac);
+                    write.println("Date : " + date);
+                    write.println("Time : " + time);
+                    write.println("My account no. : " + ac);
+                    write.println("Transaction : Withdraw");
+                    write.println("Amount : " + amount);
+                    write.println("My Balance : " + String.format("%.2f", balance));
+                    write.close();
+                }
+                setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(this, "Error!", "Execute Problem", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please withdraw less than 2,000,000,000", "Error!", JOptionPane.ERROR_MESSAGE);
             }
-            // db.executeQuery(sql_create);
-
-            //popup receipt
-            int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
-                    + "My Account No.: " + ac + "\n" + "TRANSACTION: " + "Withdraw" + "\n" + "AMOUNT: "
-                    + amount + "\n" + "BALANCE: " + String.format("%.2f", balance) + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
-
-            //choose to print receipt
-            if (yesno == 0) {
-                //print receipt
-                System.out.println("Print receipt already");
-                File file = new File("receipt/receipt_file_acno." + ac + ".txt");
-
-                PrintWriter write = new PrintWriter(file); //for write in file
-                write.println("Receipt of Account no." + ac);
-                write.println("Date : " + date);
-                write.println("Time : " + time);
-                write.println("My account no. : " + ac);
-                write.println("Transaction : Withdraw");
-                write.println("Amount : " + amount);
-                write.println("My Balance : " + String.format("%.2f", balance));
-                write.close();
-            }
-            setVisible(false);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please enter only number", "Error!", JOptionPane.ERROR_MESSAGE);
         }
