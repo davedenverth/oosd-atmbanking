@@ -192,8 +192,9 @@ public class Transfer extends PopUp {
             ArrayList<HashMap> list = get.queryRows(sql);
             boolean hasAccount = false;
 
-            for (HashMap c : list) { // create a for รองรับ hashmap list
-                if (c.get("ACno").equals(transfer_ID)) { //find account no
+            for (HashMap c : list) {
+                if (c.get("ACno").equals(TransfertoIDField.getText())) { //find account no
+                    hasAccount = true;
                     try { //try catch for amount
                         amount = Double.parseDouble(TransferMoneyField.getText());
                         if (amount < 2000000000) { //fix double size bug
@@ -248,7 +249,7 @@ public class Transfer extends PopUp {
                             //receipt
                             int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
                                     + "My Account No.: " + account + "\n" + "TRANSACTION: " + "Transfer to Acc. no. " + transfer_ID + "\n" + "AMOUNT: "
-                                    + amount + "\n" + "BALANCE: " + String.format("%.2f", balance) + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
+                                    + String.format("%.2f", amount) + "\n" + "BALANCE: " + String.format("%.2f", balance) + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
 
                             //choose to print receipt
                             if (yesno == JOptionPane.YES_OPTION) {
@@ -262,7 +263,7 @@ public class Transfer extends PopUp {
                                 write.println("Time : " + time);
                                 write.println("My account no. : " + account);
                                 write.println("Transaction : Transfer to account no. " + transfer_ID);
-                                write.println("Amount : " + amount);
+                                write.println("Amount : " + String.format("%.2f", amount));
                                 write.println("My Balance : " + String.format("%.2f", balance));
                                 write.close();
                             }

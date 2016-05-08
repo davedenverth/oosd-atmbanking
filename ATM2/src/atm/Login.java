@@ -171,7 +171,7 @@ public class Login extends PopUp {
         boolean hasAccount = false;
         user = UserField.getText();
 
-        for (HashMap a : list) { // create a for รองรับ hashmap list
+        for (HashMap a : list) { 
             if (a.get("Username").equals(user)) { //login
                 hasAccount = true;
                 Login.user = user;
