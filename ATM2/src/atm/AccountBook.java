@@ -183,7 +183,7 @@ public class AccountBook extends PopUp {
         JTable table = new JTable(tableModel);
         // adds the table to the frame
         frame.add(new JScrollPane(table));
-        frame.setSize(640, 200);
+        frame.setSize(640, 210);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
