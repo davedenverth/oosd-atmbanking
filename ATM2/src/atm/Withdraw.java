@@ -201,7 +201,7 @@ public class Withdraw extends PopUp {
                 //popup receipt
                 int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
                         + "My Account No.: " + ac + "\n" + "TRANSACTION: " + "Withdraw" + "\n" + "AMOUNT: "
-                        + amount + "\n" + "BALANCE: " + String.format("%.2f", balance) + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
+                        + String.format("%.2f", amount) + "\n" + "BALANCE: " + String.format("%.2f", balance) + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
 
                 //choose to print receipt
                 if (yesno == 0) {
@@ -215,7 +215,7 @@ public class Withdraw extends PopUp {
                     write.println("Time : " + time);
                     write.println("My account no. : " + ac);
                     write.println("Transaction : Withdraw");
-                    write.println("Amount : " + amount);
+                    write.println("Amount : " + String.format("%.2f", amount));
                     write.println("My Balance : " + String.format("%.2f", balance));
                     write.close();
                 }
