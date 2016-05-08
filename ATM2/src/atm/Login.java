@@ -15,9 +15,9 @@ import javax.swing.JOptionPane;
  */
 public class Login extends PopUp {
 
-
     public static int pass;
     public static String user;
+
     /**
      * Creates new form Receipt
      */
@@ -86,9 +86,9 @@ public class Login extends PopUp {
 
     }//GEN-LAST:event_Exit_buttomActionPerformed
 
-    private void Login_buttomActionPerformed(java.awt.event.ActionEvent evt) { 
-    } 
-     
+    private void Login_buttomActionPerformed(java.awt.event.ActionEvent evt) {
+    }
+
     private void LoginbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginbtnActionPerformed
         Loginbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -113,17 +113,17 @@ public class Login extends PopUp {
             JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        String user = UserField.getText();
-        int pass = Integer.parseInt(PasswordField.getText());
+        user = UserField.getText();
+        pass = Integer.parseInt(PasswordField.getText());
         checkPassword(user, pass);
         System.out.println(get.disconnect());
-        
+
 
     }//GEN-LAST:event_LoginbtnMouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
         // TODO add your handling code here:
-        if(connectionIsOn()){
+        if (connectionIsOn()) {
             System.out.println(get.disconnect());
         }
         System.exit(0); //close java frame loei
@@ -166,7 +166,7 @@ public class Login extends PopUp {
             }
         });
     }
-    
+
     public void checkPassword(String user, int pass) {
         //String output = "";
         String sql = "SELECT Username, Password FROM ATMuser";
@@ -177,37 +177,42 @@ public class Login extends PopUp {
             if (a.get("Username").equals(user)) { //login
                 hasAccount = true;
                 Login.user = user;
-                if(Integer.toString(pass).length()!=4){
-                    JOptionPane.showMessageDialog(null, "Please enter 4 digit numbers!", "Please enter 4 digit numbers!", JOptionPane.ERROR_MESSAGE);
-                } else {
-                    if (a.get("Password").equals("" + pass)) { // password colu
+
+                
+                //try {
+                    
+                    
+                    if (Integer.toString(pass).length() != 4) {
+                        JOptionPane.showMessageDialog(null, "Please enter 4 digit numbers!", "Please enter 4 digit numbers!", JOptionPane.ERROR_MESSAGE);
+                    } else if (a.get("Password").equals("" + pass)) { // password colu
                         Login.pass = Integer.parseInt(String.valueOf(a.get("Password")));
-                        JOptionPane.showMessageDialog(null , "Login Successfully!");
+                        JOptionPane.showMessageDialog(null, "Login Successfully!");
                         Transaction t = new Transaction();
                         //t.no = Integer.parseInt(String.valueOf(a.get("A/C No.")));
-                        t.setVisible(true);
                         t.setLocationRelativeTo(null); //make transaction menu show in center screen
-                        //setVisible(false);
+                        t.setVisible(true);
                         dispose();
                         break;
                     } else {
-                        JOptionPane.showMessageDialog(null, "Wrong Password!","Wrong Password", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Wrong Password!", "Wrong Password", JOptionPane.ERROR_MESSAGE);
                         break;
                     }
-                }
+                /*} catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Please enter only number", "Error!", JOptionPane.ERROR_MESSAGE);
+                }*/
             }
-            
+
         }
-        if(!hasAccount){
-            JOptionPane.showMessageDialog(null, "Please Register","No Account",JOptionPane.ERROR_MESSAGE);
+        if (!hasAccount) {
+            JOptionPane.showMessageDialog(null, "Please Register", "No Account", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    public static int getPass(){
+
+    public static int getPass() {
         return Login.pass;
     }
-    
-    public static String getUser(){
+
+    public static String getUser() {
         return Login.user;
     }
 

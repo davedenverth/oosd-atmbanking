@@ -110,8 +110,8 @@ public class Transaction extends PopUp {
         // TODO add your handling code here:
         dispose();
         PopUp login = new Login();
-        login.setVisible(true);
         login.setLocationRelativeTo(null); //show popup in the middle of screen after exit transaction
+        login.setVisible(true);
     }//GEN-LAST:event_ExitbtnMouseClicked
 
     private void ExitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitbtnActionPerformed
@@ -129,37 +129,36 @@ public class Transaction extends PopUp {
     private void depositBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_depositBtnMouseClicked
         // TODO add your handling code here:
         PopUp d = new Deposit();
-        d.setVisible(true);
         d.setLocationRelativeTo(null);
-
+        d.setVisible(true);
     }//GEN-LAST:event_depositBtnMouseClicked
 
     private void withdrawBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_withdrawBtnMouseClicked
         // TODO add your handling code here:
         PopUp w = new Withdraw();
-        w.setVisible(true);
         w.setLocationRelativeTo(null);
+        w.setVisible(true);
     }//GEN-LAST:event_withdrawBtnMouseClicked
 
     private void ChangePassbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChangePassbtnMouseClicked
         // TODO add your handling code here:
         PopUp c = new ChangePassword();
-        c.setVisible(true);
         c.setLocationRelativeTo(null);
+        c.setVisible(true);
     }//GEN-LAST:event_ChangePassbtnMouseClicked
 
     private void tranferBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tranferBtnActionPerformed
         // TODO add your handling code here:
         Transfer t = new Transfer();
-        t.setVisible(true);
         t.setLocationRelativeTo(null);
+        t.setVisible(true);
     }//GEN-LAST:event_tranferBtnActionPerformed
 
     private void AccountbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountbtnActionPerformed
         // TODO add your handling code here:
         AccountBook a = new AccountBook();
-        a.setVisible(true);
         a.setLocationRelativeTo(null);
+        a.setVisible(true);
     }//GEN-LAST:event_AccountbtnActionPerformed
 
     /**
