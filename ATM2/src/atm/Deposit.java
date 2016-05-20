@@ -21,8 +21,6 @@ public class Deposit extends PopUp implements FunctionATM {
 
     private double amount = 0;
     public static String user;
-    // private int amount;
-    //private int depositss;
 
     /**
      * Creates new form Deposit

@@ -177,7 +177,6 @@ public class Login extends PopUp {
             if (a.get("Username").equals(tempUser)) { //login
                 hasAccount = true;
                 user = tempUser;
-
                 try {
                     pass = Integer.parseInt(PasswordField.getText());
                     

@@ -85,7 +85,6 @@ public class Withdraw extends PopUp {
 
     private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
         try {
-            // TODO add your handling code here:
             performFunction();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Withdraw.class.getName()).log(Level.SEVERE, null, ex);
@@ -96,7 +95,7 @@ public class Withdraw extends PopUp {
     }//GEN-LAST:event_OKbtnMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
