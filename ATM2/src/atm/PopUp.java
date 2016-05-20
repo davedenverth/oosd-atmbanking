@@ -46,4 +46,15 @@ public abstract class PopUp extends JFrame{
         Login.transaction.checkEnableFrame();
         dispose();
     }
+    
+    public String getDesktopPath(){
+        String path = System.getProperty("user.home");
+        String desktop = "/Desktop";
+        if(System.getProperty("os.name").startsWith("Mac")){
+            return path + desktop;
+        }
+        else {
+            return path.replaceAll("\\\\", "/") + desktop;
+        }
+    }
 }
