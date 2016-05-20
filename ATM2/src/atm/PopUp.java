@@ -15,6 +15,12 @@ public abstract class PopUp extends JFrame{
     public CSDbDelegate get;
     public FormatDateTime format;
     
+    public PopUp(){
+        format = new DateATM();
+        db = new ConnectDB();
+        get = db.getConnect();
+    }
+    
     public boolean isNumeric(String s){
         try{
             Double.parseDouble(s);
@@ -31,5 +37,11 @@ public abstract class PopUp extends JFrame{
     
     public void setFormat(FormatDateTime ft){
         format = ft;
+    }
+    
+    public void properDispose(){
+        Transaction.countFrame--;
+        Login.transaction.checkEnableFrame();
+        dispose();
     }
 }
