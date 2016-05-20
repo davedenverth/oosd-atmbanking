@@ -10,8 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -106,13 +104,8 @@ public class Transfer extends PopUp implements FunctionATM {
     }//GEN-LAST:event_CancelbtnActionPerformed
 
     private void OKbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbtnActionPerformed
-        try {
-            performFunction();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Transfer.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            properDispose();
-        }
+        performFunction();
+        properDispose();
     }//GEN-LAST:event_OKbtnActionPerformed
 
     /**
@@ -151,7 +144,7 @@ public class Transfer extends PopUp implements FunctionATM {
         });
     }
 
-    public void performFunction() throws FileNotFoundException {
+    public void performFunction() {
         System.out.println(get.connect());
 
         if (!connectionIsOn()) {
@@ -267,6 +260,8 @@ public class Transfer extends PopUp implements FunctionATM {
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please enter only account no.", "Error!", JOptionPane.ERROR_MESSAGE);
+        } catch (FileNotFoundException e){
+            
         }
         System.out.println(get.disconnect());
     }

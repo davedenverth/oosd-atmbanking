@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Wanmoon
  */
-public class AccountBook extends PopUp {
+public class AccountBook extends PopUp implements FunctionATM {
 
     public static String user;
     private String[][] resultss = new String[10][6];

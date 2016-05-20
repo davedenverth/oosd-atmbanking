@@ -9,8 +9,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -83,13 +81,8 @@ public class Withdraw extends PopUp implements FunctionATM{
     }// </editor-fold>//GEN-END:initComponents
 
     private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
-        try {
-            performFunction();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Withdraw.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            properDispose();
-        }
+        performFunction();
+        properDispose();
     }//GEN-LAST:event_OKbtnMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -135,7 +128,7 @@ public class Withdraw extends PopUp implements FunctionATM{
         });
     }
 
-    public void performFunction() throws FileNotFoundException {
+    public void performFunction() {
         System.out.println(get.connect());
         
         if (!connectionIsOn()) {
@@ -215,6 +208,8 @@ public class Withdraw extends PopUp implements FunctionATM{
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please enter only number", "Error!", JOptionPane.ERROR_MESSAGE);
+        } catch (FileNotFoundException e){
+            
         }
         System.out.println(get.disconnect());
     }

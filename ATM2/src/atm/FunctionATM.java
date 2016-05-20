@@ -5,11 +5,10 @@
  */
 package atm;
 
-import java.io.FileNotFoundException;
 /**
  *
  * @author Game
  */
 public interface FunctionATM {
-    public void performFunction() throws FileNotFoundException;
+    public void performFunction();
 }

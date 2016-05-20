@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
  *
  * @author Oriopun Ai
  */
-public class ChangePassword extends PopUp {
+public class ChangePassword extends PopUp implements FunctionATM {
 
     public static int no;
     public static String user; // fix db
