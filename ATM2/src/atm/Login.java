@@ -17,14 +17,16 @@ public class Login extends PopUp {
 
     public static int pass;
     public static String user;
+    public static Transaction transaction;
 
     /**
      * Creates new form Receipt
      */
     public Login() {
-        db = new ConnectDB();
-        get = db.getConnect();
+        super();
         initComponents();
+        setLocationRelativeTo(null);
+        setVisible(true);
         user = "";
         pass = 0;
     }
@@ -167,14 +169,14 @@ public class Login extends PopUp {
 
     public void checkPassword() {
         String sql = "SELECT Username, Password FROM ATMuser";
+        String tempUser = UserField.getText();
         ArrayList<HashMap> list = get.queryRows(sql);
         boolean hasAccount = false;
-        user = UserField.getText();
 
         for (HashMap a : list) { 
-            if (a.get("Username").equals(user)) { //login
+            if (a.get("Username").equals(tempUser)) { //login
                 hasAccount = true;
-                Login.user = user;
+                user = tempUser;
 
                 try {
                     pass = Integer.parseInt(PasswordField.getText());
@@ -184,10 +186,8 @@ public class Login extends PopUp {
                     } else if (a.get("Password").equals("" + pass)) { // password colu
                         Login.pass = Integer.parseInt(String.valueOf(a.get("Password")));
                         JOptionPane.showMessageDialog(null, "Login Successfully!");
-                        Transaction t = new Transaction();
-                        //t.no = Integer.parseInt(String.valueOf(a.get("A/C No.")));
-                        t.setLocationRelativeTo(null); //make transaction menu show in center screen
-                        t.setVisible(true);
+                        transaction = new Transaction();
+
                         dispose();
                         break;
                     } else {

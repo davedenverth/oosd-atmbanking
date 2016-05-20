@@ -20,17 +20,16 @@ import javax.swing.JOptionPane;
  */
 public class Transfer extends PopUp {
 
-    FormatDateTime format;
     public static String user;
 
     /**
      * Creates new form Transfer
      */
     public Transfer() {
-        format = new DateATM();
-        db = new ConnectDB();
-        get = db.getConnect();
+        super();
         initComponents();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
@@ -61,12 +60,6 @@ public class Transfer extends PopUp {
         Cancelbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CancelbtnActionPerformed(evt);
-            }
-        });
-
-        TransfertoIDField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TransfertoIDFieldActionPerformed(evt);
             }
         });
 
@@ -109,22 +102,20 @@ public class Transfer extends PopUp {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
-        // TODO add your handling code here:
-        dispose();
+        properDispose();
     }//GEN-LAST:event_CancelbtnActionPerformed
 
     private void OKbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbtnActionPerformed
         try {
-            // TODO add your handling code here:
+            
             performFunction();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Transfer.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            properDispose();
+        }
     }//GEN-LAST:event_OKbtnActionPerformed
-
-    private void TransfertoIDFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransfertoIDFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TransfertoIDFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,10 +151,6 @@ public class Transfer extends PopUp {
                 new Transfer().setVisible(true);
             }
         });
-    }
-
-    public void setFormat(FormatDateTime ft) {
-        format = ft;
     }
 
     public void performFunction() throws FileNotFoundException {
@@ -247,7 +234,7 @@ public class Transfer extends PopUp {
                             } else {
                                 JOptionPane.showMessageDialog(this, "Error!", "Execute Problem", JOptionPane.ERROR_MESSAGE);
                             }
-                            setVisible(false);
+                            
 
                             //receipt
                             int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
@@ -271,7 +258,7 @@ public class Transfer extends PopUp {
                                 write.close();
                             }
                             System.out.println("Transfer to account no. = " + transfer_ID);
-                            setVisible(false);
+                           
                         } else {
                             JOptionPane.showMessageDialog(null, "Please transfer less than 2,000,000,000", "Error!", JOptionPane.ERROR_MESSAGE);
                         }

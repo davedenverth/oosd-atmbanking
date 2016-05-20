@@ -23,10 +23,10 @@ public class Withdraw extends PopUp {
      * Creates new form Withdraw
      */
     public Withdraw() {
-        format = new DateATM();
-        db = new ConnectDB();
-        get = db.getConnect();
+        super();
         initComponents();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
     //public static int no; 
     public static String user;
@@ -64,11 +64,6 @@ public class Withdraw extends PopUp {
                 OKbtnMouseClicked(evt);
             }
         });
-        OKbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OKbtnActionPerformed(evt);
-            }
-        });
         getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, 80, 30));
 
         withdrawField.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
@@ -95,6 +90,9 @@ public class Withdraw extends PopUp {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Withdraw.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally {
+            properDispose();
+        }
     }//GEN-LAST:event_OKbtnMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -102,13 +100,9 @@ public class Withdraw extends PopUp {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
-        dispose();
+        properDispose();
         // go back to transaction page
     }//GEN-LAST:event_CancelbtnActionPerformed
-
-    private void OKbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_OKbtnActionPerformed
     //private void jButton3Backbutton(java.awt.event.ActionEvent)
     /**
      * @param args the command line arguments
@@ -222,7 +216,6 @@ public class Withdraw extends PopUp {
                     write.println("My Balance : " + String.format("%.2f", balance));
                     write.close();
                 }
-                setVisible(false);
             } else {
                 JOptionPane.showMessageDialog(null, "Please withdraw less than 2,000,000,000", "Error!", JOptionPane.ERROR_MESSAGE);
             }

@@ -11,12 +11,15 @@ package atm;
  * @author Oriopun AI
  */
 public class Transaction extends PopUp {
-
+    static int countFrame = 0;
+    PopUp p;
     /**
      * Creates new form Transaction
      */
     public Transaction() {
         initComponents();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
@@ -58,21 +61,11 @@ public class Transaction extends PopUp {
                 withdrawBtnMouseClicked(evt);
             }
         });
-        withdrawBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                withdrawBtnActionPerformed(evt);
-            }
-        });
         getContentPane().add(withdrawBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(156, 255, 24, 24));
 
         depositBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 depositBtnMouseClicked(evt);
-            }
-        });
-        depositBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                depositBtnActionPerformed(evt);
             }
         });
         getContentPane().add(depositBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(158, 225, 24, 24));
@@ -84,11 +77,6 @@ public class Transaction extends PopUp {
         Exitbtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 ExitbtnMouseClicked(evt);
-            }
-        });
-        Exitbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExitbtnActionPerformed(evt);
             }
         });
         getContentPane().add(Exitbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 370, 270, 30));
@@ -107,60 +95,47 @@ public class Transaction extends PopUp {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ExitbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ExitbtnMouseClicked
-        // TODO add your handling code here:
         dispose();
-        PopUp login = new Login();
-        login.setLocationRelativeTo(null); //show popup in the middle of screen after exit transaction
-        login.setVisible(true);
+        openPopUp(new Login());
     }//GEN-LAST:event_ExitbtnMouseClicked
 
-    private void ExitbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitbtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ExitbtnActionPerformed
-
-    private void depositBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_depositBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_depositBtnActionPerformed
-
-    private void withdrawBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_withdrawBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_withdrawBtnActionPerformed
-
     private void depositBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_depositBtnMouseClicked
-        // TODO add your handling code here:
-        PopUp d = new Deposit();
-        d.setLocationRelativeTo(null);
-        d.setVisible(true);
+        openPopUp(new Deposit());
     }//GEN-LAST:event_depositBtnMouseClicked
 
     private void withdrawBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_withdrawBtnMouseClicked
-        // TODO add your handling code here:
-        PopUp w = new Withdraw();
-        w.setLocationRelativeTo(null);
-        w.setVisible(true);
+        openPopUp(new Withdraw());
     }//GEN-LAST:event_withdrawBtnMouseClicked
 
     private void ChangePassbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChangePassbtnMouseClicked
-        // TODO add your handling code here:
-        PopUp c = new ChangePassword();
-        c.setLocationRelativeTo(null);
-        c.setVisible(true);
+
+        openPopUp(new ChangePassword());
     }//GEN-LAST:event_ChangePassbtnMouseClicked
 
     private void tranferBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tranferBtnActionPerformed
-        // TODO add your handling code here:
-        Transfer t = new Transfer();
-        t.setLocationRelativeTo(null);
-        t.setVisible(true);
+
+       openPopUp(new Transfer());
     }//GEN-LAST:event_tranferBtnActionPerformed
 
     private void AccountbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountbtnActionPerformed
-        // TODO add your handling code here:
-        AccountBook a = new AccountBook();
-        a.setLocationRelativeTo(null);
-        a.setVisible(true);
+        openPopUp(new AccountBook());
     }//GEN-LAST:event_AccountbtnActionPerformed
 
+    public void checkEnableFrame(){
+        if(countFrame == 0){
+            setEnabled(true);
+        }
+        else{
+            setEnabled(false);
+        }
+    }
+    
+    private void openPopUp(PopUp popup){
+        p = popup;
+        if(popup instanceof Login) return;
+        Transaction.countFrame++;
+        checkEnableFrame();
+    }
     /**
      * @param args the command line arguments
      */

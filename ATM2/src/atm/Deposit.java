@@ -20,7 +20,6 @@ import javax.swing.JOptionPane;
 public class Deposit extends PopUp implements FunctionATM {
 
     private double amount = 0;
-    FormatDateTime format;
     public static String user;
     // private int amount;
     //private int depositss;
@@ -29,10 +28,10 @@ public class Deposit extends PopUp implements FunctionATM {
      * Creates new form Deposit
      */
     public Deposit() {
-        format = new DateATM();
-        db = new ConnectDB();
-        get = db.getConnect();
+        super();
         initComponents();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
@@ -84,10 +83,13 @@ public class Deposit extends PopUp implements FunctionATM {
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Deposit.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+            properDispose();
+        }
     }//GEN-LAST:event_OKbtnMouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
-        dispose();
+        properDispose();
         // go back to transaction page
     }//GEN-LAST:event_CancelbtnActionPerformed
 
@@ -190,7 +192,6 @@ public class Deposit extends PopUp implements FunctionATM {
                 } else {
                     JOptionPane.showMessageDialog(this, "Error!", "Execute Problem", JOptionPane.ERROR_MESSAGE);
                 }
-                setVisible(false);
 
                 //receipt
                 int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
@@ -213,9 +214,8 @@ public class Deposit extends PopUp implements FunctionATM {
                     write.println("My Balance : " + String.format("%.2f", balance));
                     write.close();
                 }
-                setVisible(false);
             } else {
-                JOptionPane.showMessageDialog(null, "Please deposite less than 2,000,000,000", "Error!", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Please deposit less than 2,000,000,000", "Error!", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please enter only number", "Error!", JOptionPane.ERROR_MESSAGE);

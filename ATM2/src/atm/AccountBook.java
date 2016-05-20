@@ -26,10 +26,10 @@ public class AccountBook extends PopUp {
      * Creates new form AccountBook
      */
     public AccountBook() {
-        format = new DateATM();
-        db = new ConnectDB();
-        get = db.getConnect();
+        super();
         initComponents();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     /**
@@ -74,12 +74,13 @@ public class AccountBook extends PopUp {
 
     private void CancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtnActionPerformed
         // TODO add your handling code here:
-        dispose();
+        properDispose();
     }//GEN-LAST:event_CancelBtnActionPerformed
 
     private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
         // TODO add your handling code here:
         performFunction();
+        properDispose();
     }//GEN-LAST:event_okBtnActionPerformed
 
     /**

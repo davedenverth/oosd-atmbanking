@@ -17,9 +17,10 @@ public class ChangePassword extends PopUp {
      * Creates new form ChangePassword
      */
     public ChangePassword() {
-        db = new ConnectDB();
-        get = db.getConnect();
+        super();
         initComponents();
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     public static int no;
@@ -49,11 +50,6 @@ public class ChangePassword extends PopUp {
                 OKbtnMouseClicked(evt);
             }
         });
-        OKbtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                OKbtnActionPerformed(evt);
-            }
-        });
         getContentPane().add(OKbtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 220, 80, -1));
 
         renewPasswordField.setFont(new java.awt.Font("Cambria", 0, 18)); // NOI18N
@@ -73,16 +69,13 @@ public class ChangePassword extends PopUp {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void OKbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_OKbtnActionPerformed
-
     private void OKbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbtnMouseClicked
         performFunction();
+        properDispose();
     }//GEN-LAST:event_OKbtnMouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
-        dispose();
+        properDispose();
     }//GEN-LAST:event_CancelbtnActionPerformed
 
     /**
@@ -143,8 +136,6 @@ public class ChangePassword extends PopUp {
             get.executeQuery(sql_update);
 
             JOptionPane.showMessageDialog(null, "Update Password Successfully!");
-            setVisible(false);
-
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Please enter only number", "Error!", JOptionPane.ERROR_MESSAGE);
         }

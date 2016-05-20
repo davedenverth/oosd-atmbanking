@@ -79,9 +79,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TransfertoIDField">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TransfertoIDFieldActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TransferMoneyField">
     </Component>
