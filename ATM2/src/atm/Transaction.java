@@ -5,14 +5,15 @@
  */
 package atm;
 
-
 /**
  *
  * @author Oriopun AI
  */
 public class Transaction extends PopUp {
-    static int countFrame = 0;
-    PopUp p;
+    
+    public static int countFrame = 0;
+    public PopUp p;
+    
     /**
      * Creates new form Transaction
      */
@@ -108,13 +109,11 @@ public class Transaction extends PopUp {
     }//GEN-LAST:event_withdrawBtnMouseClicked
 
     private void ChangePassbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ChangePassbtnMouseClicked
-
         openPopUp(new ChangePassword());
     }//GEN-LAST:event_ChangePassbtnMouseClicked
 
     private void tranferBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tranferBtnActionPerformed
-
-       openPopUp(new Transfer());
+        openPopUp(new Transfer());
     }//GEN-LAST:event_tranferBtnActionPerformed
 
     private void AccountbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountbtnActionPerformed
@@ -136,6 +135,7 @@ public class Transaction extends PopUp {
         Transaction.countFrame++;
         checkEnableFrame();
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -170,9 +170,7 @@ public class Transaction extends PopUp {
             }
         });
     }
-    
-
-    
+  
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Accountbtn;
     private javax.swing.JLabel BG_transac;

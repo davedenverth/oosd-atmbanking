@@ -8,7 +8,6 @@ package atm;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author Oriopun AI
@@ -96,7 +95,7 @@ public class Login extends PopUp {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Login_buttomActionPerformed(evt);
             }
-        });        // TODO add your handling code here:
+        });
 
     }//GEN-LAST:event_LoginbtnActionPerformed
 
@@ -105,24 +104,21 @@ public class Login extends PopUp {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Exit_buttomActionPerformed(evt);
             }
-        });        // TODO add your handling code here:
+        }); 
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void LoginbtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginbtnMouseClicked
-        // TODO add your handling code here:
         System.out.println(get.connect());
+        
         if (!connectionIsOn()) {
             JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
         checkPassword();
         System.out.println(get.disconnect());
-
-
     }//GEN-LAST:event_LoginbtnMouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
-        // TODO add your handling code here:
         if (connectionIsOn()) {
             System.out.println(get.disconnect());
         }
@@ -177,12 +173,13 @@ public class Login extends PopUp {
             if (a.get("Username").equals(tempUser)) { //login
                 hasAccount = true;
                 user = tempUser;
+                
                 try {
                     pass = Integer.parseInt(PasswordField.getText());
                     
                     if (Integer.toString(pass).length() != 4) {
                         JOptionPane.showMessageDialog(null, "Please enter 4 digit numbers!", "Please enter 4 digit numbers!", JOptionPane.ERROR_MESSAGE);
-                    } else if (a.get("Password").equals("" + pass)) { // password colu
+                    } else if (a.get("Password").equals("" + pass)) { // password column
                         Login.pass = Integer.parseInt(String.valueOf(a.get("Password")));
                         JOptionPane.showMessageDialog(null, "Login Successfully!");
                         transaction = new Transaction();
@@ -210,7 +207,7 @@ public class Login extends PopUp {
     public static String getUser() {
         return Login.user;
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BG_login;
     private javax.swing.JButton Cancelbtn;

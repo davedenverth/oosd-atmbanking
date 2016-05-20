@@ -18,8 +18,8 @@ import javax.swing.JOptionPane;
  *
  * @author Wanmoon
  */
-public class Transfer extends PopUp {
-
+public class Transfer extends PopUp implements FunctionATM {
+    
     public static String user;
 
     /**
@@ -107,12 +107,10 @@ public class Transfer extends PopUp {
 
     private void OKbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbtnActionPerformed
         try {
-            
             performFunction();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Transfer.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally {
+        } finally {
             properDispose();
         }
     }//GEN-LAST:event_OKbtnActionPerformed
@@ -168,7 +166,6 @@ public class Transfer extends PopUp {
         HashMap b = get.queryRow(balance1);
 
         //get data from textfield
-        //String transfer_ID = TransfertoIDField.getText();
         int transfer_ID = 0;
         double amount = 0;
 
@@ -184,7 +181,6 @@ public class Transfer extends PopUp {
                     hasAccount = true;
                     try { //try catch for amount
                         amount = Double.parseDouble(TransferMoneyField.getText());
-
                         if (amount < 1) {
                             JOptionPane.showMessageDialog(null, "Please deposite more than 0 bath", "Error!", JOptionPane.ERROR_MESSAGE);
                         } else if (amount < 2000000000 && amount > 0) { //fix double size bug
@@ -229,13 +225,13 @@ public class Transfer extends PopUp {
                             String sql_add = insert + value;
 
                             boolean insertComplete = get.executeQuery(sql_add);
+                            
                             if (insertComplete) {
                                 JOptionPane.showMessageDialog(null, "Process Successfully!");
                             } else {
                                 JOptionPane.showMessageDialog(this, "Error!", "Execute Problem", JOptionPane.ERROR_MESSAGE);
                             }
                             
-
                             //receipt
                             int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
                                     + "My Account No.: " + account + "\n" + "TRANSACTION: " + "Transfer to Acc. no. " + transfer_ID + "\n" + "AMOUNT: "
@@ -258,7 +254,6 @@ public class Transfer extends PopUp {
                                 write.close();
                             }
                             System.out.println("Transfer to account no. = " + transfer_ID);
-                           
                         } else {
                             JOptionPane.showMessageDialog(null, "Please transfer less than 2,000,000,000", "Error!", JOptionPane.ERROR_MESSAGE);
                         }
@@ -275,7 +270,7 @@ public class Transfer extends PopUp {
         }
         System.out.println(get.disconnect());
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BG_transfer;
     private javax.swing.JButton Cancelbtn;

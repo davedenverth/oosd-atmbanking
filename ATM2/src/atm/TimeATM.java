@@ -7,13 +7,11 @@ package atm;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
 /**
  *
  * @author Game
  */
 public class TimeATM implements FormatDateTime {
-    
     public String getFormat(){
         SimpleDateFormat form = new SimpleDateFormat("HH:mm:ss");
         String realFormat = String.valueOf(form.format(new Date()));

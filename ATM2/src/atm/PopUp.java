@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package atm;
+
 import javax.swing.JFrame;
 import edu.sit.cs.db.CSDbDelegate;
 /**
@@ -11,6 +12,7 @@ import edu.sit.cs.db.CSDbDelegate;
  * @author Game
  */
 public abstract class PopUp extends JFrame{
+    
     public ConnectDB db;
     public CSDbDelegate get;
     public FormatDateTime format;

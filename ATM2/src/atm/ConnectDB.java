@@ -6,7 +6,6 @@
 package atm;
 
 import edu.sit.cs.db.CSDbDelegate;
-
 /**
  *
  * @author Wanmoon

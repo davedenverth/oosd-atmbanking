@@ -6,13 +6,15 @@
 package atm;
 
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author Oriopun Ai
  */
 public class ChangePassword extends PopUp {
 
+    public static int no;
+    public static String user; // fix db
+    
     /**
      * Creates new form ChangePassword
      */
@@ -22,9 +24,6 @@ public class ChangePassword extends PopUp {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-
-    public static int no;
-    public static String user; // fix db
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,11 +110,11 @@ public class ChangePassword extends PopUp {
                 new ChangePassword().setVisible(true);
             }
         });
-        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
     }
 
     public void performFunction() {
         System.out.println(get.connect());
+        
         if (!connectionIsOn()) {
             JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -127,11 +126,11 @@ public class ChangePassword extends PopUp {
 
         try {
             newNo = Integer.parseInt(renewPasswordField.getText());
-
+            
             System.out.println("Username = " + String.valueOf(user));
             System.out.println("Old Password = " + String.valueOf(no));
             System.out.println("New password = " + String.valueOf(newNo));
-
+            
             String sql_update = "UPDATE `ATMuser` SET `Password` = " + "'" + newNo + "' " + "WHERE Username = '" + user + "'"; //fix db 
             get.executeQuery(sql_update);
 

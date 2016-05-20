@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author Wanmoon
@@ -73,12 +72,10 @@ public class AccountBook extends PopUp {
     }// </editor-fold>//GEN-END:initComponents
 
     private void CancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtnActionPerformed
-        // TODO add your handling code here:
         properDispose();
     }//GEN-LAST:event_CancelBtnActionPerformed
 
     private void okBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_okBtnActionPerformed
-        // TODO add your handling code here:
         performFunction();
         properDispose();
     }//GEN-LAST:event_okBtnActionPerformed
@@ -130,7 +127,6 @@ public class AccountBook extends PopUp {
 
         //get data from textfield
         if (isNumeric(AccountField.getText())) {
-
             int acc_no = Integer.parseInt(AccountField.getText());
             System.out.println("Account no. = " + acc_no);
 
@@ -147,8 +143,7 @@ public class AccountBook extends PopUp {
 
                 ArrayList<HashMap> list = get.queryRows(sql_ac);
                 int i = 0;
-                 // For 5 results only
-                for (HashMap data : list) {
+                for (HashMap data : list) { //show transaction of this account 
                     resultss[i][0] = (String) data.get("DATE");
                     resultss[i][1] = (String) data.get("TIME");
                     resultss[i][2] = (String) data.get("ACno");
@@ -157,9 +152,7 @@ public class AccountBook extends PopUp {
                     resultss[i][5] = (String) data.get("BALANCE");
                     i++;
                 }
-                //show transaction of this account
                 popupBalance(resultss);
-
             } else {
                 System.out.println("Not your account no.");
                 JOptionPane.showMessageDialog(null, "Not Your Account no.!",
@@ -172,17 +165,16 @@ public class AccountBook extends PopUp {
     }
     
     public void popupBalance(String[][] results){
-    
         resultss = results;
         
         // table data
         String[] columnNames = new String[]{
             "Date", "Time", "Account No.", "Transaction", "Amount", "Net Balance"};
         
+        // create and adds the table to the frame
         JFrame frame = new JFrame("Your last 10 Transaction");
         DefaultTableModel tableModel = new DefaultTableModel(resultss, columnNames);
         JTable table = new JTable(tableModel);
-        // adds the table to the frame
         frame.add(new JScrollPane(table));
         frame.setSize(640, 210);
         frame.setLocationRelativeTo(null);

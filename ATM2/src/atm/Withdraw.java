@@ -12,12 +12,13 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author Oriopun Ai
  */
-public class Withdraw extends PopUp {
+public class Withdraw extends PopUp implements FunctionATM{
+    
+    public static String user;
 
     /**
      * Creates new form Withdraw
@@ -28,9 +29,7 @@ public class Withdraw extends PopUp {
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    //public static int no; 
-    public static String user;
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -88,8 +87,7 @@ public class Withdraw extends PopUp {
             performFunction();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Withdraw.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally {
+        } finally {
             properDispose();
         }
     }//GEN-LAST:event_OKbtnMouseClicked
@@ -99,10 +97,9 @@ public class Withdraw extends PopUp {
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
-        properDispose();
-        // go back to transaction page
+        properDispose(); // go back to transaction page
     }//GEN-LAST:event_CancelbtnActionPerformed
-    //private void jButton3Backbutton(java.awt.event.ActionEvent)
+    
     /**
      * @param args the command line arguments
      */
@@ -136,11 +133,11 @@ public class Withdraw extends PopUp {
                 new Withdraw().setVisible(true);
             }
         });
-        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
     }
 
     public void performFunction() throws FileNotFoundException {
         System.out.println(get.connect());
+        
         if (!connectionIsOn()) {
             JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -156,7 +153,6 @@ public class Withdraw extends PopUp {
 
         try {
             amount = Double.parseDouble(withdrawField.getText());
-
             if (amount < 1) {
                 JOptionPane.showMessageDialog(null, "Please deposite more than 0 bath", "Error!", JOptionPane.ERROR_MESSAGE);
             } else if (amount < 2000000000 && amount > 0) {//fix double size bug
@@ -192,8 +188,7 @@ public class Withdraw extends PopUp {
                 } else {
                     JOptionPane.showMessageDialog(this, "Error!", "Execute Problem", JOptionPane.ERROR_MESSAGE);
                 }
-                // db.executeQuery(sql_create);
-
+                
                 //popup receipt
                 int yesno = JOptionPane.showConfirmDialog(null, "DATE: " + date + "\t\t" + "TIME: " + time + "\n"
                         + "My Account No.: " + ac + "\n" + "TRANSACTION: " + "Withdraw" + "\n" + "AMOUNT: "

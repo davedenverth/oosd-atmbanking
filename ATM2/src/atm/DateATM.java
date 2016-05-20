@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
  * @author Game
  */
 public class DateATM implements FormatDateTime {
-    
     public String getFormat(){
         SimpleDateFormat form = new SimpleDateFormat("dd.MM.yyyy");
         String realFormat = String.valueOf(form.format(new Date()));

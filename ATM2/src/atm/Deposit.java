@@ -12,7 +12,6 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-
 /**
  *
  * @author Game
@@ -25,6 +24,7 @@ public class Deposit extends PopUp implements FunctionATM {
     /**
      * Creates new form Deposit
      */
+    
     public Deposit() {
         super();
         initComponents();
@@ -80,15 +80,13 @@ public class Deposit extends PopUp implements FunctionATM {
             performFunction();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Deposit.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
+        } finally{
             properDispose();
         }
     }//GEN-LAST:event_OKbtnMouseClicked
 
     private void CancelbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelbtnActionPerformed
-        properDispose();
-        // go back to transaction page
+        properDispose(); // go back to transaction page
     }//GEN-LAST:event_CancelbtnActionPerformed
 
     /**
@@ -124,9 +122,6 @@ public class Deposit extends PopUp implements FunctionATM {
                 new Deposit().setVisible(true);
             }
         });
-        //CSDbDelegate db = new CSDbDelegate("csprog-in.sit.kmutt.ac.th", "3306", "CSC105_G3", "csc105_2014", "csc105");
-        //ConnectDB db = new ConnectDB();
-        //CSDbDelegate get = db.getConnect();
     }
 
     public void setFormat(FormatDateTime ft) {
@@ -141,7 +136,7 @@ public class Deposit extends PopUp implements FunctionATM {
             JOptionPane.showMessageDialog(null, "Bad Connection", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        //no = Login.getPass();
+        
         user = Login.getUser(); //fix db
 
         //getbalance from this user
@@ -170,7 +165,6 @@ public class Deposit extends PopUp implements FunctionATM {
                 String date = format.getFormat();
                 setFormat(new TimeATM());
                 String time = format.getFormat();
-                //this.time = time;
 
                 //get ac co
                 String ac1 = "SELECT ACno FROM ATMuser WHERE Username = '" + user + "'";
@@ -226,5 +220,4 @@ public class Deposit extends PopUp implements FunctionATM {
     private javax.swing.JButton OKbtn;
     private javax.swing.JTextField depositField;
     // End of variables declaration//GEN-END:variables
-
 }
