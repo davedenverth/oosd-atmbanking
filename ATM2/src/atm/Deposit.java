@@ -180,11 +180,13 @@ public class Deposit extends PopUp implements FunctionATM {
                         + "My Account No.: " + account + "\n" + "TRANSACTION: " + "Deposit" + "\n" + "AMOUNT: "
                         + String.format("%.2f", amount) + "\n" + "BALANCE: " + String.format("%.2f", balance) + "\n\nDo you want to print the receipt?", "ATM RECEIPT", JOptionPane.YES_NO_OPTION);
 
+                String path = getDesktopPath();
+                
                 //choose to print receipt
                 if (yesno == JOptionPane.YES_OPTION) {
                     //print receipt
                     System.out.println("Print receipt already");
-                    File file = new File("receipt/receipt_file_acno." + account + ".txt");
+                    File file = new File(path + "/receipt_file_acno." + account + ".txt");
 
                     PrintWriter write = new PrintWriter(file); //for write in file
                     write.println("Receipt of Account no." + account);
