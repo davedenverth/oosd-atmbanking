@@ -143,7 +143,7 @@ public class AccountBook extends PopUp implements FunctionATM {
 
                 ArrayList<HashMap> list = get.queryRows(sql_ac);
                 int i = 0;
-                for (HashMap data : list) { //show transaction of this account 
+                for (HashMap data : list) { //show last 10 transaction of this account 
                     resultss[i][0] = (String) data.get("DATE");
                     resultss[i][1] = (String) data.get("TIME");
                     resultss[i][2] = (String) data.get("ACno");

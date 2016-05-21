@@ -236,7 +236,7 @@ public class Transfer extends PopUp implements FunctionATM {
                             if (yesno == JOptionPane.YES_OPTION) {
                                 //print receipt
                                 System.out.println("Print receipt already");
-                                File file = new File(path + "/reciept_file_acno." + account + ".txt");
+                                File file = new File(path + "/receipt_file_acno." + account + ".txt");
 
                                 PrintWriter write = new PrintWriter(file); //for write in file
                                 write.println("Receipt of Account no." + account);
