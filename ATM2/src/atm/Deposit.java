@@ -117,7 +117,7 @@ public class Deposit extends PopUp implements FunctionATM {
         });
     }
 
-
+    @Override
     public void performFunction(){
 
         System.out.println(get.connect());

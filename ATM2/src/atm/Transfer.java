@@ -187,6 +187,10 @@ public class Transfer extends PopUp implements FunctionATM {
                             double balance = Double.parseDouble(b.get("Balance") + "");
                             System.out.println("Balance = " + String.format("%.2f", balance));
 
+                            if(amount > balance){
+                                JOptionPane.showMessageDialog(null, "Insufficient fund" , "Error!", JOptionPane.ERROR_MESSAGE);
+                                return;
+                            }
                             //deleted money from user account
                             balance = balance - amount;
                             System.out.println("Balance after transfer = " + String.format("%.2f", balance));
